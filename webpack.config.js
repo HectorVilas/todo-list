@@ -4,9 +4,13 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   mode: "development",
   // mode: "production",
-  entry: {index:'./src/index.js', test:'./src/test.js',},
+  entry: {index:'./src/index.js', /*test:'./src/test.js',*/},
   devtool: "inline-source-map",
-  // devServer: { static: './dist' },
+  devServer: {
+    static: './dist',
+    hot: false,
+    // hot: true,
+  },
   output: {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist'),
@@ -18,10 +22,11 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'Odin TODO List',
+      // title: 'Odin TODO List',
+      template: "src/index.html",
     }),
   ],
-  // optimization: {
-  //   runtimeChunk: 'single',
-  // },
+  optimization: {
+    runtimeChunk: 'single',
+  },
 };
