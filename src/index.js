@@ -1,29 +1,25 @@
 import "./style.css";
+import { ui } from "./modules/ui.js";
+import { Todo } from "./modules/classes.js";
 
-const ui = (() => {
-  const body = document.querySelector("body");
-  
-  function loadInterface(){
-    const main = document.createElement("div");
-    main.id = "main";
+const projects = [
+  {
+    title: "routine",
+    todos: [
+      new Todo("exercise", "It's leg day!", "2022-11-23T17:42", null, [
+        { task: "run 3km", isDone: true },
+        { task: "bicycle", isDone: false },
+        { task: "squats", isDone: false },
+      ], "low"),
 
-    const nav = document.createElement("div");
-    nav.id = "nav";
+      new Todo("coding", null, "2022-11-23T17:42", null, [
+        { task: "check css-tricks", isDone: true },
+        { task: "continue TOP practice", isDone: true },
+      ], "high"),
+    ],
+  },
+];
 
-    const btnsText = ["search", "home", "add"];
-    for (let i = 0; i < btnsText.length; i++) {
-      const div = document.createElement("div");
-      div.classList.add("nav-btn");
-      div.innerText = btnsText[i];
-
-      nav.appendChild(div);
-    };
-
-    body.appendChild(main);
-    body.appendChild(nav);
-  };
-
-  return { loadInterface };
-})();
+console.log(projects);
 
 ui.loadInterface();
