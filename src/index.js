@@ -1,4 +1,9 @@
-import "./style.css";
+import iconStyle from "./style.css";
+import iconCheckmark from "./media/images/icons/checkmark.svg";
+import iconDrag from "./media/images/icons/drag.svg";
+import iconEdit from "./media/images/icons/edit.svg";
+import iconTrash from "./media/images/icons/trash.svg";
+import iconTrashLid from "./media/images/icons/trash-lid.svg";
 import { ui } from "./modules/ui.js";
 import { Todo } from "./modules/classes.js";
 
