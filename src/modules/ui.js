@@ -59,5 +59,25 @@ export const ui = (() => {
     return card;
   }
 
-  return { loadInterface, placeCard };
+  function placeCards(projects){
+    const main = document.querySelector("#main");
+
+    projects.forEach((project, i) => {
+      const projectItem = document.createElement("div");
+      projectItem.dataset.idx = i;
+      projectItem.classList.add("project-item");
+
+      const h1 = document.createElement("h1");
+      h1.innerText = project.title;
+      projectItem.appendChild(h1);
+
+      project.todos.forEach(todo => {
+        projectItem.appendChild(placeCard(todo));
+      });
+
+      main.appendChild(projectItem);
+    });
+  };
+    
+  return { loadInterface, placeCards };
 })();
