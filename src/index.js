@@ -1,9 +1,4 @@
-import iconStyle from "./style.css";
-import iconCheckmark from "./media/images/icons/checkmark.svg";
-import iconDrag from "./media/images/icons/drag.svg";
-import iconEdit from "./media/images/icons/edit.svg";
-import iconTrash from "./media/images/icons/trash.svg";
-import iconTrashLid from "./media/images/icons/trash-lid.svg";
+import "./style.css";
 import { ui } from "./modules/ui.js";
 import { Todo } from "./modules/classes.js";
 
@@ -23,8 +18,26 @@ const projects = [
       ], "high"),
     ],
   },
+  {
+    title: "test",
+    todos: [
+      new Todo("test1", "test1 descr", "2022-11-23T17:42","2023-11-23T17:42", [
+        { task: "test1 task1", isDone: true },
+        { task: "test1 task2", isDone: false },
+        { task: "test1 task3", isDone: true },
+      ], "low"),
+
+      new Todo("test2", "test2 descr", "2022-11-23T17:42", "2023-11-23T17:42", [
+        { task: "test2 task1", isDone: true },
+        { task: "test2 task2", isDone: true },
+        { task: "test3 task3", isDone: true },
+        { task: "test4 task4", isDone: true },
+        { task: "test5 task5", isDone: true },
+      ], "middle"),
+    ],
+  },
 ];
 
-console.log(projects);
 
 ui.loadInterface();
+ui.placeCards(projects);
