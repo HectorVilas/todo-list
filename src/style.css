@@ -52,6 +52,7 @@ h1 {font-size: 3rem;}
     " ..... descr descr "
     " ..... tasks tasks ";
   gap: 1rem;
+  border-radius: .5rem;
 }
 .card .title { font-size: 2rem; color: var(--txt-col-1);}
 .card .description { grid-area: descr; font-size: 1.5rem; color: var(--txt-col-2);}
@@ -77,35 +78,52 @@ h1 {font-size: 3rem;}
   border-radius: .25rem;
 }
 .card input[type="checkbox"]::after {
-  --anim-duration: 200ms;
+  --check-anim-duration: 200ms;
   position: absolute;
   content: "";
-  inset: -5px;
+  inset: -7px;
   background-color: red;
   clip-path: polygon(0 75%, 15% 60%, 15% 61%, 16% 62%, 18% 65%, 4% 78%, 1% 75%);
-  animation: checkmark-backwards var(--anim-duration) ease-out forwards;
+  animation: checkmark-backwards var(--check-anim-duration) ease-out forwards;
 }
 .card input[type="checkbox"]:checked::after {
-  animation: checkmark-forwards var(--anim-duration) ease-in forwards;
+  animation: checkmark-forwards var(--check-anim-duration) ease-in forwards;
 }
 @keyframes checkmark-forwards {
   0% {opacity: 0;}
-  1% {opacity: 1; clip-path: polygon(0 75%, 15% 60%, 15% 61%, 16% 62%, 18% 65%, 4% 78%, 1% 75%);}
-  30% {clip-path: polygon(0 75%, 15% 60%, 21% 66%, 26% 70%, 31% 76%, 9% 86%, 4% 80%);}
-  50% {clip-path: polygon(0 75%, 15% 60%, 35% 80%, 43% 81%, 49% 88%, 50% 100%, 20% 100%);}
-  100% {clip-path: polygon(0 75%, 15% 60%, 35% 80%, 85% 0, 100% 10%, 50% 100%, 20% 100%);}
+  1% {opacity: 1; clip-path: polygon(0 75%, 15% 60%, 15% 61%, 16% 62%, 18% 65%, 4% 78%);}
+  30% {clip-path: polygon(0 75%, 15% 60%, 21% 66%, 26% 70%, 31% 76%, 9% 86%);}
+  50% {clip-path: polygon(0 75%, 15% 60%, 35% 75%, 43% 81%, 49% 88%, 40% 100%);}
+  100% {clip-path: polygon(0 75%, 15% 60%, 35% 75%, 85% 0, 100% 10%, 40% 100%);}
 } @keyframes checkmark-backwards {
-  0% {clip-path: polygon(0 75%, 15% 60%, 35% 80%, 85% 0, 100% 10%, 50% 100%, 20% 100%);}
-  50% {clip-path: polygon(0 75%, 15% 60%, 35% 80%, 43% 81%, 49% 88%, 50% 100%, 20% 100%);}
-  70% {clip-path: polygon(0 75%, 15% 60%, 21% 66%, 26% 70%, 31% 76%, 9% 86%, 4% 80%);}
-  99% {opacity: 1; clip-path: polygon(0 75%, 15% 60%, 15% 61%, 16% 62%, 18% 65%, 4% 78%, 1% 75%);}
+  0% {clip-path: polygon(0 75%, 15% 60%, 35% 75%, 85% 0, 100% 10%, 40% 100%);}
+  50% {clip-path: polygon(0 75%, 15% 60%, 35% 75%, 43% 81%, 49% 88%, 40% 100%);}
+  70% {clip-path: polygon(0 75%, 15% 60%, 21% 66%, 26% 70%, 31% 76%, 9% 86%);}
+  99% {opacity: 1; clip-path: polygon(0 75%, 15% 60%, 15% 61%, 16% 62%, 18% 65%, 4% 78%);}
   100% {opacity: 0;}
+}
+
+.card label {
+  font-size: 1.25rem;
+  color: var(--txt-col-2);
+  background: linear-gradient(to right, transparent 0%, rgba(255, 238, 0, 0.2), transparent 100%) no-repeat;
+  background-size: 100%;
+  transition: background-position 500ms;
+  background-position-x: -100vw;
 }
 .card input[type="checkbox"]:checked + label {
   text-decoration: line-through;
   color: var(--txt-col-3);
+  background-position-x: 100vw;
 }
-.card label { font-size: 1.25rem; color: var(--txt-col-2);}
+
+[data-priority="low"] {
+  background: linear-gradient(to bottom,lime, rgba(0, 128, 0, 0) 30%);
+} [data-priority="middle"] {
+  background: linear-gradient(to bottom, goldenrod, rgba(0, 128, 0, 0) 30%);
+} [data-priority="high"] {
+  background: linear-gradient(to bottom, orangered, rgba(0, 128, 0, 0) 30%);
+}
 
 /* card icons */
 .card-icon { width: var(--icon-size); }
@@ -114,10 +132,10 @@ h1 {font-size: 3rem;}
   grid-template-columns: 2rem 1fr;
   gap: .5rem;
 }
-.card li:hover {
+/* .card li:hover {
   transition: background-color 150ms;
   background-color: rgba(255,255,255,.5);
-}
+} */
 .edit-buttons {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
