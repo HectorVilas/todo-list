@@ -2,7 +2,7 @@
   --bgc-page: lavender;
   --card-shadow: .25rem .25rem .25rem rgba(0,0,0,.1),
     inset .25rem .25rem .25rem rgba(255,255,255,.5);
-  --icon-size: 25px;
+  --icon-size: 30px;
   --txt-col-1: #000;
   --txt-col-2: #444;
   --txt-col-3: #666;
@@ -53,10 +53,22 @@ h1 {font-size: 3rem;}
     " ..... tasks tasks ";
   gap: 1rem;
   border-radius: .5rem;
+  align-items: center;
+  overflow: hidden;
+  height: calc(var(--icon-size) * 1.75) ;
+  /* transition: 100ms; */
+} .card.active {
+  height: auto;
 }
-.card .title { font-size: 2rem; color: var(--txt-col-1);}
-.card .description { grid-area: descr; font-size: 1.5rem; color: var(--txt-col-2);}
-.card .checklist {
+.card .title {
+  font-size: 2rem;
+  color: var(--txt-col-1);
+  cursor: pointer;
+} .card .description {
+  grid-area: descr;
+  font-size: 1.5rem;
+  color: var(--txt-col-2);
+} .card .checklist {
   grid-area: tasks;
   display: grid;
   gap: .25rem;
@@ -72,7 +84,7 @@ h1 {font-size: 3rem;}
   position: absolute;
   content: "";
   inset: 0;
-  /* background-color: rgba(0,0,0,.03); */
+  background-color: rgba(0,0,0,.03);
   box-shadow: .1rem .1rem .1rem white,
     inset .1rem .1rem .25rem rgba(0,0,0,.1);
   border-radius: .25rem;
@@ -117,12 +129,20 @@ h1 {font-size: 3rem;}
   background-position-x: 100vw;
 }
 
-[data-priority="low"] {
-  background: linear-gradient(to bottom,lime, rgba(0, 128, 0, 0) 30%);
-} [data-priority="middle"] {
-  background: linear-gradient(to bottom, goldenrod, rgba(0, 128, 0, 0) 30%);
-} [data-priority="high"] {
-  background: linear-gradient(to bottom, orangered, rgba(0, 128, 0, 0) 30%);
+.card[data-priority="low"] {
+  background: linear-gradient(to right,lime, rgba(0, 128, 0, 0) 60px);
+} .card[data-priority="low"].active {
+  background: linear-gradient(to bottom,lime, rgba(0, 128, 0, 0) 60px);
+}
+.card[data-priority="middle"] {
+  background: linear-gradient(to right, goldenrod, rgba(0, 128, 0, 0) 60px);
+} .card[data-priority="middle"].active {
+  background: linear-gradient(to bottom, goldenrod, rgba(0, 128, 0, 0) 60px);
+}
+.card[data-priority="high"] {
+  background: linear-gradient(to right, orangered, rgba(0, 128, 0, 0) 60px);
+} .card[data-priority="high"].active {
+  background: linear-gradient(to bottom, orangered, rgba(0, 128, 0, 0) 60px);
 }
 
 /* card icons */
