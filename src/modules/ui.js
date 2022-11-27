@@ -7,15 +7,7 @@ import iconTrashLid from "../media/images/icons/trash-lid.svg";
 
 export const ui = (() => {
   const body = document.querySelector("body");
-  
-  function loadInterface(){
-    const main = document.createElement("div");
-    main.id = "main";
-
-
-
-    body.appendChild(main);
-  };
+  const main = document.querySelector("#main");
 
   function placeCard(todo){
     const card = document.createElement("div");
@@ -60,7 +52,7 @@ export const ui = (() => {
   }
 
   function placeCards(projects){
-    const main = document.querySelector("#main");
+    
 
     projects.forEach((project, i) => {
       const projectItem = document.createElement("div");
@@ -79,5 +71,5 @@ export const ui = (() => {
     });
   };
     
-  return { loadInterface, placeCards };
+  return { placeCards };
 })();
