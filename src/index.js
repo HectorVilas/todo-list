@@ -39,5 +39,4 @@ const projects = [
 ];
 
 
-ui.loadInterface();
 ui.placeCards(projects);
