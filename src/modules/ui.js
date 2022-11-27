@@ -11,10 +11,12 @@ export const ui = (() => {
   const body = document.querySelector("body");
   const main = document.querySelector("#main");
 
-  function placeCard(todo){
+  function placeCard(todo, projectIdx, todoIdx){
     const card = document.createElement("div");
-    card.classList.add("card", );
+    card.classList.add("card");
     card.dataset.priority = todo.priority;
+    card.dataset.projectIdx = projectIdx;
+    card.dataset.todoIdx = todoIdx;
 
     const drag = document.createElement("img");
     drag.classList.add("card-icon", "icon-drag");
@@ -43,6 +45,13 @@ export const ui = (() => {
     const title = document.createElement("h2");
     title.classList.add("title");
     title.innerText = todo.title;
+    title.addEventListener("click", () => {
+      const thisCard = document.querySelector(
+        `[data-project-idx="${projectIdx}"][data-todo-idx="${todoIdx}"]`
+        );
+      
+        thisCard.classList.toggle("active");
+    });
 
     const description = document.createElement("p");
     description.classList.add("description");
@@ -77,17 +86,17 @@ export const ui = (() => {
   function placeCards(projects){
     
 
-    projects.forEach((project, i) => {
+    projects.forEach((project, projectIdx) => {
       const projectItem = document.createElement("div");
-      projectItem.dataset.idx = i;
+      projectItem.dataset.idx = projectIdx;
       projectItem.classList.add("project-item");
 
       const h1 = document.createElement("h1");
       h1.innerText = project.title;
       projectItem.appendChild(h1);
 
-      project.todos.forEach(todo => {
-        projectItem.appendChild(placeCard(todo));
+      project.todos.forEach((todo, todoIdx) => {
+        projectItem.appendChild(placeCard(todo, projectIdx, todoIdx));
       });
 
       main.appendChild(projectItem);
