@@ -3,6 +3,8 @@ import iconDrag from "../media/images/icons/drag.svg";
 import iconEdit from "../media/images/icons/edit.svg";
 import iconTrash from "../media/images/icons/trash.svg";
 import iconTrashLid from "../media/images/icons/trash-lid.svg";
+import iconFav from "../media/images/icons/fav.svg";
+import iconFavActive from "../media/images/icons/fav-active.svg";
 
 
 export const ui = (() => {
@@ -17,7 +19,27 @@ export const ui = (() => {
     drag.classList.add("card-icon", "icon-drag");
     drag.src = iconDrag;
 
-    const title = document.createElement("h1");
+    const editBtns = document.createElement("div");
+    editBtns.classList.add("edit-buttons");
+    const edit = document.createElement("img");
+    edit.classList.add("card-icon", "icon-edit");
+    edit.src = iconEdit;
+    const fav = document.createElement("img");
+    fav.classList.add("card-icon", "icon-fav");
+    fav.src = iconFav;
+    const deleteIcon = document.createElement("div");
+    deleteIcon.classList.add("delete-icon");
+    const trash = document.createElement("img");
+    trash.classList.add("card-icon", "icon-trash");
+    trash.src = iconTrash;
+    const trashLid = document.createElement("img");
+    trashLid.classList.add("card-icon", "icon-trash-lid");
+    trashLid.src = iconTrashLid;
+    
+    deleteIcon.append(trash, trashLid);
+    editBtns.append(edit, fav, deleteIcon);
+    
+    const title = document.createElement("h2");
     title.classList.add("title");
     title.innerText = todo.title;
 
@@ -46,7 +68,7 @@ export const ui = (() => {
 
     });
 
-    card.append(drag, title, description, checks);
+    card.append(drag, title, editBtns, description, checks);
 
     return card;
   }
