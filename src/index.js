@@ -10,12 +10,12 @@ const projects = [
         { task: "run 3km", isDone: true },
         { task: "bicycle", isDone: false },
         { task: "squats", isDone: false },
-      ], "low"),
+      ], "low", false),
 
       new Todo("coding", null, "2022-11-23T17:42", null, [
         { task: "check css-tricks", isDone: true },
         { task: "continue TOP practice", isDone: true },
-      ], "high"),
+      ], "high", true),
     ],
   },
   {
@@ -25,7 +25,7 @@ const projects = [
         { task: "test1 task1", isDone: true },
         { task: "test1 task2", isDone: false },
         { task: "test1 task3", isDone: true },
-      ], "low"),
+      ], "low", true),
 
       new Todo("test2", "test2 descr", "2022-11-23T17:42", "2023-11-23T17:42", [
         { task: "test2 task1", isDone: true },
@@ -33,7 +33,7 @@ const projects = [
         { task: "test3 task3", isDone: true },
         { task: "test4 task4", isDone: true },
         { task: "test5 task5", isDone: true },
-      ], "middle"),
+      ], "middle", false),
     ],
   },
 ];

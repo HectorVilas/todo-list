@@ -13,7 +13,8 @@ export const ui = (() => {
 
   function placeCard(todo){
     const card = document.createElement("div");
-    card.classList.add("card");
+    card.classList.add("card", );
+    card.dataset.priority = todo.priority;
 
     const drag = document.createElement("img");
     drag.classList.add("card-icon", "icon-drag");
@@ -26,7 +27,7 @@ export const ui = (() => {
     edit.src = iconEdit;
     const fav = document.createElement("img");
     fav.classList.add("card-icon", "icon-fav");
-    fav.src = iconFav;
+    fav.src = todo.isFavorite ? iconFavActive : iconFav;
     const deleteIcon = document.createElement("div");
     deleteIcon.classList.add("delete-icon");
     const trash = document.createElement("img");
