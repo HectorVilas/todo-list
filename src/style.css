@@ -39,11 +39,11 @@ h1 {font-size: 3rem;}
 /* cards */
 
 .card {
+  --border-rad: 1rem;
   box-sizing: border-box;
   width: 100%;
   box-shadow: var(--card-shadow);
   padding: .5rem;
-  margin: .25rem;
   display: grid;
   grid-template-columns: auto 1fr auto;
   grid-template-rows: repeat(3, auto);
@@ -52,14 +52,16 @@ h1 {font-size: 3rem;}
     " ..... descr descr "
     " ..... tasks tasks ";
   gap: 1rem;
-  border-radius: .5rem;
   align-items: center;
   overflow: hidden;
   height: calc(var(--icon-size) * 1.75) ;
-  /* transition: 100ms; */
 } .card.active {
   height: auto;
 }
+
+.card:first-of-type { border-radius: var(--border-rad) var(--border-rad) 0 0; }
+.card:last-of-type { border-radius: 0 0 var(--border-rad) var(--border-rad); }
+
 .card .title {
   font-size: 2rem;
   color: var(--txt-col-1);
