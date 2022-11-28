@@ -1,6 +1,6 @@
 export class Todo {
   constructor(title, description, dateCreation, dateDue, //type="datetime-local"
-    checks, priority, isFavorite){
+    checks, priority, isFavorite, isPinned){
     this.title = title;
     this.description = description;
     this.dateCreation = dateCreation;
@@ -8,5 +8,6 @@ export class Todo {
     this.checks = checks;
     this.priority = priority;
     this.isFavorite = isFavorite;
+    this.isPinned = isPinned;
   };
 };
