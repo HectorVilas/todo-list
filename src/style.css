@@ -129,6 +129,7 @@ h1 {font-size: 3rem;}
   background-size: 100%;
   transition: background-position 500ms;
   background-position-x: -100vw;
+  cursor: pointer;
 }
 .card input[type="checkbox"]:checked + label {
   text-decoration: line-through;
@@ -156,6 +157,7 @@ h1 {font-size: 3rem;}
 
 /* card icons */
 .card-icon { width: var(--icon-size); }
+.card-icon:hover { cursor: pointer; }
 .card ul li {
   display: grid;
   grid-template-columns: 2rem 1fr;
