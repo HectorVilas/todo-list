@@ -13,5 +13,9 @@ export class Todo {
   
   toggleFav(){
     this.isFavorite = !this.isFavorite;
-  }
+  };
+
+  toggleTask(idx){
+    this.checks[idx].isDone = !this.checks[idx].isDone;
+  };
 };
