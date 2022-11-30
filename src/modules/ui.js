@@ -201,6 +201,16 @@ export const ui = (() => {
   function cardDelete(){
     const projectIdx = this.parentNode.parentNode.dataset.projectIdx;
     const todoIdx = this.parentNode.parentNode.dataset.todoIdx;
+
+    const isFav = localStorageTest[projectIdx].todos[todoIdx].isFavorite;
+    if(isFav) {
+      const thisCardStar = document.querySelector(`[data-project-idx="${
+        projectIdx}"][data-todo-idx="${todoIdx}"] .icon-fav`);
+      thisCardStar.classList.add("shake");
+      setTimeout(() => thisCardStar.classList.remove("shake"), 300);
+      return;
+    };
+
     console.log(`delete project ${projectIdx} - todo ${todoIdx}`);
     localStorageTest[projectIdx].todos.splice(todoIdx,1);
     placeCards(localStorageTest);
