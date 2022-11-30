@@ -199,14 +199,31 @@ h1 {font-size: 3rem;}
   90% { rotate: 1deg;}
 }
 
-.card-icon.icon-fav:hover {
+.card-icon.icon-fav:hover{
   animation: fav-spin 300ms;
   transform-origin: 50% 55%;
 }
-@keyframes fav-spin {
-  to {rotate: 72deg;}
-}
+@keyframes fav-spin { to {rotate: 72deg;} }
 
+.card-icon.icon-fav.shake {
+  animation: star-shake 300ms;
+}
+@keyframes star-shake {
+  0%, 100% {
+    rotate: 0deg;
+    filter: drop-shadow(0 0 5px goldenrod)
+      brightness(150%);
+  }
+  10% { rotate: 10deg;}
+  20% { rotate: -10deg;}
+  30% { rotate: 8deg;}
+  40% { rotate: -8deg;}
+  50% { rotate: 6deg;}
+  60% { rotate: -6deg;}
+  70% { rotate: 4deg;}
+  80% { rotate: -4deg;}
+  90% { rotate: 2deg;}
+}
 
 
 /*for testing*/
