@@ -21,17 +21,24 @@ export const ui = (() => {
     const drag = document.createElement("img");
     drag.classList.add("card-icon", "icon-drag");
     drag.src = iconDrag;
+    drag.addEventListener("mousedown", cardDrag);
 
     const editBtns = document.createElement("div");
     editBtns.classList.add("edit-buttons");
     const edit = document.createElement("img");
     edit.classList.add("card-icon", "icon-edit");
     edit.src = iconEdit;
+    edit.addEventListener("click", cardEdit);
+
     const fav = document.createElement("img");
     fav.classList.add("card-icon", "icon-fav");
     fav.src = todo.isFavorite ? iconFavActive : iconFav;
+    fav.addEventListener("click", cardFavToggle);
+
     const deleteIcon = document.createElement("div");
     deleteIcon.classList.add("delete-icon");
+    deleteIcon.addEventListener("click", cardDelete);
+
     const trash = document.createElement("img");
     trash.classList.add("card-icon", "icon-trash");
     trash.src = iconTrash;
@@ -67,6 +74,7 @@ export const ui = (() => {
       checkbox.type = "checkbox";
       checkbox.id = `${todo.title}-${i}`;
       checkbox.checked = check.isDone;
+      checkbox.addEventListener("click", taskToggle);
 
       const label = document.createElement("label");
       label.htmlFor = checkbox.id;
@@ -102,6 +110,32 @@ export const ui = (() => {
       main.appendChild(projectItem);
     });
   };
+
+  function cardDrag(){
+    console.log(`dragging project ${this.parentNode.dataset.projectIdx
+    } - todo ${this.parentNode.dataset.todoIdx}`);
+  }
+
+  function cardEdit(){
+    console.log(`editing project ${this.parentNode.parentNode.dataset.projectIdx
+    } - todo ${this.parentNode.parentNode.dataset.todoIdx}`);
+  }
+
+  function cardFavToggle(){
+    console.log(`toggle fav project ${this.parentNode.parentNode.dataset.projectIdx
+    } - todo ${this.parentNode.parentNode.dataset.todoIdx}`);
+  }
+
+  function cardDelete(){
+    console.log(`delete project ${this.parentNode.parentNode.dataset.projectIdx
+    } - todo ${this.parentNode.parentNode.dataset.todoIdx}`);
+  }
+
+  function taskToggle(){
+    console.log("toggle task status");
+    const parent = this.parentNode.parentNode.parentNode;
+    console.log(parent.dataset.projectIdx, parent.dataset.todoIdx);
+  }
     
   return { placeCards };
 })();
