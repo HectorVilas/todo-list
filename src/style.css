@@ -3,6 +3,7 @@
   --card-shadow: .25rem .25rem .25rem rgba(0,0,0,.1),
     inset .25rem .25rem .25rem rgba(255,255,255,.5);
   --icon-size: 30px;
+  --icon-check-size: 20px;
   --txt-col-1: #000;
   --txt-col-2: #444;
   --txt-col-3: #666;
@@ -160,7 +161,7 @@ h1 {font-size: 3rem;}
 .card-icon:hover { cursor: pointer; }
 .card ul li {
   display: grid;
-  grid-template-columns: 2rem 1fr;
+  grid-template-columns: auto 1fr auto auto;
   gap: .5rem;
 }
 .edit-buttons {
@@ -225,6 +226,9 @@ h1 {font-size: 3rem;}
   90% { rotate: 2deg;}
 }
 
+.check-icon.icon-edit {
+  width: var(--icon-check-size);
+}
 
 /*for testing*/
 /* * {
