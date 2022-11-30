@@ -133,7 +133,11 @@ export const ui = (() => {
 
       const checkbox = document.createElement("input");
       checkbox.type = "checkbox";
-      checkbox.id = `${todo.title}-${i}`;
+      checkbox.id = `${todo.title}-${i}`; //for label only
+      checkbox.dataset.projectIdx = projectIdx;
+      checkbox.dataset.todoIdx = todoIdx;
+      checkbox.dataset.taskIdx = i;
+
       checkbox.checked = check.isDone;
       checkbox.addEventListener("click", taskToggle);
 
@@ -153,6 +157,8 @@ export const ui = (() => {
   }
 
   function placeCards(projects){
+
+    main.replaceChildren()
     
 
     projects.forEach((project, projectIdx) => {
@@ -183,19 +189,27 @@ export const ui = (() => {
   }
 
   function cardFavToggle(){
-    console.log(`toggle fav project ${this.parentNode.parentNode.dataset.projectIdx
-    } - todo ${this.parentNode.parentNode.dataset.todoIdx}`);
+    const projectIdx = this.parentNode.parentNode.dataset.projectIdx;
+    const todoIdx = this.parentNode.parentNode.dataset.todoIdx;
+    localStorageTest[projectIdx].todos[todoIdx].toggleFav();
+    
+    //toggle star icon
+    const isFav = localStorageTest[projectIdx].todos[todoIdx].isFavorite;
+    this.src = isFav ? iconFavActive : iconFav;
   }
 
   function cardDelete(){
-    console.log(`delete project ${this.parentNode.parentNode.dataset.projectIdx
-    } - todo ${this.parentNode.parentNode.dataset.todoIdx}`);
+    const projectIdx = this.parentNode.parentNode.dataset.projectIdx;
+    const todoIdx = this.parentNode.parentNode.dataset.todoIdx;
+    console.log(`delete project ${projectIdx} - todo ${todoIdx}`);
+    localStorageTest[projectIdx].todos.splice(todoIdx,1);
+    placeCards(localStorageTest);
   }
 
   function taskToggle(){
     console.log("toggle task status");
-    const parent = this.parentNode.parentNode.parentNode;
-    console.log(parent.dataset.projectIdx, parent.dataset.todoIdx);
+    console.log(`projectIdx: ${this.dataset.projectIdx}, todoIdx: ${
+      this.dataset.todoIdx}, taskIdx: ${this.dataset.taskIdx}`);
   }
     
   return { placeCards };
