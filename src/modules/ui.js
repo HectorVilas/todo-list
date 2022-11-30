@@ -147,13 +147,18 @@ export const ui = (() => {
       checkbox.dataset.taskIdx = i;
 
       checkbox.checked = check.isDone;
-      checkbox.addEventListener("click", taskToggle);
+      checkbox.addEventListener("click", taskCheckToggle);
 
       const label = document.createElement("label");
       label.htmlFor = checkbox.id;
       label.innerText = check.task;
 
-      task.append(checkbox, label);
+      const editCheck = document.createElement("img");
+      editCheck.src = iconEdit;
+      editCheck.classList.add("card-icon", "check-icon", "icon-edit");
+      editCheck.addEventListener("click", toggleCheckEdit);
+
+      task.append(checkbox, label, editCheck);
 
       checks.appendChild(task);
 
@@ -196,6 +201,10 @@ export const ui = (() => {
     } - todo ${this.dataset.todoIdx}`);
   }
 
+  function toggleCheckEdit(){
+    console.log("edit check");
+  }
+
   function cardFavToggle(){
     const projectIdx = this.dataset.projectIdx;
     const todoIdx = this.dataset.todoIdx;
@@ -223,10 +232,9 @@ export const ui = (() => {
     placeCards(localStorageTest);
   }
 
-  function taskToggle(){
-    console.log("toggle task status");
-    console.log(`projectIdx: ${this.dataset.projectIdx}, todoIdx: ${
-      this.dataset.todoIdx}, taskIdx: ${this.dataset.taskIdx}`);
+  function taskCheckToggle(){
+    localStorageTest[this.dataset.projectIdx]
+    .todos[this.dataset.todoIdx].toggleTask(this.dataset.taskIdx);
   }
     
   return { placeCards };
