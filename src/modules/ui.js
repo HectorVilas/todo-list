@@ -187,18 +187,18 @@ export const ui = (() => {
   };
 
   function cardDrag(){
-    console.log(`dragging project ${this.parentNode.dataset.projectIdx
-    } - todo ${this.parentNode.dataset.todoIdx}`);
+    console.log(`dragging project ${this.dataset.projectIdx
+    } - todo ${this.dataset.todoIdx}`);
   }
 
   function cardEdit(){
-    console.log(`editing project ${this.parentNode.parentNode.dataset.projectIdx
-    } - todo ${this.parentNode.parentNode.dataset.todoIdx}`);
+    console.log(`editing project ${this.dataset.projectIdx
+    } - todo ${this.dataset.todoIdx}`);
   }
 
   function cardFavToggle(){
-    const projectIdx = this.parentNode.parentNode.dataset.projectIdx;
-    const todoIdx = this.parentNode.parentNode.dataset.todoIdx;
+    const projectIdx = this.dataset.projectIdx;
+    const todoIdx = this.dataset.todoIdx;
     localStorageTest[projectIdx].todos[todoIdx].toggleFav();
     
     //toggle star icon
@@ -207,8 +207,8 @@ export const ui = (() => {
   }
 
   function cardDelete(){
-    const projectIdx = this.parentNode.parentNode.dataset.projectIdx;
-    const todoIdx = this.parentNode.parentNode.dataset.todoIdx;
+    const projectIdx = this.dataset.projectIdx;
+    const todoIdx = this.dataset.todoIdx;
 
     const isFav = localStorageTest[projectIdx].todos[todoIdx].isFavorite;
     if(isFav) {
