@@ -10,4 +10,8 @@ export class Todo {
     this.isFavorite = isFavorite;
     this.isPinned = isPinned;
   };
+  
+  toggleFav(){
+    this.isFavorite = !this.isFavorite;
+  }
 };
