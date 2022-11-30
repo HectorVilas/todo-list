@@ -76,8 +76,6 @@ export const ui = (() => {
     const card = document.createElement("div");
     card.classList.add("card");
     card.dataset.priority = todo.priority;
-    card.dataset.projectIdx = projectIdx;
-    card.dataset.todoIdx = todoIdx;
 
     const drag = document.createElement("img");
     drag.classList.add("card-icon", "icon-drag");
@@ -95,6 +93,11 @@ export const ui = (() => {
     fav.classList.add("card-icon", "icon-fav");
     fav.src = todo.isFavorite ? iconFavActive : iconFav;
     fav.addEventListener("click", cardFavToggle);
+    fav.addEventListener("animationend", (e) => {
+      if(e.animationName === "star-shake") {
+        e.target.classList.remove("shake");
+      };
+    })
 
     const deleteIcon = document.createElement("div");
     deleteIcon.classList.add("delete-icon");
@@ -109,6 +112,11 @@ export const ui = (() => {
     
     deleteIcon.append(trash, trashLid);
     editBtns.append(edit, fav, deleteIcon);
+
+    [card,drag,edit,fav,deleteIcon].forEach(icon => {
+      icon.dataset.projectIdx = projectIdx;
+      icon.dataset.todoIdx = todoIdx;
+    });
     
     const title = document.createElement("h2");
     title.classList.add("title");
@@ -207,7 +215,6 @@ export const ui = (() => {
       const thisCardStar = document.querySelector(`[data-project-idx="${
         projectIdx}"][data-todo-idx="${todoIdx}"] .icon-fav`);
       thisCardStar.classList.add("shake");
-      setTimeout(() => thisCardStar.classList.remove("shake"), 300);
       return;
     };
 
