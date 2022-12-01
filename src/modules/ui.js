@@ -5,6 +5,8 @@ import iconTrash from "../media/images/icons/trash.svg";
 import iconTrashLid from "../media/images/icons/trash-lid.svg";
 import iconFav from "../media/images/icons/fav.svg";
 import iconFavActive from "../media/images/icons/fav-active.svg";
+import iconPin from "../media/images/icons/pin.svg"
+import iconPinActive from "../media/images/icons/pin-active.svg"
 
 //for testing
 import { Todo } from "../modules/classes.js";
@@ -84,6 +86,11 @@ export const ui = (() => {
 
     const editBtns = document.createElement("div");
     editBtns.classList.add("edit-buttons");
+
+    const pin = document.createElement("img");
+    pin.src = todo.isPinned ? iconPinActive : iconPin;
+    pin.classList.add("card-icon", "icon-pin");
+
     const edit = document.createElement("img");
     edit.classList.add("card-icon", "icon-edit");
     edit.src = iconEdit;
@@ -111,7 +118,7 @@ export const ui = (() => {
     trashLid.src = iconTrashLid;
     
     deleteIcon.append(trash, trashLid);
-    editBtns.append(edit, fav, deleteIcon);
+    editBtns.append(pin, edit, fav, deleteIcon);
 
     [card,drag,edit,fav,deleteIcon].forEach(icon => {
       icon.dataset.projectIdx = projectIdx;
