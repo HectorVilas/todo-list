@@ -42,12 +42,22 @@ export const localStorageTest = [
         { task: "test2 task4", isDone: false },
         { task: "test2 task5", isDone: false },
       ], "middle", true, false),
-      new Todo("test3", "test3 descr", "2022-11-23T17:42", "2023-11-23T17:42", [
+      new Todo("test3 (long)", "test3 descr", "2022-11-23T17:42", "2023-11-23T17:42", [
         { task: "test3 task1", isDone: true },
         { task: "test3 task2", isDone: true },
         { task: "test3 task3", isDone: false },
         { task: "test3 task4", isDone: false },
         { task: "test3 task5", isDone: true },
+        { task: "test3 task6", isDone: true },
+        { task: "test3 task7", isDone: false },
+        { task: "test3 task8", isDone: true },
+        { task: "test3 task9", isDone: true },
+        { task: "test3 task10", isDone: false },
+        { task: "test3 task11", isDone: false },
+        { task: "test3 task12", isDone: true },
+        { task: "test3 task13", isDone: false },
+        { task: "test3 task14", isDone: true },
+        { task: "test3 task15", isDone: true },
       ], "low", false, true),
       new Todo("test4", "test4 descr", "2022-11-23T17:42", "2023-11-23T17:42", [
         { task: "test4 task1", isDone: false },
