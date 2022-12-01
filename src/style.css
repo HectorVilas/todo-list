@@ -211,11 +211,12 @@ h1 {font-size: 3rem;}
 .delete-icon:hover .icon-trash { rotate: -10deg;}
 .delete-icon:hover .icon-trash-lid { rotate: 10deg; }
 
-.card-icon.icon-edit:hover {
-  animation: edit-shake 300ms;
+.card-icon.icon-edit:hover,
+.card-icon.icon-pin:hover {
+  animation: icon-shake 300ms;
   transform-origin: 0% 100%;
 }
-@keyframes edit-shake {
+@keyframes icon-shake {
   0%, 100% { rotate: 0deg;}
   10% { rotate: 5deg;}
   20% { rotate: -5deg;}
@@ -229,15 +230,15 @@ h1 {font-size: 3rem;}
 }
 
 .card-icon.icon-fav:hover{
-  animation: fav-spin 300ms;
+  animation: icon-spin 300ms;
   transform-origin: 50% 55%;
 }
-@keyframes fav-spin { to {rotate: 72deg;} }
+@keyframes icon-spin { to {rotate: 72deg;} }
 
 .card-icon.icon-fav.shake {
-  animation: star-shake 300ms;
+  animation: icon-fav-shake 300ms;
 }
-@keyframes star-shake {
+@keyframes icon-fav-shake {
   0%, 100% {
     rotate: 0deg;
     filter: drop-shadow(0 0 5px goldenrod)
