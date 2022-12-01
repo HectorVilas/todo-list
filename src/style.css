@@ -82,13 +82,13 @@ h1 {font-size: 3rem;}
   gap: .25rem;
 }
 
-.card input[type="checkbox"] {
+.card li input[type="checkbox"] {
   position: relative;
   width: var(--icon-size);
   height: var(--icon-size);
   appearance: none;
 }
-.card input[type="checkbox"]::before {
+.card li input[type="checkbox"]::before {
   position: absolute;
   content: "";
   inset: 0;
@@ -97,7 +97,7 @@ h1 {font-size: 3rem;}
     inset .1rem .1rem .25rem rgba(0,0,0,.1);
   border-radius: .25rem;
 }
-.card input[type="checkbox"]::after {
+.card li input[type="checkbox"]::after {
   --check-anim-duration: 200ms;
   position: absolute;
   content: "";
@@ -106,7 +106,7 @@ h1 {font-size: 3rem;}
   clip-path: polygon(0 75%, 15% 60%, 15% 61%, 16% 62%, 18% 65%, 4% 78%, 1% 75%);
   animation: checkmark-backwards var(--check-anim-duration) ease-out forwards;
 }
-.card input[type="checkbox"]:checked::after {
+.card li input[type="checkbox"]:checked::after {
   animation: checkmark-forwards var(--check-anim-duration) ease-in forwards;
 }
 @keyframes checkmark-forwards {
@@ -132,7 +132,7 @@ h1 {font-size: 3rem;}
   background-position-x: -100vw;
   cursor: pointer;
 }
-.card input[type="checkbox"]:checked + label {
+.card li input[type="checkbox"]:checked + label {
   text-decoration: line-through;
   color: var(--txt-col-3);
   background-position-x: 100vw;
@@ -157,8 +157,36 @@ h1 {font-size: 3rem;}
 
 
 /* card icons */
-.card-icon { width: var(--icon-size); }
-.card-icon:hover { cursor: pointer; }
+.card-icon {
+  position: relative;
+  width: var(--icon-size);
+  height: var(--icon-size);
+  cursor: pointer;
+  appearance: none;
+}
+.card-icon::after {
+  position: absolute;
+  content: "";
+  inset: 0;
+  background-size: 100%;
+  background-position: center;
+}
+
+.card-icon.icon-pin::after {
+  background-image: url(./media/images/icons/pin.svg);
+} .card-icon.icon-pin:checked::after {
+  background-image: url(./media/images/icons/pin-active.svg);
+}
+.card-icon.icon-edit::after {
+  background-image: url(./media/images/icons/edit.svg);
+/* } .card-icon.icon-edit:checked::after { */
+}
+.card-icon.icon-fav::after {
+  background-image: url(./media/images/icons/fav.svg);
+}.card-icon.icon-fav:checked::after {
+  background-image: url(./media/images/icons/fav-active.svg);
+}
+
 .card ul li {
   display: grid;
   grid-template-columns: auto 1fr auto auto;

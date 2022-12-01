@@ -87,18 +87,20 @@ export const ui = (() => {
     const editBtns = document.createElement("div");
     editBtns.classList.add("edit-buttons");
 
-    const pin = document.createElement("img");
-    pin.src = todo.isPinned ? iconPinActive : iconPin;
+    const pin = document.createElement("input");
+    pin.type = "checkbox";
+    pin.checked = todo.isPinned ? true : false;
     pin.classList.add("card-icon", "icon-pin");
 
-    const edit = document.createElement("img");
+    const edit = document.createElement("input");
+    edit.type = "checkbox";
     edit.classList.add("card-icon", "icon-edit");
-    edit.src = iconEdit;
     edit.addEventListener("click", cardEdit);
 
-    const fav = document.createElement("img");
+    const fav = document.createElement("input");
+    fav.type = "checkbox";
+    fav.checked = todo.isFavorite ? true : false;
     fav.classList.add("card-icon", "icon-fav");
-    fav.src = todo.isFavorite ? iconFavActive : iconFav;
     fav.addEventListener("click", cardFavToggle);
     fav.addEventListener("animationend", (e) => {
       if(e.animationName === "star-shake") {
