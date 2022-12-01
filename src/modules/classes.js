@@ -18,4 +18,8 @@ export class Todo {
   toggleTask(idx){
     this.checks[idx].isDone = !this.checks[idx].isDone;
   };
+
+  togglePin(){
+    this.isPinned = !this.isPinned;
+  }
 };
