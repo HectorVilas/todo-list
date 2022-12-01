@@ -91,6 +91,7 @@ export const ui = (() => {
     pin.type = "checkbox";
     pin.checked = todo.isPinned ? true : false;
     pin.classList.add("card-icon", "icon-pin");
+    pin.addEventListener("click", cardPinToggle);
 
     const edit = document.createElement("input");
     edit.type = "checkbox";
@@ -122,7 +123,8 @@ export const ui = (() => {
     deleteIcon.append(trash, trashLid);
     editBtns.append(pin, edit, fav, deleteIcon);
 
-    [card,drag,edit,fav,deleteIcon].forEach(icon => {
+    //add dataset to each item
+    [card,drag,pin,edit,fav,deleteIcon].forEach(icon => {
       icon.dataset.projectIdx = projectIdx;
       icon.dataset.todoIdx = todoIdx;
     });
@@ -222,6 +224,12 @@ export const ui = (() => {
     //toggle star icon
     const isFav = localStorageTest[projectIdx].todos[todoIdx].isFavorite;
     this.src = isFav ? iconFavActive : iconFav;
+  }
+
+  function cardPinToggle(){
+    const projectIdx = this.dataset.projectIdx;
+    const todoIdx = this.dataset.todoIdx;
+    localStorageTest[projectIdx].todos[todoIdx].togglePin();
   }
 
   function cardDelete(){
