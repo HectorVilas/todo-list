@@ -226,6 +226,7 @@ export const ui = (() => {
 
     if(!card.className.includes("active")) {
       card.querySelector(".icon-edit").checked = false;
+      card.classList.remove("edit-mode");
     }
   }
 
@@ -236,6 +237,7 @@ export const ui = (() => {
 
     const card = this.parentNode;
     card.querySelector(".icon-edit").checked = false;
+    card.classList.remove("edit-mode");
   }
 
   function cardEdit(){
