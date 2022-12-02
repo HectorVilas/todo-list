@@ -114,7 +114,7 @@ export const ui = (() => {
     fav.classList.add("card-icon", "icon-fav");
     fav.addEventListener("click", cardFavToggle);
     fav.addEventListener("animationend", (e) => {
-      if(e.animationName === "star-shake") {
+      if(e.animationName === "icon-fav-shake") {
         e.target.classList.remove("shake");
       };
     })

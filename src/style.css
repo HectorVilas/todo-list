@@ -71,6 +71,7 @@ h1 {font-size: 3rem;}
   font-size: 2rem;
   color: var(--txt-col-1);
   cursor: pointer;
+  padding-left: .5rem;
 } .card .description {
   grid-area: descr;
   font-size: 1.5rem;
@@ -226,12 +227,12 @@ h1 {font-size: 3rem;}
 }.icon-trash,
 .icon-trash-lid {
   position: absolute;
-  transition: rotate 500ms;
+  transition: rotate 300ms;
 }
 .icon-trash { transform-origin: 100% 0%;}
 .icon-trash-lid { transform-origin: 250% 0%;}
-.delete-icon:hover .icon-trash { rotate: -10deg;}
-.delete-icon:hover .icon-trash-lid { rotate: 10deg; }
+.delete-icon:hover .icon-trash { rotate: -7deg;}
+.delete-icon:hover .icon-trash-lid { rotate: 7deg; }
 
 .card-icon.icon-edit:hover,
 .card-icon.icon-pin:hover {
