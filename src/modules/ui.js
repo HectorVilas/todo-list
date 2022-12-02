@@ -210,11 +210,12 @@ export const ui = (() => {
   };
 
   function toggleCard() {
-    const thisCard = document.querySelector(
-      `[data-project-idx="${this.dataset.projectIdx
-      }"][data-todo-idx="${this.dataset.todoIdx}"]`);
-    
-      thisCard.classList.toggle("active");
+    const card = this.parentNode;
+    card.classList.toggle("active");
+
+    if(!card.className.includes("active")) {
+      card.querySelector(".icon-edit").checked = false;
+    }
   }
 
   function cardDrag(){
@@ -224,6 +225,9 @@ export const ui = (() => {
   }
 
   function cardEdit(){
+    const cardClass = this.parentNode.parentNode.classList;
+    this.checked ? cardClass.add("edit-mode") : cardClass.remove("edit-mode");
+    
     console.log(`editing project ${this.dataset.projectIdx
     } - todo ${this.dataset.todoIdx}`);
     this.parentNode.parentNode.classList.add("active");
