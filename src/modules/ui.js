@@ -88,8 +88,6 @@ export const ui = (() => {
     drag.src = iconDrag;
     drag.addEventListener("mousedown", cardDrag);
 
-    
-
     const title = document.createElement("h2");
     title.classList.add("title");
     title.innerText = todo.title;
@@ -151,7 +149,7 @@ export const ui = (() => {
     return card;
   }
 
-  function editButtonsDiv(todo, projectIdx, todoIdx, withPin = true){
+  function editButtonsDiv(todo, projectIdx, todoIdx){
     const editBtns = document.createElement("div");
     editBtns.classList.add("edit-buttons");
 
@@ -195,8 +193,7 @@ export const ui = (() => {
     });
 
     deleteIcon.append(trash, trashLid);
-    if(withPin) editBtns.append(pin);
-    editBtns.append(edit, fav, deleteIcon);
+    editBtns.append(pin, edit, fav, deleteIcon);
 
     return editBtns;
   }
