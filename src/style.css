@@ -240,7 +240,8 @@ h1 {font-size: 3rem;}
 }
 .card-icon.icon-edit::after {
   background-image: url(./media/images/icons/edit.svg);
-/* } .card-icon.icon-edit:checked::after { */
+} .card-icon.icon-edit:checked::after {
+  background-image: url(./media/images/icons/edit-active.svg);
 }
 .card-icon.icon-fav::after {
   background-image: url(./media/images/icons/fav.svg);
