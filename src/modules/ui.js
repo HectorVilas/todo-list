@@ -233,6 +233,12 @@ export const ui = (() => {
     console.log(`dragging project ${this.dataset.projectIdx
     } - todo ${this.dataset.todoIdx}`);
     this.parentNode.classList.remove("active");
+
+    const card = this.parentNode;
+
+    if(!card.className.includes("active")) {
+      card.querySelector(".icon-edit").checked = false;
+    }
   }
 
   function cardEdit(){
