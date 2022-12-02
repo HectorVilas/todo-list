@@ -1,12 +1,7 @@
-import iconCheckmark from "../media/images/icons/checkmark.svg";
 import iconDrag from "../media/images/icons/drag.svg";
 import iconEdit from "../media/images/icons/edit.svg";
 import iconTrash from "../media/images/icons/trash.svg";
 import iconTrashLid from "../media/images/icons/trash-lid.svg";
-import iconFav from "../media/images/icons/fav.svg";
-import iconFavActive from "../media/images/icons/fav-active.svg";
-import iconPin from "../media/images/icons/pin.svg"
-import iconPinActive from "../media/images/icons/pin-active.svg"
 
 //for testing
 import { Todo } from "../modules/classes.js";
@@ -81,7 +76,6 @@ export const localStorageTest = [
 
 
 export const ui = (() => {
-  const body = document.querySelector("body");
   const main = document.querySelector("#main");
 
   function placeCard(todo, projectIdx, todoIdx){
@@ -230,10 +224,6 @@ export const ui = (() => {
     const projectIdx = this.dataset.projectIdx;
     const todoIdx = this.dataset.todoIdx;
     localStorageTest[projectIdx].todos[todoIdx].toggleFav();
-    
-    //toggle star icon
-    const isFav = localStorageTest[projectIdx].todos[todoIdx].isFavorite;
-    this.src = isFav ? iconFavActive : iconFav;
   }
 
   function cardPinToggle(){
