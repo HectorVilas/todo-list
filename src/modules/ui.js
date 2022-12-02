@@ -127,22 +127,10 @@ export const ui = (() => {
     deleteIcon.append(trash, trashLid);
     editBtns.append(pin, edit, fav, deleteIcon);
 
-    //add dataset to each item
-    [card,drag,pin,edit,fav,deleteIcon].forEach(icon => {
-      icon.dataset.projectIdx = projectIdx;
-      icon.dataset.todoIdx = todoIdx;
-    });
-    
     const title = document.createElement("h2");
     title.classList.add("title");
     title.innerText = todo.title;
-    title.addEventListener("click", () => {
-      const thisCard = document.querySelector(
-        `[data-project-idx="${projectIdx}"][data-todo-idx="${todoIdx}"]`
-        );
-      
-        thisCard.classList.toggle("active");
-    });
+    title.addEventListener("click", toggleCard);
 
     const description = document.createElement("p");
     description.classList.add("description");
@@ -158,6 +146,12 @@ export const ui = (() => {
 
     const checks = document.createElement("ul");
     checks.classList.add("checklist");
+
+    //add dataset to each item
+    [card,title,drag,pin,edit,fav,deleteIcon].forEach(icon => {
+      icon.dataset.projectIdx = projectIdx;
+      icon.dataset.todoIdx = todoIdx;
+    });
 
     todo.checks.forEach((check,i) => {
       const task = document.createElement("li");
@@ -214,6 +208,14 @@ export const ui = (() => {
       main.appendChild(projectItem);
     });
   };
+
+  function toggleCard() {
+    const thisCard = document.querySelector(
+      `[data-project-idx="${this.dataset.projectIdx
+      }"][data-todo-idx="${this.dataset.todoIdx}"]`);
+    
+      thisCard.classList.toggle("active");
+  }
 
   function cardDrag(){
     console.log(`dragging project ${this.dataset.projectIdx
