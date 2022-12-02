@@ -88,6 +88,70 @@ export const ui = (() => {
     drag.src = iconDrag;
     drag.addEventListener("mousedown", cardDrag);
 
+    
+
+    const title = document.createElement("h2");
+    title.classList.add("title");
+    title.innerText = todo.title;
+    title.addEventListener("click", toggleCard);
+
+    const description = document.createElement("p");
+    description.classList.add("description");
+    description.innerText = todo.description;
+
+    const dateCreation = document.createElement("p");
+    dateCreation.classList.add("date-creation");
+    dateCreation.innerText = `Created: ${todo.dateCreation}`;
+
+    const dateDue = document.createElement("p");
+    dateDue.classList.add("date-due");
+    dateDue.innerText = todo.dateDue.length > 0 ? `Due: ${todo.dateDue}` : "";
+
+    const checks = document.createElement("ul");
+    checks.classList.add("checklist");
+
+    //add dataset to each item
+    [card,title,drag].forEach(icon => {
+      icon.dataset.projectIdx = projectIdx;
+      icon.dataset.todoIdx = todoIdx;
+    });
+
+    todo.checks.forEach((check,i) => {
+      const task = document.createElement("li");
+
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.id = `${todo.title}-${i}`; //for label only
+      checkbox.dataset.projectIdx = projectIdx;
+      checkbox.dataset.todoIdx = todoIdx;
+      checkbox.dataset.taskIdx = i;
+
+      checkbox.checked = check.isDone;
+      checkbox.addEventListener("click", taskCheckToggle);
+
+      const label = document.createElement("label");
+      label.htmlFor = checkbox.id;
+      label.innerText = check.task;
+
+      const editCheck = document.createElement("img");
+      editCheck.src = iconEdit;
+      editCheck.classList.add("card-icon", "check-icon", "icon-edit");
+      editCheck.addEventListener("click", toggleCheckEdit);
+
+      task.append(checkbox, label, editCheck);
+
+      checks.appendChild(task);
+
+    });
+
+    card.append(drag, title, dateCreation, dateDue,
+      editButtonsDiv(todo, projectIdx, todoIdx),
+      description, checks);
+
+    return card;
+  }
+
+  function editButtonsDiv(todo, projectIdx, todoIdx, withPin = true){
     const editBtns = document.createElement("div");
     editBtns.classList.add("edit-buttons");
 
@@ -123,68 +187,18 @@ export const ui = (() => {
     const trashLid = document.createElement("img");
     trashLid.classList.add("card-icon", "icon-trash-lid");
     trashLid.src = iconTrashLid;
-    
-    deleteIcon.append(trash, trashLid);
-    editBtns.append(pin, edit, fav, deleteIcon);
-
-    const title = document.createElement("h2");
-    title.classList.add("title");
-    title.innerText = todo.title;
-    title.addEventListener("click", toggleCard);
-
-    const description = document.createElement("p");
-    description.classList.add("description");
-    description.innerText = todo.description;
-
-    const dateCreation = document.createElement("p");
-    dateCreation.classList.add("date-creation");
-    dateCreation.innerText = `Created: ${todo.dateCreation}`;
-
-    const dateDue = document.createElement("p");
-    dateDue.classList.add("date-due");
-    dateDue.innerText = todo.dateDue.length > 0 ? `Due: ${todo.dateDue}` : "";
-
-    const checks = document.createElement("ul");
-    checks.classList.add("checklist");
 
     //add dataset to each item
-    [card,title,drag,pin,edit,fav,deleteIcon].forEach(icon => {
+    [pin,edit,fav,deleteIcon].forEach(icon => {
       icon.dataset.projectIdx = projectIdx;
       icon.dataset.todoIdx = todoIdx;
     });
 
-    todo.checks.forEach((check,i) => {
-      const task = document.createElement("li");
+    deleteIcon.append(trash, trashLid);
+    if(withPin) editBtns.append(pin);
+    editBtns.append(edit, fav, deleteIcon);
 
-      const checkbox = document.createElement("input");
-      checkbox.type = "checkbox";
-      checkbox.id = `${todo.title}-${i}`; //for label only
-      checkbox.dataset.projectIdx = projectIdx;
-      checkbox.dataset.todoIdx = todoIdx;
-      checkbox.dataset.taskIdx = i;
-
-      checkbox.checked = check.isDone;
-      checkbox.addEventListener("click", taskCheckToggle);
-
-      const label = document.createElement("label");
-      label.htmlFor = checkbox.id;
-      label.innerText = check.task;
-
-      const editCheck = document.createElement("img");
-      editCheck.src = iconEdit;
-      editCheck.classList.add("card-icon", "check-icon", "icon-edit");
-      editCheck.addEventListener("click", toggleCheckEdit);
-
-      task.append(checkbox, label, editCheck);
-
-      checks.appendChild(task);
-
-    });
-
-    card.append(drag, title, dateCreation, dateDue,
-      editBtns, description, checks);
-
-    return card;
+    return editBtns;
   }
 
   function placeCards(projects){
