@@ -9,13 +9,13 @@ export const localStorageTest = [
   {
     title: "routine",
     todos: [
-      new Todo("exercise", "It's leg day!", "2022-11-23T17:42", null, [
+      new Todo("exercise", "It's leg day!", "2022-11-23T17:42", "", [
         { task: "run 3km", isDone: true },
         { task: "bicycle", isDone: false },
         { task: "squats", isDone: false },
       ], "low", false, false),
 
-      new Todo("coding", null, "2022-11-23T17:42", null, [
+      new Todo("coding", "", "2022-11-23T17:42", "", [
         { task: "check css-tricks", isDone: true },
         { task: "continue TOP practice", isDone: true },
       ], "high", true, true),
@@ -148,6 +148,14 @@ export const ui = (() => {
     description.classList.add("description");
     description.innerText = todo.description;
 
+    const dateCreation = document.createElement("p");
+    dateCreation.classList.add("date-creation");
+    dateCreation.innerText = `Created: ${todo.dateCreation}`;
+
+    const dateDue = document.createElement("p");
+    dateDue.classList.add("date-due");
+    dateDue.innerText = todo.dateDue.length > 0 ? `Due: ${todo.dateDue}` : "";
+
     const checks = document.createElement("ul");
     checks.classList.add("checklist");
 
@@ -179,7 +187,8 @@ export const ui = (() => {
 
     });
 
-    card.append(drag, title, editBtns, description, checks);
+    card.append(drag, title, dateCreation, dateDue,
+      editBtns, description, checks);
 
     return card;
   }
@@ -209,11 +218,13 @@ export const ui = (() => {
   function cardDrag(){
     console.log(`dragging project ${this.dataset.projectIdx
     } - todo ${this.dataset.todoIdx}`);
+    this.parentNode.classList.remove("active");
   }
 
   function cardEdit(){
     console.log(`editing project ${this.dataset.projectIdx
     } - todo ${this.dataset.todoIdx}`);
+    this.parentNode.parentNode.classList.add("active");
   }
 
   function toggleCheckEdit(){
