@@ -5,7 +5,7 @@ import { Todo } from "./modules/classes.js";
 //for testing
 import {localStorageTest} from "./modules/ui.js"
 window.addEventListener("keydown", (e) => {
-  if(e.key === "r"){
+  if(e.key === "r" && e.altKey){
     ui.placeCards(localStorageTest);
     console.log("replacing main");
   };
