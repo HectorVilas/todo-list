@@ -92,10 +92,18 @@ export const ui = (() => {
     title.classList.add("title");
     title.innerText = todo.title;
     title.addEventListener("click", toggleCard);
-
+    const editTitle = document.createElement("input");
+    editTitle.type = "text";
+    editTitle.classList.add("title", "edit-title");
+    editTitle.value = todo.title;
+    
     const description = document.createElement("p");
     description.classList.add("description");
     description.innerText = todo.description;
+    const editDescription = document.createElement("input");
+    editDescription.type = "text";
+    editDescription.classList.add("description", "edit-description");
+    editDescription.value = todo.description;
 
     const dateCreation = document.createElement("p");
     dateCreation.classList.add("date-creation");
@@ -104,6 +112,10 @@ export const ui = (() => {
     const dateDue = document.createElement("p");
     dateDue.classList.add("date-due");
     dateDue.innerText = todo.dateDue.length > 0 ? `Due: ${todo.dateDue}` : "";
+    const editDateDue = document.createElement("input");
+    editDateDue.type = "datetime-local";
+    editDateDue.classList.add("date-due", "edit-date-due");
+    editDateDue.value = todo.dateDue.length > 0 ? `Due: ${todo.dateDue}` : "";
 
     const checks = document.createElement("ul");
     checks.classList.add("checklist");
@@ -130,21 +142,22 @@ export const ui = (() => {
       const label = document.createElement("label");
       label.htmlFor = checkbox.id;
       label.innerText = check.task;
+      const editLabel = document.createElement("input");
+      editLabel.type = "text";
+      editLabel.classList.add("edit-label");
+      editLabel.type = "text";
+      editLabel.htmlFor = checkbox.id;
+      editLabel.value = check.task;
 
-      const editCheck = document.createElement("img");
-      editCheck.src = iconEdit;
-      editCheck.classList.add("card-icon", "check-icon", "icon-edit");
-      editCheck.addEventListener("click", toggleCheckEdit);
-
-      task.append(checkbox, label, editCheck);
+      task.append(checkbox, label, editLabel);
 
       checks.appendChild(task);
 
     });
 
-    card.append(drag, title, dateCreation, dateDue,
+    card.append(drag, title, editTitle, dateCreation, dateDue, editDateDue,
       editButtonsDiv(todo, projectIdx, todoIdx),
-      description, checks);
+      description, editDescription, checks);
 
     return card;
   }
