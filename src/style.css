@@ -11,16 +11,21 @@
   --card-open-transition: 250ms;
 }
 
-body {
-  padding: 0;
-  margin: 0;
-  background-color: var(--bgc-page);
-}
-
+/* default values reset */
+body { padding: 0; margin: 0; }
 ol, ul { padding: 0; margin: 0; list-style-type: none; }
-
 h1, h2, p {margin: 0;}
 h1 {font-size: 3rem;}
+input[type="text"], input[type="datetime-local"] {
+  padding: 0;
+  margin: 0;
+}
+
+
+
+/* page content */
+
+body {background-color: var(--bgc-page);}
 
 #main {
   box-sizing: border-box;
@@ -203,7 +208,8 @@ h1 {font-size: 3rem;}
   100% {opacity: 0;}
 }
 
-.card label {
+.card label,
+.card .edit-label {
   font-size: 1.25rem;
   color: var(--txt-col-2);
   background: linear-gradient(to right, transparent 0%, rgba(255, 255, 255, 0.5), transparent 100%) no-repeat;
@@ -251,7 +257,7 @@ h1 {font-size: 3rem;}
 
 .card ul li {
   display: grid;
-  grid-template-columns: auto 1fr auto auto;
+  grid-template-columns: auto 1fr;
   gap: .5rem;
 }
 .edit-buttons {
@@ -319,9 +325,29 @@ h1 {font-size: 3rem;}
   90% { rotate: 2deg;}
 }
 
-.check-icon.icon-edit {
-  width: var(--icon-check-size);
+
+
+/* edit mode content status */
+
+input[type="text"], input[type="datetime-local"] {
+  border-radius: .25rem;
+  background-color: white !important;
 }
+
+.card.edit-mode .title { display: none; }
+.card .edit-title { display: none;}
+.card.edit-mode .edit-title { display: block; box-sizing: border-box; }
+.card.edit-mode .description { display: none; }
+.card .edit-description { display: none; }
+.card.edit-mode .edit-description { display: block; box-sizing: border-box; }
+.card.edit-mode .date-due { display: none; }
+.card .edit-date-due { display: none; }
+.card.edit-mode .edit-date-due { display: block; box-sizing: border-box; }
+.card.edit-mode label { display: none; }
+.card .edit-label { display: none; }
+.card.edit-mode .edit-label { display: block; box-sizing: border-box; }
+
+
 
 /*for testing*/
 /* * {
