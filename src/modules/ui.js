@@ -121,7 +121,7 @@ export const ui = (() => {
     checks.classList.add("checklist");
 
     //add dataset to each item
-    [card,title,drag].forEach(icon => {
+    [card,title,editTitle,drag,editDescription,editDateDue].forEach(icon => {
       icon.dataset.projectIdx = projectIdx;
       icon.dataset.todoIdx = todoIdx;
     });
@@ -132,10 +132,6 @@ export const ui = (() => {
       const checkbox = document.createElement("input");
       checkbox.type = "checkbox";
       checkbox.id = `${todo.title}-${i}`; //for label only
-      checkbox.dataset.projectIdx = projectIdx;
-      checkbox.dataset.todoIdx = todoIdx;
-      checkbox.dataset.taskIdx = i;
-
       checkbox.checked = check.isDone;
       checkbox.addEventListener("click", taskCheckToggle);
 
@@ -148,6 +144,13 @@ export const ui = (() => {
       editLabel.type = "text";
       editLabel.htmlFor = checkbox.id;
       editLabel.value = check.task;
+
+      //add dataset
+      [checkbox,editLabel].forEach(item => {
+        item.dataset.projectIdx = projectIdx;
+        item.dataset.todoIdx = todoIdx;
+        item.dataset.taskIdx = i;
+      });
 
       task.append(checkbox, label, editLabel);
 
