@@ -115,7 +115,7 @@ export const ui = (() => {
     const editDateDue = document.createElement("input");
     editDateDue.type = "datetime-local";
     editDateDue.classList.add("date-due", "edit-date-due");
-    editDateDue.value = todo.dateDue.length > 0 ? `Due: ${todo.dateDue}` : "";
+    editDateDue.value = todo.dateDue;
 
     const checks = document.createElement("ul");
     checks.classList.add("checklist");
