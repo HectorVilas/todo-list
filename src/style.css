@@ -20,6 +20,7 @@ input[type="text"], input[type="datetime-local"] {
   padding: 0;
   margin: 0;
 }
+* {font-family: 'Times New Roman', Times, serif;}
 
 
 
@@ -239,6 +240,10 @@ body {background-color: var(--bgc-page);}
   background-position: center;
 }
 
+.card-icon.icon-drag {
+  cursor: ns-resize;
+}
+
 .card-icon.icon-pin::after {
   background-image: url(./media/images/icons/pin.svg);
 } .card-icon.icon-pin:checked::after {
@@ -259,6 +264,7 @@ body {background-color: var(--bgc-page);}
   display: grid;
   grid-template-columns: auto 1fr;
   gap: .5rem;
+  align-items: center;
 }
 .edit-buttons {
   display: grid;
@@ -332,20 +338,32 @@ body {background-color: var(--bgc-page);}
 input[type="text"], input[type="datetime-local"] {
   border-radius: .25rem;
   background-color: white !important;
+  border: none;
+  box-shadow: inset .15rem .15rem .15rem rgba(0,0,0,.25);
+}
+
+.card.edit-mode input[type="text"], input[type="datetime-local"] {
+  cursor: text;
 }
 
 .card.edit-mode .title { display: none; }
-.card .edit-title { display: none;}
+.card .edit-title { display: none; font-weight: 600;}
 .card.edit-mode .edit-title { display: block; box-sizing: border-box; }
+
 .card.edit-mode .description { display: none; }
 .card .edit-description { display: none; }
 .card.edit-mode .edit-description { display: block; box-sizing: border-box; }
+
 .card.edit-mode .date-due { display: none; }
 .card .edit-date-due { display: none; }
 .card.edit-mode .edit-date-due { display: block; box-sizing: border-box; }
+
 .card.edit-mode label { display: none; }
 .card .edit-label { display: none; }
 .card.edit-mode .edit-label { display: block; box-sizing: border-box; }
+.card input[type="checkbox"]:checked ~ .edit-label {
+  text-decoration: line-through rgba(0,0,0,.25);
+}
 
 
 
