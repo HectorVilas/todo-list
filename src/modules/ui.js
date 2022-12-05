@@ -321,17 +321,17 @@ export const ui = (() => {
       localStorageTest[projectIdx].todos[todoIdx].description = this.value;
       const thisDescription = document.querySelector(`.card[data-project-idx="${projectIdx}"][data-todo-idx="${todoIdx}"] .description`);
       thisDescription.innerText = this.value;
-
+      
     } else if(this.className.includes("edit-date-due")){
-      console.log("edit-date-due");
-
+      const thisDateDue = document.querySelector(`.card[data-project-idx="${projectIdx}"][data-todo-idx="${todoIdx}"] .date-due`);
+      localStorageTest[projectIdx].todos[todoIdx].dateDue = this.value;
+      thisDateDue.innerText = this.value.length > 0 ? `Due: ${this.value}` : "";
+      
     } else if(this.className.includes("edit-label")){
-      console.log("edit-label");
+      const thisTask = document.querySelector(`[data-project-idx="${projectIdx}"][data-todo-idx="${todoIdx}"][data-task-idx="${taskIdx}"] ~ label`);
+      localStorageTest[projectIdx].todos[todoIdx].checks[taskIdx].task = this.value;
+      thisTask.innerText = this.value;
     }
-
-    // console.log(`project: ${this.dataset.projectIdx
-    // }, todo: ${this.dataset.todoIdx
-    // }, task: ${this?.dataset?.taskIdx}`);
   }
     
   return { placeCards };
