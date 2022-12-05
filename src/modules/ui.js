@@ -96,6 +96,7 @@ export const ui = (() => {
     editTitle.type = "text";
     editTitle.classList.add("title", "edit-title");
     editTitle.value = todo.title;
+    editTitle.addEventListener("input", editField);
     
     const description = document.createElement("p");
     description.classList.add("description");
@@ -104,6 +105,7 @@ export const ui = (() => {
     editDescription.type = "text";
     editDescription.classList.add("description", "edit-description");
     editDescription.value = todo.description;
+    editDescription.addEventListener("input", editField);
 
     const dateCreation = document.createElement("p");
     dateCreation.classList.add("date-creation");
@@ -116,12 +118,13 @@ export const ui = (() => {
     editDateDue.type = "datetime-local";
     editDateDue.classList.add("date-due", "edit-date-due");
     editDateDue.value = todo.dateDue;
+    editDateDue.addEventListener("input", editField);
 
     const checks = document.createElement("ul");
     checks.classList.add("checklist");
 
     //add dataset to each item
-    [card,title,editTitle,drag,editDescription,editDateDue].forEach(icon => {
+    [card,editTitle,drag,editDescription,editDateDue].forEach(icon => {
       icon.dataset.projectIdx = projectIdx;
       icon.dataset.todoIdx = todoIdx;
     });
@@ -144,6 +147,7 @@ export const ui = (() => {
       editLabel.type = "text";
       editLabel.htmlFor = checkbox.id;
       editLabel.value = check.task;
+      editLabel.addEventListener("input", editField);
 
       //add dataset
       [checkbox,editLabel].forEach(item => {
@@ -301,6 +305,33 @@ export const ui = (() => {
   function taskCheckToggle(){
     localStorageTest[this.dataset.projectIdx]
     .todos[this.dataset.todoIdx].toggleTask(this.dataset.taskIdx);
+  }
+
+  function editField(){
+    const projectIdx = this.dataset.projectIdx;
+    const todoIdx = this.dataset.todoIdx;
+    const taskIdx = this?.dataset?.taskIdx;
+
+    if(this.className.includes("edit-title")){
+      localStorageTest[projectIdx].todos[todoIdx].title = this.value;
+      const thisTitle = document.querySelector(`.card[data-project-idx="${projectIdx}"][data-todo-idx="${todoIdx}"] .title`);
+      thisTitle.innerText = this.value;
+
+    } else if(this.className.includes("edit-description")){
+      localStorageTest[projectIdx].todos[todoIdx].description = this.value;
+      const thisDescription = document.querySelector(`.card[data-project-idx="${projectIdx}"][data-todo-idx="${todoIdx}"] .description`);
+      thisDescription.innerText = this.value;
+
+    } else if(this.className.includes("edit-date-due")){
+      console.log("edit-date-due");
+
+    } else if(this.className.includes("edit-label")){
+      console.log("edit-label");
+    }
+
+    // console.log(`project: ${this.dataset.projectIdx
+    // }, todo: ${this.dataset.todoIdx
+    // }, task: ${this?.dataset?.taskIdx}`);
   }
     
   return { placeCards };
