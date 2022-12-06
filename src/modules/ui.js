@@ -151,6 +151,7 @@ export const ui = (() => {
 
       const removeTask = document.createElement("div");
       removeTask.classList.add("card-icon", "remove-task");
+      removeTask.addEventListener("click", deleteTask);
 
       //add dataset
       [checkbox,editLabel, removeTask].forEach(item => {
@@ -308,6 +309,14 @@ export const ui = (() => {
   function taskCheckToggle(){
     localStorageTest[this.dataset.projectIdx]
     .todos[this.dataset.todoIdx].toggleTask(this.dataset.taskIdx);
+  }
+
+  function deleteTask(){
+    const projectIdx = this.dataset.projectIdx;
+    const todoIdx = this.dataset.todoIdx;
+    const taskIdx = this?.dataset?.taskIdx;
+    
+    localStorageTest[projectIdx].todos[todoIdx].checks.splice(taskIdx, 1);
   }
 
   function editField(){
