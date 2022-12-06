@@ -149,14 +149,17 @@ export const ui = (() => {
       editLabel.value = check.task;
       editLabel.addEventListener("input", editField);
 
+      const removeTask = document.createElement("div");
+      removeTask.classList.add("card-icon", "remove-task");
+
       //add dataset
-      [checkbox,editLabel].forEach(item => {
+      [checkbox,editLabel, removeTask].forEach(item => {
         item.dataset.projectIdx = projectIdx;
         item.dataset.todoIdx = todoIdx;
         item.dataset.taskIdx = i;
       });
 
-      task.append(checkbox, label, editLabel);
+      task.append(checkbox, label, editLabel, removeTask);
 
       checks.appendChild(task);
 

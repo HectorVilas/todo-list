@@ -225,6 +225,11 @@ body {background-color: var(--bgc-page);}
   background-position-x: 100vw;
 }
 
+.card.edit-mode .card-icon.remove-task {
+  background: url(./media/images/icons/remove-task.svg) center no-repeat;
+  background-size: 80%;
+}
+
 .card-icon {
   position: relative;
   width: var(--icon-size);
@@ -262,7 +267,7 @@ body {background-color: var(--bgc-page);}
 
 .card ul li {
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: auto 1fr auto;
   gap: .5rem;
   align-items: center;
 }
