@@ -19,6 +19,7 @@ export const ui = (() => {
     const drag = document.createElement("img");
     drag.classList.add("card-icon", "icon-drag");
     drag.src = iconDrag;
+    drag.draggable = false;
     drag.addEventListener("mousedown", cardDrag);
 
     const title = document.createElement("h2");
@@ -141,9 +142,11 @@ export const ui = (() => {
     const trash = document.createElement("img");
     trash.classList.add("card-icon", "icon-trash");
     trash.src = iconTrash;
+    trash.draggable = false;
     const trashLid = document.createElement("img");
     trashLid.classList.add("card-icon", "icon-trash-lid");
     trashLid.src = iconTrashLid;
+    trashLid.draggable = false;
 
     //add dataset to each item
     [pin,edit,fav,deleteIcon].forEach(icon => {
@@ -190,8 +193,6 @@ export const ui = (() => {
   }
 
   function cardDrag(){
-    console.log(`dragging project ${this.dataset.projectIdx
-    } - todo ${this.dataset.todoIdx}`);
     this.parentNode.classList.remove("active");
 
     const card = this.parentNode;
@@ -203,13 +204,7 @@ export const ui = (() => {
     const cardClass = this.parentNode.parentNode.classList;
     this.checked ? cardClass.add("edit-mode") : cardClass.remove("edit-mode");
     
-    console.log(`editing project ${this.dataset.projectIdx
-    } - todo ${this.dataset.todoIdx}`);
     this.parentNode.parentNode.classList.add("active");
-  }
-
-  function toggleCheckEdit(){
-    console.log("edit check");
   }
 
   function cardFavToggle(){
