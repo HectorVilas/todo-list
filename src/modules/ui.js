@@ -1,79 +1,12 @@
+import {todo} from "./todoHandler.js"
+
 import iconDrag from "../media/images/icons/drag.svg";
 import iconEdit from "../media/images/icons/edit.svg";
 import iconTrash from "../media/images/icons/trash.svg";
 import iconTrashLid from "../media/images/icons/trash-lid.svg";
 
 //for testing
-import { Todo } from "../modules/classes.js";
-export const localStorageTest = [
-  {
-    title: "routine",
-    todos: [
-      new Todo("exercise", "It's leg day!", "2022-11-23T17:42", "", [
-        { task: "run 3km", isDone: true },
-        { task: "bicycle", isDone: false },
-        { task: "squats", isDone: false },
-      ], "low", false, false),
-
-      new Todo("coding", "", "2022-11-23T17:42", "", [
-        { task: "check css-tricks", isDone: true },
-        { task: "continue TOP practice", isDone: true },
-      ], "high", true, true),
-    ],
-  },
-  {
-    title: "test",
-    todos: [
-      new Todo("test1", "test1 descr", "2022-11-23T17:42","2023-11-23T17:42", [
-        { task: "test1 task1", isDone: true },
-        { task: "test1 task2", isDone: false },
-        { task: "test1 task3", isDone: true },
-      ], "low", true, false),
-
-      new Todo("test2", "test2 descr", "2022-11-23T17:42", "2023-11-23T17:42", [
-        { task: "test2 task1", isDone: true },
-        { task: "test2 task2", isDone: false },
-        { task: "test2 task3", isDone: true },
-        { task: "test2 task4", isDone: false },
-        { task: "test2 task5", isDone: false },
-      ], "middle", true, false),
-      new Todo("test3 (long)", "test3 descr", "2022-11-23T17:42", "2023-11-23T17:42", [
-        { task: "test3 task1", isDone: true },
-        { task: "test3 task2", isDone: true },
-        { task: "test3 task3", isDone: false },
-        { task: "test3 task4", isDone: false },
-        { task: "test3 task5", isDone: true },
-        { task: "test3 task6", isDone: true },
-        { task: "test3 task7", isDone: false },
-        { task: "test3 task8", isDone: true },
-        { task: "test3 task9", isDone: true },
-        { task: "test3 task10", isDone: false },
-        { task: "test3 task11", isDone: false },
-        { task: "test3 task12", isDone: true },
-        { task: "test3 task13", isDone: false },
-        { task: "test3 task14", isDone: true },
-        { task: "test3 task15", isDone: true },
-      ], "low", false, true),
-      new Todo("test4", "test4 descr", "2022-11-23T17:42", "2023-11-23T17:42", [
-        { task: "test4 task1", isDone: false },
-        { task: "test4 task2", isDone: false },
-        { task: "test4 task3", isDone: true },
-        { task: "test4 task4", isDone: false },
-        { task: "test4 task5", isDone: true },
-      ], "low", true, false),
-      new Todo("test5", "test5 descr", "2022-11-23T17:42", "2023-11-23T17:42", [
-        { task: "test5 task1", isDone: false },
-        { task: "test5 task2", isDone: true },
-        { task: "test5 task3", isDone: true },
-        { task: "test5 task4", isDone: false },
-        { task: "test5 task5", isDone: true },
-      ], "high", false, false),
-    ],
-  },
-];
-
-
-
+import { localStorageTest } from "./localStorageTest.js";
 
 export const ui = (() => {
   const main = document.querySelector("#main");
@@ -129,6 +62,8 @@ export const ui = (() => {
       icon.dataset.todoIdx = todoIdx;
     });
 
+    //TODO: move to new function, redraw tasks when deleting one
+    //or change datasets on each card
     todo.checks.forEach((check,i) => {
       const task = document.createElement("li");
 
@@ -278,45 +213,36 @@ export const ui = (() => {
   }
 
   function cardFavToggle(){
-    const projectIdx = this.dataset.projectIdx;
-    const todoIdx = this.dataset.todoIdx;
-    localStorageTest[projectIdx].todos[todoIdx].toggleFav();
+    todo.toggleFav(this.dataset.projectIdx, this.dataset.todoIdx);
   }
 
   function cardPinToggle(){
-    const projectIdx = this.dataset.projectIdx;
-    const todoIdx = this.dataset.todoIdx;
-    localStorageTest[projectIdx].todos[todoIdx].togglePin();
+    todo.togglePin(this.dataset.projectIdx, this.dataset.todoIdx);
   }
 
   function cardDelete(){
     const projectIdx = this.dataset.projectIdx;
     const todoIdx = this.dataset.todoIdx;
 
-    const isFav = localStorageTest[projectIdx].todos[todoIdx].isFavorite;
-    if(isFav) {
+    if(todo.getFavStatus(projectIdx, todoIdx)) {
       const thisCardStar = document.querySelector(`[data-project-idx="${
         projectIdx}"][data-todo-idx="${todoIdx}"] .icon-fav`);
       thisCardStar.classList.add("shake");
       return;
     };
 
-    console.log(`delete project ${projectIdx} - todo ${todoIdx}`);
-    localStorageTest[projectIdx].todos.splice(todoIdx,1);
+    todo.deleteTodo(projectIdx, todoIdx);
     placeCards(localStorageTest);
   }
 
   function taskCheckToggle(){
-    localStorageTest[this.dataset.projectIdx]
-    .todos[this.dataset.todoIdx].toggleTask(this.dataset.taskIdx);
+    todo.taskCheck(this.dataset.projectIdx, this.dataset.todoIdx, this.dataset.taskIdx);
   }
 
   function deleteTask(){
-    const projectIdx = this.dataset.projectIdx;
-    const todoIdx = this.dataset.todoIdx;
-    const taskIdx = this?.dataset?.taskIdx;
-    
-    localStorageTest[projectIdx].todos[todoIdx].checks.splice(taskIdx, 1);
+    todo.deleteTask(this.dataset.projectIdx, this.dataset.todoIdx, this.dataset.taskIdx);
+
+    //TODO: redraw tasks on card
   }
 
   function editField(){
@@ -325,23 +251,24 @@ export const ui = (() => {
     const taskIdx = this?.dataset?.taskIdx;
 
     if(this.className.includes("edit-title")){
-      localStorageTest[projectIdx].todos[todoIdx].title = this.value;
+      todo.editTitle(projectIdx, todoIdx, this.value);
       const thisTitle = document.querySelector(`.card[data-project-idx="${projectIdx}"][data-todo-idx="${todoIdx}"] .title`);
       thisTitle.innerText = this.value;
 
     } else if(this.className.includes("edit-description")){
-      localStorageTest[projectIdx].todos[todoIdx].description = this.value;
+      todo.editDescription(projectIdx, todoIdx, this.value);
       const thisDescription = document.querySelector(`.card[data-project-idx="${projectIdx}"][data-todo-idx="${todoIdx}"] .description`);
       thisDescription.innerText = this.value;
       
     } else if(this.className.includes("edit-date-due")){
+      todo.editDateDue(projectIdx, todoIdx, this.value)
       const thisDateDue = document.querySelector(`.card[data-project-idx="${projectIdx}"][data-todo-idx="${todoIdx}"] .date-due`);
-      localStorageTest[projectIdx].todos[todoIdx].dateDue = this.value;
+      
       thisDateDue.innerText = this.value.length > 0 ? `Due: ${this.value}` : "";
       
     } else if(this.className.includes("edit-label")){
+      todo.editLabel(projectIdx, todoIdx, taskIdx, this.value);
       const thisTask = document.querySelector(`[data-project-idx="${projectIdx}"][data-todo-idx="${todoIdx}"][data-task-idx="${taskIdx}"] ~ label`);
-      localStorageTest[projectIdx].todos[todoIdx].checks[taskIdx].task = this.value;
       thisTask.innerText = this.value;
     }
   }
