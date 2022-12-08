@@ -1,9 +1,9 @@
 import "./style.css";
 import { ui } from "./modules/ui.js";
-import { Todo } from "./modules/classes.js";
 
 //for testing
-import {localStorageTest} from "./modules/ui.js"
+import { localStorageTest } from "./modules/localStorageTest.js";
+
 window.addEventListener("keydown", (e) => {
   if(e.key === "r" && e.altKey){
     ui.placeCards(localStorageTest);
