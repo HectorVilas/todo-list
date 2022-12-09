@@ -1,11 +1,15 @@
 import { localStorageTest } from "./localStorageTest.js";
 
-export const todo = (() => {
-  function toggleFav(projectIdx, todoIdx){
+export const todoHandler = (() => {
+  function toggleFav(){
+    const projectIdx = this.dataset.projectIdx;
+    const todoIdx = this.dataset.todoIdx;
     localStorageTest[projectIdx].todos[todoIdx].toggleFav();
   }
 
-  function togglePin(projectIdx, todoIdx){
+  function togglePin(){
+    const projectIdx = this.dataset.projectIdx;
+    const todoIdx = this.dataset.todoIdx;
     localStorageTest[projectIdx].todos[todoIdx].togglePin();
   }
 
@@ -17,7 +21,10 @@ export const todo = (() => {
     localStorageTest[projectIdx].todos.splice(todoIdx,1);
   }
 
-  function taskCheck(projectIdx, todoIdx, taskIdx){
+  function taskCheck(){
+    const projectIdx = this.dataset.projectIdx;
+    const todoIdx = this.dataset.todoIdx;
+    const taskIdx = this?.dataset?.taskIdx;
     localStorageTest[projectIdx].todos[todoIdx].toggleTask(taskIdx);
   }
 

@@ -1,4 +1,4 @@
-import {todo} from "./todoHandler.js"
+import {todoHandler} from "./todoHandler.js"
 
 import iconDrag from "../media/images/icons/drag.svg";
 import iconEdit from "../media/images/icons/edit.svg";
@@ -72,7 +72,7 @@ export const ui = (() => {
       checkbox.type = "checkbox";
       checkbox.id = `${todo.title}-${i}`; //for label only
       checkbox.checked = check.isDone;
-      checkbox.addEventListener("click", taskCheckToggle);
+      checkbox.addEventListener("click", todoHandler.taskCheck);
 
       const label = document.createElement("label");
       label.htmlFor = checkbox.id;
@@ -117,7 +117,8 @@ export const ui = (() => {
     pin.type = "checkbox";
     pin.checked = todo.isPinned ? true : false;
     pin.classList.add("card-icon", "icon-pin");
-    pin.addEventListener("click", cardPinToggle);
+    // pin.addEventListener("click", cardPinToggle);
+    pin.addEventListener("click", todoHandler.togglePin);
 
     const edit = document.createElement("input");
     edit.type = "checkbox";
@@ -128,7 +129,7 @@ export const ui = (() => {
     fav.type = "checkbox";
     fav.checked = todo.isFavorite ? true : false;
     fav.classList.add("card-icon", "icon-fav");
-    fav.addEventListener("click", cardFavToggle);
+    fav.addEventListener("click", todoHandler.toggleFav);
     fav.addEventListener("animationend", (e) => {
       if(e.animationName === "icon-fav-shake") {
         e.target.classList.remove("shake");
@@ -207,35 +208,23 @@ export const ui = (() => {
     this.parentNode.parentNode.classList.add("active");
   }
 
-  function cardFavToggle(){
-    todo.toggleFav(this.dataset.projectIdx, this.dataset.todoIdx);
-  }
-
-  function cardPinToggle(){
-    todo.togglePin(this.dataset.projectIdx, this.dataset.todoIdx);
-  }
-
   function cardDelete(){
     const projectIdx = this.dataset.projectIdx;
     const todoIdx = this.dataset.todoIdx;
 
-    if(todo.getFavStatus(projectIdx, todoIdx)) {
+    if(todoHandler.getFavStatus(projectIdx, todoIdx)) {
       const thisCardStar = document.querySelector(`[data-project-idx="${
         projectIdx}"][data-todo-idx="${todoIdx}"] .icon-fav`);
       thisCardStar.classList.add("shake");
       return;
     };
 
-    todo.deleteTodo(projectIdx, todoIdx);
+    todoHandler.deleteTodo(projectIdx, todoIdx);
     placeCards(localStorageTest);
   }
 
-  function taskCheckToggle(){
-    todo.taskCheck(this.dataset.projectIdx, this.dataset.todoIdx, this.dataset.taskIdx);
-  }
-
   function deleteTask(){
-    todo.deleteTask(this.dataset.projectIdx, this.dataset.todoIdx, this.dataset.taskIdx);
+    todoHandler.deleteTask(this.dataset.projectIdx, this.dataset.todoIdx, this.dataset.taskIdx);
 
     //TODO: redraw tasks on card
   }
@@ -246,23 +235,23 @@ export const ui = (() => {
     const taskIdx = this?.dataset?.taskIdx;
 
     if(this.className.includes("edit-title")){
-      todo.editTitle(projectIdx, todoIdx, this.value);
+      todoHandler.editTitle(projectIdx, todoIdx, this.value);
       const thisTitle = document.querySelector(`.card[data-project-idx="${projectIdx}"][data-todo-idx="${todoIdx}"] .title`);
       thisTitle.innerText = this.value;
 
     } else if(this.className.includes("edit-description")){
-      todo.editDescription(projectIdx, todoIdx, this.value);
+      todoHandler.editDescription(projectIdx, todoIdx, this.value);
       const thisDescription = document.querySelector(`.card[data-project-idx="${projectIdx}"][data-todo-idx="${todoIdx}"] .description`);
       thisDescription.innerText = this.value;
       
     } else if(this.className.includes("edit-date-due")){
-      todo.editDateDue(projectIdx, todoIdx, this.value)
+      todoHandler.editDateDue(projectIdx, todoIdx, this.value)
       const thisDateDue = document.querySelector(`.card[data-project-idx="${projectIdx}"][data-todo-idx="${todoIdx}"] .date-due`);
       
       thisDateDue.innerText = this.value.length > 0 ? `Due: ${this.value}` : "";
       
     } else if(this.className.includes("edit-label")){
-      todo.editLabel(projectIdx, todoIdx, taskIdx, this.value);
+      todoHandler.editLabel(projectIdx, todoIdx, taskIdx, this.value);
       const thisTask = document.querySelector(`[data-project-idx="${projectIdx}"][data-todo-idx="${todoIdx}"][data-task-idx="${taskIdx}"] ~ label`);
       thisTask.innerText = this.value;
     }
