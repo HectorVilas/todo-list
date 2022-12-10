@@ -58,11 +58,11 @@ body {background-color: var(--bgc-page);}
   grid-template-columns: auto 1fr auto;
   grid-template-rows: repeat(5, auto);
   grid-template-areas:
-    " drag  title   edit  "
-    " ..... descr   descr "
-    " ..... created ..... "
-    " ..... due     ..... "
-    " ..... tasks   tasks ";
+    " drag  title   edit     "
+    " ..... descr   descr    "
+    " ..... created priority "
+    " ..... due     priority "
+    " ..... tasks   tasks    ";
   align-items: center;
   overflow: hidden;
 } .card.active {
@@ -95,6 +95,12 @@ body {background-color: var(--bgc-page);}
 .card .checklist {
   grid-area: tasks;
   display: grid;
+}
+.card .edit-priority {
+  grid-area: priority;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: repeat(3, 1fr);
 }
 
 
@@ -363,7 +369,10 @@ input[type="text"], input[type="datetime-local"] {
 .card .edit-date-due { display: none; }
 .card.edit-mode .edit-date-due { display: block; box-sizing: border-box; }
 
-.card.edit-mode label { display: none; }
+.card.edit-mode .edit-priority {display: grid;}
+.card .edit-priority {display: none;}
+
+.card.edit-mode li label { display: none; }
 .card .edit-label { display: none; }
 .card.edit-mode .edit-label { display: block; box-sizing: border-box; }
 .card input[type="checkbox"]:checked ~ .edit-label {

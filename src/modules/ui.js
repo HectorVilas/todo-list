@@ -103,7 +103,7 @@ export const ui = (() => {
     });
 
     card.append(drag, title, editTitle, dateCreation, dateDue, editDateDue,
-      editButtonsDiv(todo, projectIdx, todoIdx),
+      priorityDiv(todo, projectIdx), editButtonsDiv(todo, projectIdx, todoIdx),
       description, editDescription, checks);
 
     return card;
@@ -159,6 +159,32 @@ export const ui = (() => {
     editBtns.append(pin, edit, fav, deleteIcon);
 
     return editBtns;
+  }
+
+  function priorityDiv(todo, projectIdx){
+    const priorityDiv = document.createElement("div");
+    priorityDiv.classList.add("edit-priority");
+    
+    const labels = ["Low priority", "Middle priority", "High priority"];
+
+    for(let i = 0; i < 3; i++){
+      const radio = document.createElement("input");
+      radio.type = "radio";
+      radio.name = "priority";
+      radio.id = `${todo.title}-${projectIdx}-${i}`;
+      // radio.checked = true;
+
+      const radioLabel = document.createElement("label");
+      radioLabel.innerText = labels[i];
+      radioLabel.htmlFor = `${todo.title}-${projectIdx}-${i}`;
+
+      priorityDiv.append(radio, radioLabel)
+    }
+
+    const radios = priorityDiv.querySelectorAll("input");
+    radios[0].checked = true;
+
+    return priorityDiv;
   }
 
   function placeCards(projects){
