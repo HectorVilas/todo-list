@@ -250,9 +250,19 @@ export const ui = (() => {
   }
 
   function deleteTask(){
-    todoHandler.deleteTask(this.dataset.projectIdx, this.dataset.todoIdx, this.dataset.taskIdx);
+    const projectIdx = this.dataset.projectIdx;
+    const todoIdx = this.dataset.todoIdx;
+    const taskIdx = this.dataset.taskIdx;
 
-    //TODO: redraw tasks on card
+    todoHandler.deleteTask(projectIdx, todoIdx, taskIdx);
+    this.parentNode.remove();
+    
+    const thisTaskList = document.querySelectorAll(`[data-project-idx="${
+      projectIdx}"][data-todo-idx="${todoIdx}"] li .remove-task`);
+    
+    thisTaskList.forEach((item, i) => {
+      item.dataset.taskIdx = i;
+    });
   }
 
   function editField(){
