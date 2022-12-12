@@ -48,6 +48,11 @@ export const todoHandler = (() => {
     localStorageTest[projectIdx].todos[todoIdx].checks[taskIdx].task = string;
   }
 
+  function createTask(projectIdx, todoIdx){
+    localStorageTest[projectIdx].todos[todoIdx].checks.push({ task: "", isDone: false })
+  }
+
   return { toggleFav, togglePin, getFavStatus, deleteTodo, taskCheck,
-    deleteTask, editTitle, editDescription, editDateDue, editLabel }
+    deleteTask, editTitle, editDescription, editDateDue, editLabel,
+    createTask }
 })();

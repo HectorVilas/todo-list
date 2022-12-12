@@ -1,7 +1,7 @@
 import {todoHandler} from "./todoHandler.js"
 
 import iconDrag from "../media/images/icons/drag.svg";
-import iconEdit from "../media/images/icons/edit.svg";
+// import iconEdit from "../media/images/icons/edit.svg";
 import iconTrash from "../media/images/icons/trash.svg";
 import iconTrashLid from "../media/images/icons/trash-lid.svg";
 
@@ -63,44 +63,23 @@ export const ui = (() => {
       icon.dataset.todoIdx = todoIdx;
     });
 
-    //TODO: move to new function, redraw tasks when deleting one
-    //or change datasets on each card
     todo.checks.forEach((check,i) => {
-      const task = document.createElement("li");
-
-      const checkbox = document.createElement("input");
-      checkbox.type = "checkbox";
-      checkbox.id = `${todo.title}-${i}`; //for label only
-      checkbox.checked = check.isDone;
-      checkbox.addEventListener("click", todoHandler.taskCheck);
-
-      const label = document.createElement("label");
-      label.htmlFor = checkbox.id;
-      label.innerText = check.task;
-      const editLabel = document.createElement("input");
-      editLabel.type = "text";
-      editLabel.classList.add("edit-label");
-      editLabel.type = "text";
-      editLabel.htmlFor = checkbox.id;
-      editLabel.value = check.task;
-      editLabel.addEventListener("input", editField);
-
-      const removeTask = document.createElement("div");
-      removeTask.classList.add("card-icon", "remove-task");
-      removeTask.addEventListener("click", deleteTask);
-
-      //add dataset
-      [checkbox,editLabel, removeTask].forEach(item => {
-        item.dataset.projectIdx = projectIdx;
-        item.dataset.todoIdx = todoIdx;
-        item.dataset.taskIdx = i;
-      });
-
-      task.append(checkbox, label, editLabel, removeTask);
-
-      checks.appendChild(task);
-
+      checks.appendChild(createTaskLi(todo, check, projectIdx, todoIdx, i));
     });
+
+    const addTaskLi = document.createElement("div");
+    addTaskLi.classList.add("add-task");
+    const addTask = document.createElement("div");
+    addTask.classList.add("card-icon", "create-task");
+    addTask.addEventListener("click", createTask);
+    addTask.dataset.projectIdx = projectIdx;
+    addTask.dataset.todoIdx = todoIdx;
+    addTask.dataset.todo = todo.title;
+    console.log(addTask.dataset.todo);
+    addTaskLi.appendChild(addTask);
+    
+
+    card.append(addTaskLi);
 
     card.append(drag, title, editTitle, dateCreation, dateDue, editDateDue,
       priorityDiv(todo, projectIdx), editButtonsDiv(todo, projectIdx, todoIdx),
@@ -247,6 +226,63 @@ export const ui = (() => {
 
     todoHandler.deleteTodo(projectIdx, todoIdx);
     placeCards(localStorageTest);
+  }
+
+  function createTaskLi(todo, check, projectIdx, todoIdx, taskIdx){
+    const task = document.createElement("li");
+
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.id = `${todo?.title || todo}-${taskIdx}`; //for label only
+    checkbox.checked = check?.isDone || false;
+    checkbox.addEventListener("click", todoHandler.taskCheck);
+
+    const label = document.createElement("label");
+    label.htmlFor = checkbox.id;
+    label.innerText = check?.task || "";
+    const editLabel = document.createElement("input");
+    editLabel.type = "text";
+    editLabel.classList.add("edit-label");
+    editLabel.type = "text";
+    editLabel.htmlFor = checkbox.id;
+    editLabel.value = check?.task || "";
+    editLabel.addEventListener("input", editField);
+
+    const removeTask = document.createElement("div");
+    removeTask.classList.add("card-icon", "remove-task");
+    removeTask.addEventListener("click", deleteTask);
+
+    //add dataset
+    [checkbox,editLabel, removeTask].forEach(item => {
+      item.dataset.projectIdx = projectIdx;
+      item.dataset.todoIdx = todoIdx;
+      item.dataset.taskIdx = taskIdx;
+    });
+
+    task.append(checkbox, label, editLabel, removeTask);
+
+    return task;
+  }
+
+  function createTask(){
+    console.log(this.dataset.todo);
+    const projectIdx = this.dataset.projectIdx;
+    const todoIdx = this.dataset.todoIdx;
+    const todo = this.dataset.todo;
+    
+    todoHandler.createTask(projectIdx, todoIdx);
+    
+    const newTaskIdx = document.querySelectorAll(`[data-project-idx="${
+      projectIdx}"][data-todo-idx="${todoIdx}"] li`)
+      .length;
+
+    const thisCardUl = document.querySelector(`[data-project-idx="${
+      projectIdx}"][data-todo-idx="${todoIdx}"] ul`);
+      
+    //TODO:
+    thisCardUl.appendChild(createTaskLi(todo, false, projectIdx, todoIdx, newTaskIdx));
+    
+    
   }
 
   function deleteTask(){

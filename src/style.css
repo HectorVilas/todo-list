@@ -9,6 +9,7 @@
   --txt-col-3: #666;
   --card-border-rad: .75rem;
   --card-open-transition: 250ms;
+  --hover-anim-duration: 250ms;
 }
 
 /* default values reset */
@@ -56,13 +57,14 @@ body {background-color: var(--bgc-page);}
   padding: .5rem;
   display: grid;
   grid-template-columns: auto 1fr auto;
-  grid-template-rows: repeat(5, auto);
+  grid-template-rows: repeat(6, auto);
   grid-template-areas:
-    " drag  title   edit     "
-    " ..... descr   descr    "
-    " ..... created priority "
-    " ..... due     priority "
-    " ..... tasks   tasks    ";
+    " drag  title    edit     "
+    " ..... descr    descr    "
+    " ..... created  priority "
+    " ..... due      priority "
+    " ..... tasks    tasks    "
+    " ..... add-task add-task ";
   align-items: center;
   overflow: hidden;
 } .card.active {
@@ -242,6 +244,9 @@ body {background-color: var(--bgc-page);}
   height: var(--icon-size);
   cursor: pointer;
   appearance: none;
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 .card-icon::after {
   position: absolute;
@@ -277,6 +282,26 @@ body {background-color: var(--bgc-page);}
   gap: .5rem;
   align-items: center;
 }
+
+.card .add-task {
+  grid-area: add-task;
+  /* display: grid; */
+  grid-template-columns: var(--icon-size) 1fr;
+  grid-template-areas: ". plus";
+  overflow: hidden;
+}
+.card .create-task {
+  grid-area: plus;
+  background-image: url(./media/images/icons/add-task.svg);
+  width: calc(var(--icon-size) * 1.1) ;
+  height: calc(var(--icon-size) * 1.1) ;
+  margin-left: 7px;
+}
+.card .create-task:hover {
+  animation: icon-spin-90 var(--hover-anim-duration);
+}
+@keyframes icon-spin-90 { to {rotate: 90deg;}}
+
 .edit-buttons {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -300,7 +325,7 @@ body {background-color: var(--bgc-page);}
 
 .card-icon.icon-edit:hover,
 .card-icon.icon-pin:hover {
-  animation: icon-shake 300ms;
+  animation: icon-shake var(--hover-anim-duration);
   transform-origin: 0% 100%;
 }
 @keyframes icon-shake {
@@ -317,13 +342,13 @@ body {background-color: var(--bgc-page);}
 }
 
 .card-icon.icon-fav:hover{
-  animation: icon-spin 300ms;
+  animation: icon-spin-72 var(--hover-anim-duration);
   transform-origin: 50% 55%;
 }
-@keyframes icon-spin { to {rotate: 72deg;} }
+@keyframes icon-spin-72 { to {rotate: 72deg;} }
 
 .card-icon.icon-fav.shake {
-  animation: icon-fav-shake 300ms;
+  animation: icon-fav-shake var(--hover-anim-duration);
 }
 @keyframes icon-fav-shake {
   0%, 100% {
@@ -378,6 +403,9 @@ input[type="text"], input[type="datetime-local"] {
 .card input[type="checkbox"]:checked ~ .edit-label {
   text-decoration: line-through rgba(0,0,0,.25);
 }
+
+.card.edit-mode .add-task {display: grid;}
+.card .add-task {display: none;}
 
 
 
