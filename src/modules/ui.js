@@ -75,7 +75,6 @@ export const ui = (() => {
     addTask.dataset.projectIdx = projectIdx;
     addTask.dataset.todoIdx = todoIdx;
     addTask.dataset.todo = todo.title;
-    console.log(addTask.dataset.todo);
     addTaskLi.appendChild(addTask);
     
 
@@ -265,7 +264,6 @@ export const ui = (() => {
   }
 
   function createTask(){
-    console.log(this.dataset.todo);
     const projectIdx = this.dataset.projectIdx;
     const todoIdx = this.dataset.todoIdx;
     const todo = this.dataset.todo;
@@ -279,7 +277,6 @@ export const ui = (() => {
     const thisCardUl = document.querySelector(`[data-project-idx="${
       projectIdx}"][data-todo-idx="${todoIdx}"] ul`);
       
-    //TODO:
     thisCardUl.appendChild(createTaskLi(todo, false, projectIdx, todoIdx, newTaskIdx));
     
     
