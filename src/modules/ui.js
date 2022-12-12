@@ -140,7 +140,6 @@ export const ui = (() => {
   }
 
   function priorityDiv(todo, todoIdx, projectIdx){
-    console.log(todo.priority);
     const priorityDiv = document.createElement("div");
     priorityDiv.classList.add("edit-priority");
     
@@ -234,6 +233,7 @@ export const ui = (() => {
 
     const label = document.createElement("label");
     label.htmlFor = checkbox.id;
+    label.dataset.todoTitle = todo.title;
     label.innerText = check?.task || "";
     const editLabel = document.createElement("input");
     editLabel.type = "text";
@@ -288,9 +288,22 @@ export const ui = (() => {
     
     const thisTaskList = document.querySelectorAll(`[data-project-idx="${
       projectIdx}"][data-todo-idx="${todoIdx}"] li .remove-task`);
+    const thisTaskCheckboxes = document.querySelectorAll(`[data-project-idx="${
+      projectIdx}"][data-todo-idx="${todoIdx}"] li input[type="checkbox"]`);
+    const thisTaskLabels = document.querySelectorAll(`[data-project-idx="${
+      projectIdx}"][data-todo-idx="${todoIdx}"] li label`);
+    const thisTaskTextInputs = document.querySelectorAll(`[data-project-idx="${
+      projectIdx}"][data-todo-idx="${todoIdx}"] li input[type="text"]`);
     
-    thisTaskList.forEach((item, i) => {
-      item.dataset.taskIdx = i;
+    [thisTaskList, thisTaskCheckboxes, thisTaskTextInputs]
+    .forEach(group => {
+      group.forEach((item, i) => {
+        item.dataset.taskIdx = i;
+      })
+    });
+
+    thisTaskLabels.forEach((label, i) => {
+      label.htmlFor = `${label.dataset.todoTitle}-${i}`;
     });
   }
 
