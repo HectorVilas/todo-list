@@ -9,9 +9,9 @@ import iconTrashLid from "../media/images/icons/trash-lid.svg";
 import { localStorageTest } from "./localStorageTest.js";
 
 export const ui = (() => {
-  const main = document.querySelector("#main");
+  const cardsContainer = document.querySelector("#cards-container");
 
-  function placeCard(todo, projectIdx, todoIdx){
+  function placeSingleCard(todo, projectIdx, todoIdx){
     const card = document.createElement("div");
     card.classList.add("card");
     card.dataset.priority = todo.priority;
@@ -162,7 +162,7 @@ export const ui = (() => {
 
   function placeCards(projects){
 
-    main.replaceChildren()
+    cardsContainer.replaceChildren()
     
 
     projects.forEach((project, projectIdx) => {
@@ -175,10 +175,10 @@ export const ui = (() => {
       projectItem.appendChild(h1);
 
       project.todos.forEach((todo, todoIdx) => {
-        projectItem.appendChild(placeCard(todo, projectIdx, todoIdx));
+        projectItem.appendChild(placeSingleCard(todo, projectIdx, todoIdx));
       });
 
-      main.appendChild(projectItem);
+      cardsContainer.appendChild(projectItem);
     });
   };
 

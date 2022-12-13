@@ -29,7 +29,7 @@ input[type="text"], input[type="datetime-local"] {
 
 body {background-color: var(--bgc-page);}
 
-#main {
+#cards-container {
   box-sizing: border-box;
   margin: 0;
   width: 100vw;
