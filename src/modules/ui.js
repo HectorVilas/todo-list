@@ -15,6 +15,7 @@ export const ui = (() => {
   function loadMenu(){
     const menuBtn = document.createElement("div");
     menuBtn.id = "menu-button";
+    menuBtn.addEventListener("click", toggleMenu);
 
     const menu = document.createElement("div");
     menu.id = "menu";
@@ -402,6 +403,11 @@ export const ui = (() => {
       const thisTask = document.querySelector(`[data-project-idx="${projectIdx}"][data-todo-idx="${todoIdx}"][data-task-idx="${taskIdx}"] ~ label`);
       thisTask.innerText = this.value;
     }
+  }
+
+  function toggleMenu(){
+    const menu = document.querySelector("#menu");
+    menu.classList.toggle("reveal");
   }
     
   return { placeCards, loadMenu };
