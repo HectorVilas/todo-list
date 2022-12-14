@@ -52,7 +52,21 @@ export const todoHandler = (() => {
     localStorageTest[projectIdx].todos[todoIdx].checks.push({ task: "", isDone: false })
   }
 
+  function getProjectsTitles(){
+    let projectList = []
+    localStorageTest.forEach(project => {
+      projectList.push(project.title);
+    })
+
+    return projectList;
+  }
+
+  function deleteProject(projectIdx){
+    localStorageTest.splice(projectIdx, 1);
+    //TODO: refresh cards container, redraw tasks list
+  }
+
   return { toggleFav, togglePin, getFavStatus, deleteTodo, taskCheck,
     deleteTask, editTitle, editDescription, editDateDue, editLabel,
-    createTask }
+    createTask, getProjectsTitles, deleteProject }
 })();
