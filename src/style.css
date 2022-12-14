@@ -3,6 +3,7 @@
   --card-shadow: .25rem .25rem .25rem rgba(0,0,0,.1),
     inset .25rem .25rem .25rem rgba(255,255,255,.5);
   --icon-size: 30px;
+  --icon-menu-size: 40px;
   --icon-check-size: 20px;
   --txt-col-1: #000;
   --txt-col-2: #444;
@@ -23,6 +24,47 @@ input[type="text"], input[type="datetime-local"] {
 }
 * {font-family: 'Times New Roman', Times, serif;}
 
+
+
+/* menu */
+
+#menu-button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1;
+  background-image: url(./media/images/icons/menu.svg);
+  background-size: 100%;
+  width: var(--icon-menu-size);
+  height: var(--icon-menu-size);
+  box-shadow: var(--card-shadow);
+  background-color: #aaa;
+  transition: background-color 150ms;
+}
+#menu-button:hover {
+  cursor: pointer;
+  background-color: white;
+}
+
+#menu {
+  position: absolute;
+  top: var(--icon-menu-size);
+  right: 0;
+  max-height: calc(100vh - var(--icon-menu-size));
+  overflow-x: hidden;
+  overflow-y: auto;
+  width: 250px;
+  box-shadow: var(--card-shadow);
+  backdrop-filter: blur(5px);
+  background-color: rgba(255, 255, 255, 0.5);
+  font-size: 1.75rem;
+}
+
+#menu ul li {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  margin: .5rem 0;
+}
 
 
 /* page content */
