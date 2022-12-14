@@ -10,6 +10,67 @@ import { localStorageTest } from "./localStorageTest.js";
 
 export const ui = (() => {
   const cardsContainer = document.querySelector("#cards-container");
+  const body = document.querySelector("body");
+
+  function loadMenu(){
+    const menuBtn = document.createElement("div");
+    menuBtn.id = "menu-button";
+
+    const menu = document.createElement("div");
+    menu.id = "menu";
+
+    //filter list
+    const fieldsetFilter = document.createElement("fieldset");
+    fieldsetFilter.classList.add("menu-fieldset", "fieldset-filter");
+    const legendDue = document.createElement("legend");
+    legendDue.innerText = "Filter";
+
+    const listDue = document.createElement("ul");
+    listDue.classList.add("fieldset-list", "due-list");
+
+    const filters = ["Today", "This week", "This month", "This year"];
+    for(let i = 0; i < filters.length; i++){
+      const li = document.createElement("li");
+      li.classList.add("menu-filter", `filter-${filters[i].split(" ").join("-")}`);
+
+      const para = document.createElement("p");
+      para.innerText = filters[i];
+
+      li.appendChild(para);
+      listDue.appendChild(li);
+    }
+    
+    fieldsetFilter.append(legendDue, listDue);
+
+    //tasks list
+    const fieldsetTasks = document.createElement("fieldset");
+    fieldsetTasks.classList.add("menu-fieldset", "fieldset-tasks");
+    const legendTasks = document.createElement("legend");
+    legendTasks.innerText = "Tasks";
+
+    const listTasks = document.createElement("ul");
+    listTasks.classList.add("fieldset-list", "due-list");
+
+    const projectsList = todoHandler.getProjectsTitles();
+    for (let i = 0; i < projectsList.length; i++) {
+      const li = document.createElement("li");
+      li.classList.add("menu-tasks", `project-${projectsList[i].split(" ").join("-")}`)
+      const para = document.createElement("p");
+      para.innerText = projectsList[i];
+
+      const deleteBtn = trashIcon(() => todoHandler.deleteProject(i));
+
+
+      li.append(para, deleteBtn);
+      listTasks.appendChild(li);
+    }
+
+    fieldsetTasks.append(legendTasks, listTasks);
+
+
+    menu.append(fieldsetFilter, fieldsetTasks);
+    body.append(menuBtn, menu);
+  }
 
   function placeSingleCard(todo, projectIdx, todoIdx){
     const card = document.createElement("div");
@@ -114,10 +175,23 @@ export const ui = (() => {
       };
     })
 
+    const deleteIcon = trashIcon(cardDelete);
+
+    //add dataset to each item
+    [pin,edit,fav,deleteIcon].forEach(icon => {
+      icon.dataset.projectIdx = projectIdx;
+      icon.dataset.todoIdx = todoIdx;
+    });
+
+    editBtns.append(pin, edit, fav, deleteIcon);
+
+    return editBtns;
+  }
+
+  function trashIcon(clickFunction){
     const deleteIcon = document.createElement("div");
     deleteIcon.classList.add("delete-icon");
-    deleteIcon.addEventListener("click", cardDelete);
-
+    deleteIcon.addEventListener("click", clickFunction);
     const trash = document.createElement("img");
     trash.classList.add("card-icon", "icon-trash");
     trash.src = iconTrash;
@@ -127,16 +201,9 @@ export const ui = (() => {
     trashLid.src = iconTrashLid;
     trashLid.draggable = false;
 
-    //add dataset to each item
-    [pin,edit,fav,deleteIcon].forEach(icon => {
-      icon.dataset.projectIdx = projectIdx;
-      icon.dataset.todoIdx = todoIdx;
-    });
-
     deleteIcon.append(trash, trashLid);
-    editBtns.append(pin, edit, fav, deleteIcon);
 
-    return editBtns;
+    return deleteIcon;
   }
 
   function priorityDiv(todo, todoIdx, projectIdx){
@@ -335,5 +402,5 @@ export const ui = (() => {
     }
   }
     
-  return { placeCards };
+  return { placeCards, loadMenu };
 })();
