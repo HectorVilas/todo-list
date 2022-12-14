@@ -48,6 +48,8 @@ input[type="text"], input[type="datetime-local"] {
 
 #menu {
   position: absolute;
+  box-sizing: border-box;
+  padding: .5rem;
   top: var(--icon-menu-size);
   right: 0;
   max-height: calc(100vh - var(--icon-menu-size));
@@ -58,12 +60,23 @@ input[type="text"], input[type="datetime-local"] {
   backdrop-filter: blur(5px);
   background-color: rgba(255, 255, 255, 0.5);
   font-size: 1.75rem;
+  transform: rotateX(90deg);
+  transform-origin: 0 0;
 }
+#menu.reveal { transform: rotateX(0deg); }
 
 #menu .menu-item {
   display: grid;
   grid-template-columns: 1fr auto;
   margin: .5rem 0;
+}
+
+.fieldset-list li {
+  cursor: pointer;
+  transition: padding 200ms, background-color 200ms;
+}.fieldset-list li:hover {
+  background-color: white;
+  padding: .5rem 0;
 }
 
 
