@@ -28,10 +28,10 @@ export const ui = (() => {
     const listDue = document.createElement("ul");
     listDue.classList.add("fieldset-list", "due-list");
 
-    const filters = ["Today", "This week", "This month", "This year"];
+    const filters = ["Today", "This week", "This month", "This year", "Pinned", "Favorites"];
     for(let i = 0; i < filters.length; i++){
       const li = document.createElement("li");
-      li.classList.add("menu-filter", `filter-${filters[i].split(" ").join("-")}`);
+      li.classList.add("menu-filter", "menu-item", `filter-${filters[i].split(" ").join("-")}`);
 
       const para = document.createElement("p");
       para.innerText = filters[i];
@@ -45,8 +45,8 @@ export const ui = (() => {
     //tasks list
     const fieldsetTasks = document.createElement("fieldset");
     fieldsetTasks.classList.add("menu-fieldset", "fieldset-tasks");
-    const legendTasks = document.createElement("legend");
-    legendTasks.innerText = "Tasks";
+    const legendProjects = document.createElement("legend");
+    legendProjects.innerText = "Projects";
 
     const listTasks = document.createElement("ul");
     listTasks.classList.add("fieldset-list", "due-list");
@@ -54,7 +54,7 @@ export const ui = (() => {
     const projectsList = todoHandler.getProjectsTitles();
     for (let i = 0; i < projectsList.length; i++) {
       const li = document.createElement("li");
-      li.classList.add("menu-tasks", `project-${projectsList[i].split(" ").join("-")}`)
+      li.classList.add("menu-tasks", "menu-item", `project-${projectsList[i].split(" ").join("-")}`)
       const para = document.createElement("p");
       para.innerText = projectsList[i];
 
@@ -65,7 +65,9 @@ export const ui = (() => {
       listTasks.appendChild(li);
     }
 
-    fieldsetTasks.append(legendTasks, listTasks);
+    const newProjectIcon = document.createElement("div");
+    newProjectIcon.classList.add("card-icon", "create-task");
+    fieldsetTasks.append(legendProjects, listTasks, newProjectIcon);
 
 
     menu.append(fieldsetFilter, fieldsetTasks);
