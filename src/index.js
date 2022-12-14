@@ -13,4 +13,5 @@ window.addEventListener("keydown", (e) => {
 
 
 //run on load
+ui.loadMenu();
 ui.placeCards(localStorageTest);
