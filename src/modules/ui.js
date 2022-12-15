@@ -57,6 +57,7 @@ export const ui = (() => {
       const li = document.createElement("li");
       li.classList.add("menu-tasks", "menu-item", `project-${projectsList[i].split(" ").join("-")}`);
       li.dataset.projectIdx = i;
+      li.addEventListener("click", changePRoject);
       const para = document.createElement("p");
       para.innerText = projectsList[i];
 
@@ -232,12 +233,13 @@ export const ui = (() => {
     return priorityDiv;
   }
 
-  function placeCards(projects){
+  function placeCards(projectIdx){
 
     cardsContainer.replaceChildren()
     
+    const project = todoHandler.getProject(projectIdx);
+    console.log(project);
 
-    projects.forEach((project, projectIdx) => {
       const projectItem = document.createElement("div");
       projectItem.dataset.idx = projectIdx;
       projectItem.classList.add("project-item");
@@ -251,7 +253,6 @@ export const ui = (() => {
       });
 
       cardsContainer.appendChild(projectItem);
-    });
   };
 
   function toggleCard() {
@@ -291,7 +292,7 @@ export const ui = (() => {
     };
 
     todoHandler.deleteTodo(projectIdx, todoIdx);
-    placeCards(localStorageTest);
+    placeCards(projectIdx);
   }
 
   function createTaskLi(todo, check, projectIdx, todoIdx, taskIdx){
@@ -410,6 +411,10 @@ export const ui = (() => {
   function toggleMenu(){
     const menu = document.querySelector("#menu");
     menu.classList.toggle("reveal");
+  }
+
+  function changePRoject(){
+    placeCards(this.dataset.projectIdx);
   }
 
   function deleteProject(){
