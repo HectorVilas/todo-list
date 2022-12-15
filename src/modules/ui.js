@@ -56,10 +56,10 @@ export const ui = (() => {
     for (let i = 0; i < projectsList.length; i++) {
       const li = document.createElement("li");
       li.classList.add("menu-tasks", "menu-item", `project-${projectsList[i].split(" ").join("-")}`);
-      li.dataset.projectIdx = i;
-      li.addEventListener("click", changePRoject);
       const para = document.createElement("p");
       para.innerText = projectsList[i];
+      para.dataset.projectIdx = i;
+      para.addEventListener("click", changePRoject);
 
       const deleteBtn = trashIcon(deleteProject);
 
@@ -238,7 +238,6 @@ export const ui = (() => {
     cardsContainer.replaceChildren()
     
     const project = todoHandler.getProject(projectIdx);
-    console.log(project);
 
       const projectItem = document.createElement("div");
       projectItem.dataset.idx = projectIdx;
