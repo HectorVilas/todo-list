@@ -68,10 +68,13 @@ export const todoHandler = (() => {
 
   function changePriority(projectIdx, todoIdx, priority){
     localStorageTest[projectIdx].todos[todoIdx].changePriority(priority);
+  }
 
+  function getProject(i){
+    return localStorageTest[i];
   }
 
   return { toggleFav, togglePin, getFavStatus, deleteTodo, taskCheck,
     deleteTask, editTitle, editDescription, editDateDue, editLabel,
-    createTask, getProjectsTitles, deleteProject, changePriority }
+    createTask, getProjectsTitles, deleteProject, changePriority, getProject }
 })();
