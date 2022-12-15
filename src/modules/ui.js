@@ -221,6 +221,7 @@ export const ui = (() => {
     range.max = 2;
     range.step = 1;
     range.value = todo.priority === "low"? 0 : todo.priority === "middle" ? 1 : 2;
+    range.addEventListener("change", changePriority)
 
     const para = document.createElement("p");
     para.innerText = "Priority";
@@ -408,6 +409,15 @@ export const ui = (() => {
   function toggleMenu(){
     const menu = document.querySelector("#menu");
     menu.classList.toggle("reveal");
+  }
+
+  function changePriority(){
+    const projectIdx = this.dataset.projectIdx;
+    const todoIdx = this.dataset.todoIdx;
+    todoHandler.changePriority(projectIdx, todoIdx, this.value);
+    
+    const thisCard = document.querySelector(`[data-project-idx="${projectIdx}"][data-todo-idx="${todoIdx}"]`);
+    thisCard.dataset.priority = this.value == "0" ? "low" : this.value == "1" ? "middle" : "high";
   }
     
   return { placeCards, loadMenu };
