@@ -66,7 +66,12 @@ export const todoHandler = (() => {
     //TODO: refresh cards container, redraw tasks list
   }
 
+  function changePriority(projectIdx, todoIdx, priority){
+    localStorageTest[projectIdx].todos[todoIdx].changePriority(priority);
+
+  }
+
   return { toggleFav, togglePin, getFavStatus, deleteTodo, taskCheck,
     deleteTask, editTitle, editDescription, editDateDue, editLabel,
-    createTask, getProjectsTitles, deleteProject }
+    createTask, getProjectsTitles, deleteProject, changePriority }
 })();

@@ -22,4 +22,8 @@ export class Todo {
   togglePin(){
     this.isPinned = !this.isPinned;
   }
+
+  changePriority(value){
+    this.priority = value === "0" ? "low" : value === "1" ? "middle" : "high";
+  }
 };
