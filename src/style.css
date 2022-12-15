@@ -68,12 +68,15 @@ input[type="text"], input[type="datetime-local"] {
 #menu .menu-item {
   display: grid;
   grid-template-columns: 1fr auto;
+}
+
+#menu .menu-item p {
   margin: .5rem 0;
 }
 
 .fieldset-list li {
   cursor: pointer;
-  transition: padding 200ms, background-color 200ms;
+  transition: padding 200ms, background-color 350ms;
 }.fieldset-list li:hover {
   background-color: white;
   padding: .5rem 0;
