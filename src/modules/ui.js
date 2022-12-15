@@ -55,11 +55,12 @@ export const ui = (() => {
     const projectsList = todoHandler.getProjectsTitles();
     for (let i = 0; i < projectsList.length; i++) {
       const li = document.createElement("li");
-      li.classList.add("menu-tasks", "menu-item", `project-${projectsList[i].split(" ").join("-")}`)
+      li.classList.add("menu-tasks", "menu-item", `project-${projectsList[i].split(" ").join("-")}`);
+      li.dataset.projectIdx = i;
       const para = document.createElement("p");
       para.innerText = projectsList[i];
 
-      const deleteBtn = trashIcon(() => todoHandler.deleteProject(i));
+      const deleteBtn = trashIcon(deleteProject);
 
 
       li.append(para, deleteBtn);
@@ -409,6 +410,13 @@ export const ui = (() => {
   function toggleMenu(){
     const menu = document.querySelector("#menu");
     menu.classList.toggle("reveal");
+  }
+
+  function deleteProject(){
+    const projectIdx = this.dataset.projectIdx;
+    todoHandler.deleteProject(projectIdx);
+
+    //TODO: remove project from dropdown menu
   }
 
   function changePriority(){
