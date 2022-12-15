@@ -224,7 +224,7 @@ export const ui = (() => {
     range.addEventListener("change", changePriority)
 
     const para = document.createElement("p");
-    para.innerText = "Priority";
+    para.innerText = `Priority: ${todo.priority}`;
 
     priorityDiv.append(para, range);
 
@@ -415,9 +415,13 @@ export const ui = (() => {
     const projectIdx = this.dataset.projectIdx;
     const todoIdx = this.dataset.todoIdx;
     todoHandler.changePriority(projectIdx, todoIdx, this.value);
-    
+    const priority = this.value == "0" ? "low" : this.value == "1" ? "middle" : "high";
+
     const thisCard = document.querySelector(`[data-project-idx="${projectIdx}"][data-todo-idx="${todoIdx}"]`);
-    thisCard.dataset.priority = this.value == "0" ? "low" : this.value == "1" ? "middle" : "high";
+    thisCard.dataset.priority = priority
+
+    const priorityPara = thisCard.querySelector(".edit-priority p");
+    priorityPara.innerText = `Priority: ${priority}`;
   }
     
   return { placeCards, loadMenu };
