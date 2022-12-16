@@ -1,12 +1,8 @@
 import {todoHandler} from "./todoHandler.js"
 
 import iconDrag from "../media/images/icons/drag.svg";
-// import iconEdit from "../media/images/icons/edit.svg";
 import iconTrash from "../media/images/icons/trash.svg";
 import iconTrashLid from "../media/images/icons/trash-lid.svg";
-
-//for testing
-import { localStorageTest } from "./localStorageTest.js";
 
 export const ui = (() => {
   const cardsContainer = document.querySelector("#cards-container");
