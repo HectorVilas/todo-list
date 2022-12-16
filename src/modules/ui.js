@@ -265,11 +265,11 @@ export const ui = (() => {
   }
 
   function cardDrag(){
-    this.parentNode.classList.remove("active");
+    const allCards = document.querySelectorAll(".card");
+    allCards.forEach(card => card.classList.remove("active", "edit-mode"));
 
-    const card = this.parentNode;
-    card.querySelector(".icon-edit").checked = false;
-    card.classList.remove("edit-mode");
+    const iconEdit = document.querySelectorAll(".icon-edit");
+    iconEdit.forEach(icon => icon.checked = false);
   }
 
   function cardEdit(){
