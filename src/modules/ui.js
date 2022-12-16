@@ -49,13 +49,34 @@ export const ui = (() => {
     const legendProjects = document.createElement("legend");
     legendProjects.innerText = "Projects";
 
-    const listTasks = document.createElement("ul");
-    listTasks.classList.add("fieldset-list", "due-list");
+    const newProjectIcon = document.createElement("div");
+    newProjectIcon.classList.add("card-icon", "create-task");
+    fieldsetTasks.append(legendProjects, projectsList(), newProjectIcon);
+
+
+    menu.append(fieldsetFilter, fieldsetTasks);
+    body.append(menuBtn, menu);
+  }
+
+  function projectsList(redraw = false){
+
+    let fieldsetUl, fieldsetLi;
+    if(redraw){
+      fieldsetUl = document.querySelector(".menu-fieldset.fieldset-tasks ul");
+      fieldsetLi = document.querySelectorAll(".menu-fieldset.fieldset-tasks ul li");
+      fieldsetLi.forEach(li => {
+        li.parentElement.removeChild(li);
+      });
+    };
+
+    const listTasksUl = document.createElement("ul");
+    listTasksUl.classList.add("fieldset-list", "due-list");
 
     const projectsList = todoHandler.getProjectsTitles();
     for (let i = 0; i < projectsList.length; i++) {
       const li = document.createElement("li");
       li.classList.add("menu-tasks", "menu-item", `project-${projectsList[i].split(" ").join("-")}`);
+      li.dataset.projectIdx = i;
       const para = document.createElement("p");
       para.innerText = projectsList[i];
       para.dataset.projectIdx = i;
@@ -65,16 +86,14 @@ export const ui = (() => {
 
 
       li.append(para, deleteBtn);
-      listTasks.appendChild(li);
-    }
+      if(redraw){
+        fieldsetUl.append(li);
+      } else {
+        listTasksUl.appendChild(li);
+      }
+    };
 
-    const newProjectIcon = document.createElement("div");
-    newProjectIcon.classList.add("card-icon", "create-task");
-    fieldsetTasks.append(legendProjects, listTasks, newProjectIcon);
-
-
-    menu.append(fieldsetFilter, fieldsetTasks);
-    body.append(menuBtn, menu);
+    if(!redraw) return listTasksUl;
   }
 
   function placeSingleCard(todo, projectIdx, todoIdx){
@@ -417,10 +436,11 @@ export const ui = (() => {
   }
 
   function deleteProject(){
-    const projectIdx = this.dataset.projectIdx;
+    const projectIdx = this.parentNode.dataset.projectIdx;
     todoHandler.deleteProject(projectIdx);
 
-    //TODO: remove project from dropdown menu
+    projectsList(true);
+    placeCards(0);
   }
 
   function changePriority(){
