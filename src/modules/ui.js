@@ -16,6 +16,10 @@ export const ui = (() => {
     const menu = document.createElement("div");
     menu.id = "menu";
 
+    const screenCoverMenu = document.createElement("div");
+    screenCoverMenu.id = "screen-cover-menu";
+    screenCoverMenu.addEventListener("click", toggleMenu);
+
     //filter list
     const fieldsetFilter = document.createElement("fieldset");
     fieldsetFilter.classList.add("menu-fieldset", "fieldset-filter");
@@ -51,7 +55,7 @@ export const ui = (() => {
 
 
     menu.append(fieldsetFilter, fieldsetTasks);
-    body.append(menuBtn, menu);
+    body.append(menuBtn, menu, screenCoverMenu);
   }
 
   function projectsList(redraw = false){
@@ -424,7 +428,8 @@ export const ui = (() => {
 
   function toggleMenu(){
     const menu = document.querySelector("#menu");
-    menu.classList.toggle("reveal");
+    const menuBg = document.querySelector("#screen-cover-menu");
+    [menu,menuBg].forEach(item => item.classList.toggle("reveal"));
   }
 
   function changePRoject(){

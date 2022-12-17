@@ -47,6 +47,7 @@ input[type="text"], input[type="datetime-local"] {
 }
 
 #menu {
+  z-index: 1;
   position: absolute;
   box-sizing: border-box;
   padding: .5rem;
@@ -80,6 +81,17 @@ input[type="text"], input[type="datetime-local"] {
   background-color: white;
   padding: .5rem 0;
 }
+
+#screen-cover-menu {display: none;}
+#screen-cover-menu.reveal {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
 
 
 /* page content */
