@@ -192,12 +192,22 @@ body {background-color: var(--bgc-page);}
   display: flex;
   align-items: center;
   padding: .5rem .25rem;
-  font-size: 1.75rem;
-  font-weight: 600;
   gap: .5rem;
   cursor: pointer;
 }
 
+.todo-add-div p {
+  font-size: 2rem;
+  font-weight: 600;
+  overflow: hidden;
+  width: 0rem;
+  white-space: nowrap;
+  transition: width var(--hover-anim-duration) ease-in-out;
+}
+
+.todo-add-div:hover p {
+  width: 15rem;
+}
 
 
 /* card priority indicator */
