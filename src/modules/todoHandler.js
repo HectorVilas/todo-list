@@ -1,4 +1,5 @@
 import { localStorageTest } from "./localStorageTest.js";
+import { Todo } from "./classes.js"
 
 export const todoHandler = (() => {
   function toggleFav(){
@@ -74,7 +75,17 @@ export const todoHandler = (() => {
     return localStorageTest[i];
   }
 
+  function createTodo(projectIdx){
+    const d = new Date();
+    const date = `${d.getFullYear()}-${d.getMonth()}-${d.getDay()} ${d.getHours()}:${d.getMinutes()}`;
+    
+    localStorageTest[projectIdx].todos.push(
+      new Todo("new task", "", date, "", [], "low", false, false)
+    );
+  }
+
   return { toggleFav, togglePin, getFavStatus, deleteTodo, taskCheck,
     deleteTask, editTitle, editDescription, editDateDue, editLabel,
-    createTask, getProjectsTitles, deleteProject, changePriority, getProject }
+    createTask, getProjectsTitles, deleteProject, changePriority,
+    getProject, createTodo }
 })();
