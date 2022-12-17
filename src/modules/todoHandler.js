@@ -63,8 +63,8 @@ export const todoHandler = (() => {
   }
 
   function deleteProject(projectIdx){
+    console.log("DLP");
     localStorageTest.splice(projectIdx, 1);
-    //TODO: refresh cards container, redraw tasks list
   }
 
   function changePriority(projectIdx, todoIdx, priority){
@@ -76,11 +76,18 @@ export const todoHandler = (() => {
   }
 
   function createTodo(projectIdx){
+    let repeated = 0;
+    localStorageTest[projectIdx].todos.forEach(item => {
+      if(item.title.includes("new to-do")) repeated++;
+    });
+    console.log(repeated);
+    const todoName = repeated === 0 ? "new to-do" : `new to-do(${repeated})`;
+
     const d = new Date();
     const date = `${d.getFullYear()}-${d.getMonth()}-${d.getDay()} ${d.getHours()}:${d.getMinutes()}`;
     
     localStorageTest[projectIdx].todos.push(
-      new Todo("new task", "", date, "", [], "low", false, false)
+      new Todo(todoName, "", date, "", [], "low", false, false)
     );
   }
 
