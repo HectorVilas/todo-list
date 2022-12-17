@@ -331,7 +331,8 @@ export const ui = (() => {
 
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
-    checkbox.id = `${todo?.title || todo}-${taskIdx}`; //for label only
+    // checkbox.id = `${todo?.title || todo}-${taskIdx}`; //for label only
+    checkbox.id = `${projectIdx}-${todoIdx}-${taskIdx}`; //for label only
     checkbox.checked = check?.isDone || false;
     checkbox.addEventListener("click", todoHandler.taskCheck);
 
