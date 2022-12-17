@@ -270,6 +270,18 @@ export const ui = (() => {
         projectItem.appendChild(placeSingleCard(todo, projectIdx, todoIdx));
       });
 
+      const addTodoDiv = document.createElement("div");
+      addTodoDiv.classList.add("todo-add-div");
+      addTodoDiv.addEventListener("click", createTodo);
+      
+      const addTodoBtn = document.createElement("div");
+      addTodoBtn.classList.add("card-icon", "create-task", "create-todo");
+
+      const addTodoPara = document.createElement("p");
+      addTodoPara.innerText = "Create new to-do";
+
+      addTodoDiv.append(addTodoBtn, addTodoPara);
+      projectItem.appendChild(addTodoDiv);
       cardsContainer.appendChild(projectItem);
   };
 
@@ -455,6 +467,10 @@ export const ui = (() => {
 
     const priorityPara = thisCard.querySelector(".edit-priority p");
     priorityPara.innerText = `Priority: ${priority}`;
+  }
+
+  function createTodo(){
+    console.log(this);
   }
     
   return { placeCards, loadMenu };

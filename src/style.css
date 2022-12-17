@@ -184,6 +184,20 @@ body {background-color: var(--bgc-page);}
   justify-self: center;
 }
 
+.card-icon.create-task.create-todo {
+  margin-left: 0;
+}
+.todo-add-div {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  padding: .5rem .25rem;
+  font-size: 1.75rem;
+  font-weight: 600;
+  gap: .5rem;
+  cursor: pointer;
+}
+
 
 
 /* card priority indicator */
