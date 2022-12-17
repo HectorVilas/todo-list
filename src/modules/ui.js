@@ -272,6 +272,7 @@ export const ui = (() => {
 
       const addTodoDiv = document.createElement("div");
       addTodoDiv.classList.add("todo-add-div");
+      addTodoDiv.dataset.projectIdx = projectIdx;
       addTodoDiv.addEventListener("click", createTodo);
       
       const addTodoBtn = document.createElement("div");
@@ -470,7 +471,8 @@ export const ui = (() => {
   }
 
   function createTodo(){
-    console.log(this);
+    todoHandler.createTodo(this.dataset.projectIdx);
+    placeCards(this.dataset.projectIdx);
   }
     
   return { placeCards, loadMenu };
