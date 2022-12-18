@@ -271,7 +271,7 @@ export const ui = (() => {
       });
 
       const addTodoDiv = document.createElement("div");
-      addTodoDiv.classList.add("todo-add-div");
+      addTodoDiv.classList.add("card", "todo-add-div");
       addTodoDiv.dataset.projectIdx = projectIdx;
       addTodoDiv.addEventListener("click", createTodo);
       
