@@ -474,6 +474,12 @@ export const ui = (() => {
   function createTodo(){
     todoHandler.createTodo(this.dataset.projectIdx);
     placeCards(this.dataset.projectIdx);
+
+    const editBtns = document.querySelectorAll(".icon-edit");
+    editBtns[editBtns.length -1].checked = true;
+
+    const cards = document.querySelectorAll(".card");
+    cards[cards.length -2].classList.add("active","edit-mode");
   }
     
   return { placeCards, loadMenu };
