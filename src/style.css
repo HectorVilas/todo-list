@@ -186,6 +186,9 @@ body {background-color: var(--bgc-page);}
 .card-icon.create-task.create-todo {
   margin-left: 0;
 }
+.card.todo-add-div:hover .card-icon.create-task.create-todo {
+  animation: icon-shake var(--hover-anim-duration);
+}
 .todo-add-div {
   box-sizing: border-box;
   display: flex;
@@ -403,7 +406,7 @@ body {background-color: var(--bgc-page);}
   margin-left: 7px;
 }
 .card .create-task:hover {
-  animation: icon-spin-90 var(--hover-anim-duration);
+  animation: icon-shake var(--hover-anim-duration);
 }
 @keyframes icon-spin-90 { to {rotate: 90deg;}}
 
