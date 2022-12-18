@@ -72,10 +72,10 @@ input[type="text"], input[type="datetime-local"] {
 
 #menu .menu-item p {
   margin: .5rem 0;
+  cursor: pointer;
 }
 
 .fieldset-list li {
-  cursor: pointer;
   transition: padding 200ms, background-color 350ms;
 }.fieldset-list li:hover {
   background-color: white;
@@ -112,7 +112,6 @@ body {background-color: var(--bgc-page);}
   box-sizing: border-box;
   padding: 1rem;
   margin: 1rem;
-  box-shadow: var(--card-shadow);
 }
 
 
