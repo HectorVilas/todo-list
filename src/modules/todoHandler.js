@@ -63,7 +63,6 @@ export const todoHandler = (() => {
   }
 
   function deleteProject(projectIdx){
-    console.log("DLP");
     localStorageTest.splice(projectIdx, 1);
   }
 
@@ -80,7 +79,6 @@ export const todoHandler = (() => {
     localStorageTest[projectIdx].todos.forEach(item => {
       if(item.title.includes("new to-do")) repeated++;
     });
-    console.log(repeated);
     const todoName = repeated === 0 ? "new to-do" : `new to-do(${repeated})`;
 
     const d = new Date();
