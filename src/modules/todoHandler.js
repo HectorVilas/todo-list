@@ -89,8 +89,12 @@ export const todoHandler = (() => {
     );
   }
 
+  function createProject(){
+    localStorageTest.push({title: "new project", todos:[], });
+  }
+
   return { toggleFav, togglePin, getFavStatus, deleteTodo, taskCheck,
     deleteTask, editTitle, editDescription, editDateDue, editLabel,
     createTask, getProjectsTitles, deleteProject, changePriority,
-    getProject, createTodo }
+    getProject, createTodo, createProject }
 })();

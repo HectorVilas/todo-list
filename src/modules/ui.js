@@ -51,6 +51,7 @@ export const ui = (() => {
 
     const newProjectDiv = document.createElement("div");
     newProjectDiv.classList.add("create-task-div");
+    newProjectDiv.addEventListener("click", createProject);
     const newProjectPara = document.createElement("p");
     newProjectPara.innerText = "Create project";
     const newProjectIcon = document.createElement("div");
@@ -486,6 +487,11 @@ export const ui = (() => {
 
     const cards = document.querySelectorAll(".card");
     cards[cards.length -2].classList.add("active","edit-mode");
+  }
+
+  function createProject(){
+    todoHandler.createProject();
+    projectsList(true);
   }
     
   return { placeCards, loadMenu };
