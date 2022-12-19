@@ -90,7 +90,13 @@ export const todoHandler = (() => {
   }
 
   function createProject(){
-    localStorageTest.push({title: "new project", todos:[], });
+    let repeated = 0;
+    localStorageTest.forEach(project => {
+      if(project.title.includes("new project")) repeated++;
+    });
+    const title = repeated === 0 ? "new project" : `new project(${repeated})`;
+
+    localStorageTest.push({title, todos:[], });
   }
 
   return { toggleFav, togglePin, getFavStatus, deleteTodo, taskCheck,
