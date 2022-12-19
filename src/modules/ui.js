@@ -49,9 +49,15 @@ export const ui = (() => {
     const legendProjects = document.createElement("legend");
     legendProjects.innerText = "Projects";
 
+    const newProjectDiv = document.createElement("div");
+    newProjectDiv.classList.add("create-task-div");
+    const newProjectPara = document.createElement("p");
+    newProjectPara.innerText = "Create project";
     const newProjectIcon = document.createElement("div");
     newProjectIcon.classList.add("card-icon", "create-task");
-    fieldsetTasks.append(legendProjects, projectsList(), newProjectIcon);
+
+    newProjectDiv.append(newProjectPara, newProjectIcon);
+    fieldsetTasks.append(legendProjects, projectsList(), newProjectDiv);
 
 
     menu.append(fieldsetFilter, fieldsetTasks);
