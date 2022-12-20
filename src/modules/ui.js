@@ -454,6 +454,7 @@ export const ui = (() => {
   }
 
   function changePRoject(){
+    toggleMenu();
     placeCards(this.dataset.projectIdx);
   }
 
@@ -492,6 +493,7 @@ export const ui = (() => {
   function createProject(){
     todoHandler.createProject();
     projectsList(true);
+    placeCards(todoHandler.getProjectsTitles().length-1);
   }
     
   return { placeCards, loadMenu };
