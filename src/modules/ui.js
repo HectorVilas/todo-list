@@ -66,7 +66,6 @@ export const ui = (() => {
   }
 
   function projectsList(redraw = false){
-
     let fieldsetUl, fieldsetLi;
     if(redraw){
       fieldsetUl = document.querySelector(".menu-fieldset.fieldset-tasks ul");
@@ -86,13 +85,25 @@ export const ui = (() => {
       li.dataset.projectIdx = i;
       const para = document.createElement("p");
       para.innerText = projectsList[i];
+      para.classList.add("project-title");
       para.dataset.projectIdx = i;
       para.addEventListener("click", changePRoject);
+
+      const input = document.createElement("input");
+      input.type = "text";
+      input.classList.add("edit-project");
+      input.dataset.projectIdx = i;
+      input.value = projectsList[i];
+      const editBtn = document.createElement("input");
+      editBtn.type = "checkbox";
+      editBtn.classList.add("card-icon", "icon-edit");
+      editBtn.dataset.projectIdx = i;
+      editBtn.addEventListener("click", projectEdit);
 
       const deleteBtn = trashIcon(deleteProject);
 
 
-      li.append(para, deleteBtn);
+      li.append(para, input, editBtn, deleteBtn);
       if(redraw){
         fieldsetUl.append(li);
       } else {
@@ -495,6 +506,11 @@ export const ui = (() => {
     projectsList(true);
     placeCards(todoHandler.getProjectsTitles().length-1);
   }
-    
+
+  function projectEdit(){
+    const projectClass = this.parentNode.classList;
+    console.log(projectClass);
+    this.checked ? projectClass.add("edit-mode") : projectClass.remove("edit-mode");
+  }
   return { placeCards, loadMenu };
 })();
