@@ -282,6 +282,7 @@ export const ui = (() => {
       projectItem.classList.add("project-item");
 
       const h1 = document.createElement("h1");
+      h1.dataset.projectIdx = projectIdx;
       h1.innerText = project.title;
       projectItem.appendChild(h1);
 
@@ -518,6 +519,9 @@ export const ui = (() => {
     const title = document.querySelector(`.menu-tasks.menu-item p[data-project-idx="${projectIdx}"]`);
     title.innerText = this.value;
     todoHandler.editProjectTitle(projectIdx, this.value);
+    //edit title of active project if the editing title is for it
+    const titleCards = document.querySelector("h1");
+    if(projectIdx === titleCards.dataset.projectIdx) titleCards.innerText = this.value;
   }
 
   return { placeCards, loadMenu };
