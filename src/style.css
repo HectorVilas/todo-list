@@ -74,6 +74,8 @@ input[type="text"], input[type="datetime-local"] {
 
 #menu .menu-item p {
   margin: .5rem 0;
+  width: 150px;
+  overflow: hidden;
   cursor: pointer;
 }
 
