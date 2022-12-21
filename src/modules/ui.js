@@ -32,7 +32,7 @@ export const ui = (() => {
     const filters = ["Today", "This week", "This month", "This year", "Pinned", "Favorites"];
     for(let i = 0; i < filters.length; i++){
       const li = document.createElement("li");
-      li.classList.add("menu-filter", "menu-item", `filter-${filters[i].split(" ").join("-")}`);
+      li.classList.add("menu-filter", "menu-item");
 
       const para = document.createElement("p");
       para.innerText = filters[i];
