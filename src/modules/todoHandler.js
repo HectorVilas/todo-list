@@ -99,8 +99,12 @@ export const todoHandler = (() => {
     localStorageTest.push({title, todos:[], });
   }
 
+  function editProjectTitle(projectIdx, val){
+    localStorageTest[projectIdx].title = val;
+  }
+
   return { toggleFav, togglePin, getFavStatus, deleteTodo, taskCheck,
     deleteTask, editTitle, editDescription, editDateDue, editLabel,
     createTask, getProjectsTitles, deleteProject, changePriority,
-    getProject, createTodo, createProject }
+    getProject, createTodo, createProject, editProjectTitle }
 })();
