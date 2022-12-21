@@ -67,12 +67,19 @@ input[type="text"], input[type="datetime-local"] {
 
 #menu .menu-item {
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  height: calc(var(--icon-menu-size) * 1.25);
 }
 
 #menu .menu-item p {
   margin: .5rem 0;
   cursor: pointer;
+}
+
+#menu .menu-item .edit-project {
+  font-size: 1.75rem;
+  width: 150px;
 }
 
 .fieldset-list li {
@@ -532,6 +539,11 @@ input[type="text"], input[type="datetime-local"] {
 
 .card.edit-mode .add-task {display: grid;}
 .card .add-task {display: none;}
+
+#menu .menu-tasks .edit-project { display: none; }
+#menu .menu-tasks.edit-mode .edit-project { display: block; }
+#menu .menu-tasks .project-title { display: block; }
+#menu .menu-tasks.edit-mode .project-title { display: none; }
 
 
 
