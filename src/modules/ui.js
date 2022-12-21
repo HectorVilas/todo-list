@@ -94,6 +94,7 @@ export const ui = (() => {
       input.classList.add("edit-project");
       input.dataset.projectIdx = i;
       input.value = projectsList[i];
+      input.addEventListener("input", editProjectTitle);
       const editBtn = document.createElement("input");
       editBtn.type = "checkbox";
       editBtn.classList.add("card-icon", "icon-edit");
@@ -509,8 +510,15 @@ export const ui = (() => {
 
   function projectEdit(){
     const projectClass = this.parentNode.classList;
-    console.log(projectClass);
     this.checked ? projectClass.add("edit-mode") : projectClass.remove("edit-mode");
   }
+
+  function editProjectTitle(){
+    const projectIdx = this.dataset.projectIdx;
+    const title = document.querySelector(`.menu-tasks.menu-item p[data-project-idx="${projectIdx}"]`);
+    title.innerText = this.value;
+    todoHandler.editProjectTitle(projectIdx, this.value);
+  }
+
   return { placeCards, loadMenu };
 })();
