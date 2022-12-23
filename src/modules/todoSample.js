@@ -1,68 +1,75 @@
 import {Todo} from "./classes.js"
 
+const today = new Date();
+const date = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()} ${today.getHours()}:${today.getMinutes()}`;
+    
 export const todoSample = [
   {
-    title: "routine",
+    title: "How to use",
     todos: [
-      new Todo("exercise", "It's leg day!", "2022-11-23T17:42", "", [
+      new Todo("1) Creating a project", "These are the steps to create a new project", date,"", [
+        { task: "Touch the burger button ", isDone: false },
+        { task: "or look at the sidebar at the left", isDone: false },
+        { task: "Touch the plus button", isDone: false },
+        { task: "Your new project will open", isDone: false },
+        { task: "Touch the pencil button on the menu", isDone: false },
+        { task: "Write a proper title for the new project", isDone: false },
+        { task: "The new title autosaves while writing", isDone: false },
+        { task: "Congratulations! You created your first project!", isDone: false },
+        { task: "If you want to delete a project, click on the bin", isDone: false },
+        { task: "next to it's title on the menu", isDone: false },
+      ], "low", true, true),
+
+      new Todo("2) Adding a to-do", "This is how you create a new to-do", date,"", [
+        { task: "Touch the plus button at the bottom", isDone: false },
+        { task: "This will open the to-do on edit mode", isDone: false },
+        { task: "You can change the name and add a description", isDone: false },
+        { task: "Changes are saved on each key press", isDone: false },
+        { task: "You can add a due date and change priority", isDone: false },
+        { task: "The plus button at the bottom will create tasks", isDone: false },
+        { task: "Write a description for your new task", isDone: false },
+        { task: "Next to it there's a checkbox", isDone: false },
+        { task: "use it once the task is done", isDone: false },
+        { task: "You can delete a task with the cross button", isDone: false },
+        { task: "Disable the edit mode with the blue pencil button", isDone: false },
+        { task: "You can use the checkbox even without edit mode", isDone: false },
+        { task: "Create as many to-dos as you need!", isDone: false },
+      ], "low", true, true),
+
+      new Todo("3) Managing a to-do", "Here's what you can do with your to-dos", date,"", [
+        { task: "At the right of the title there's 4 buttons:", isDone: false },
+        { task: "1. The pin button will show the to-do in the pinned filter", isDone: false },
+        { task: "2. The pencil button will toggle the edit mode", isDone: false },
+        { task: "3. The star button will mark the to-do as favorite", isDone: false },
+        { task: "this will also prevet deletion, unlike the pin", isDone: false },
+        { task: "and will also show on the favorites filter", isDone: false },
+        { task: "4. The bin button will delete the to-do", isDone: false },
+        { task: "only if it's not faved by the star", isDone: false },
+        { task: "At the left there's a handle icon:", isDone: false },
+        { task: "1. hold down on it to drag a to-do", isDone: false },
+        { task: "2. release it where you want to move it", isDone: false },
+      ], "low", true, true),
+
+      new Todo("About", "To-do project created by Hector Vilas", date,"", [
+        { task: "Find me on GitHub as HectorVilas!", isDone: false },
+        { task: "github.com/HectorVilas", isDone: false },
+      ], "", true, true),
+    ],
+  },
+
+  {
+    title: "Example project",
+    todos: [
+      new Todo("exercise", "It's leg day!", date, "", [
         { task: "run 3km", isDone: true },
         { task: "bicycle", isDone: false },
         { task: "squats", isDone: false },
-      ], "low", false, false),
+      ], "middle", false, true),
 
-      new Todo("coding", "", "2022-11-23T17:42", "", [
+      new Todo("coding", "", date, "", [
         { task: "check css-tricks", isDone: true },
         { task: "continue TOP practice", isDone: true },
-      ], "high", true, true),
-    ],
-  },
-  {
-    title: "test",
-    todos: [
-      new Todo("test1", "test1 descr", "2022-11-23T17:42","2023-11-23T17:42", [
-        { task: "test1 task1", isDone: true },
-        { task: "test1 task2", isDone: false },
-        { task: "test1 task3", isDone: true },
-      ], "low", true, false),
-
-      new Todo("test2", "test2 descr", "2022-11-23T17:42", "2023-11-23T17:42", [
-        { task: "test2 task1", isDone: true },
-        { task: "test2 task2", isDone: false },
-        { task: "test2 task3", isDone: true },
-        { task: "test2 task4", isDone: false },
-        { task: "test2 task5", isDone: false },
-      ], "middle", true, false),
-      new Todo("test3 (long)", "test3 descr", "2022-11-23T17:42", "2023-11-23T17:42", [
-        { task: "test3 task1", isDone: true },
-        { task: "test3 task2", isDone: true },
-        { task: "test3 task3", isDone: false },
-        { task: "test3 task4", isDone: false },
-        { task: "test3 task5", isDone: true },
-        { task: "test3 task6", isDone: true },
-        { task: "test3 task7", isDone: false },
-        { task: "test3 task8", isDone: true },
-        { task: "test3 task9", isDone: true },
-        { task: "test3 task10", isDone: false },
-        { task: "test3 task11", isDone: false },
-        { task: "test3 task12", isDone: true },
-        { task: "test3 task13", isDone: false },
-        { task: "test3 task14", isDone: true },
-        { task: "test3 task15", isDone: true },
-      ], "low", false, true),
-      new Todo("test4", "test4 descr", "2022-11-23T17:42", "2023-11-23T17:42", [
-        { task: "test4 task1", isDone: false },
-        { task: "test4 task2", isDone: false },
-        { task: "test4 task3", isDone: true },
-        { task: "test4 task4", isDone: false },
-        { task: "test4 task5", isDone: true },
-      ], "low", true, false),
-      new Todo("test5", "test5 descr", "2022-11-23T17:42", "2023-11-23T17:42", [
-        { task: "test5 task1", isDone: false },
-        { task: "test5 task2", isDone: true },
-        { task: "test5 task3", isDone: true },
-        { task: "test5 task4", isDone: false },
-        { task: "test5 task5", isDone: true },
-      ], "high", false, false),
+      ], "high", true, false),
     ],
   },
 ];
