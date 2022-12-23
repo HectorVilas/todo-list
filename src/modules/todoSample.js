@@ -1,6 +1,6 @@
 import {Todo} from "./classes.js"
 
-export const localStorageTest = [
+export const todoSample = [
   {
     title: "routine",
     todos: [

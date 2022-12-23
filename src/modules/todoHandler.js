@@ -1,61 +1,61 @@
-import { localStorageTest } from "./localStorageTest.js";
+import { todoSample } from "./todoSample.js";
 import { Todo } from "./classes.js"
 
 export const todoHandler = (() => {
   function toggleFav(){
     const projectIdx = this.dataset.projectIdx;
     const todoIdx = this.dataset.todoIdx;
-    localStorageTest[projectIdx].todos[todoIdx].toggleFav();
+    todoSample[projectIdx].todos[todoIdx].toggleFav();
   }
 
   function togglePin(){
     const projectIdx = this.dataset.projectIdx;
     const todoIdx = this.dataset.todoIdx;
-    localStorageTest[projectIdx].todos[todoIdx].togglePin();
+    todoSample[projectIdx].todos[todoIdx].togglePin();
   }
 
   function getFavStatus(projectIdx, todoIdx){
-    return localStorageTest[projectIdx].todos[todoIdx].isFavorite
+    return todoSample[projectIdx].todos[todoIdx].isFavorite
   }
 
   function deleteTodo(projectIdx, todoIdx){
-    localStorageTest[projectIdx].todos.splice(todoIdx,1);
+    todoSample[projectIdx].todos.splice(todoIdx,1);
   }
 
   function taskCheck(){
     const projectIdx = this.dataset.projectIdx;
     const todoIdx = this.dataset.todoIdx;
     const taskIdx = this?.dataset?.taskIdx;
-    localStorageTest[projectIdx].todos[todoIdx].toggleTask(taskIdx);
+    todoSample[projectIdx].todos[todoIdx].toggleTask(taskIdx);
   }
 
   function deleteTask(projectIdx, todoIdx, taskIdx){
-    localStorageTest[projectIdx].todos[todoIdx].checks.splice(taskIdx, 1);
+    todoSample[projectIdx].todos[todoIdx].checks.splice(taskIdx, 1);
   }
   
   function editTitle(projectIdx, todoIdx, string){
-    localStorageTest[projectIdx].todos[todoIdx].title = string;
+    todoSample[projectIdx].todos[todoIdx].title = string;
   }
 
   function editDescription(projectIdx, todoIdx, string){
-    localStorageTest[projectIdx].todos[todoIdx].description = string;
+    todoSample[projectIdx].todos[todoIdx].description = string;
   }
 
   function editDateDue(projectIdx, todoIdx, string){
-    localStorageTest[projectIdx].todos[todoIdx].dateDue = string;
+    todoSample[projectIdx].todos[todoIdx].dateDue = string;
   }
 
   function editLabel(projectIdx, todoIdx, taskIdx, string){
-    localStorageTest[projectIdx].todos[todoIdx].checks[taskIdx].task = string;
+    todoSample[projectIdx].todos[todoIdx].checks[taskIdx].task = string;
   }
 
   function createTask(projectIdx, todoIdx){
-    localStorageTest[projectIdx].todos[todoIdx].checks.push({ task: "", isDone: false })
+    todoSample[projectIdx].todos[todoIdx].checks.push({ task: "", isDone: false })
   }
 
   function getProjectsTitles(){
     let projectList = []
-    localStorageTest.forEach(project => {
+    todoSample.forEach(project => {
       projectList.push(project.title);
     })
 
@@ -63,20 +63,20 @@ export const todoHandler = (() => {
   }
 
   function deleteProject(projectIdx){
-    localStorageTest.splice(projectIdx, 1);
+    todoSample.splice(projectIdx, 1);
   }
 
   function changePriority(projectIdx, todoIdx, priority){
-    localStorageTest[projectIdx].todos[todoIdx].changePriority(priority);
+    todoSample[projectIdx].todos[todoIdx].changePriority(priority);
   }
 
   function getProject(i){
-    return localStorageTest[i];
+    return todoSample[i];
   }
 
   function createTodo(projectIdx){
     let repeated = 0;
-    localStorageTest[projectIdx].todos.forEach(item => {
+    todoSample[projectIdx].todos.forEach(item => {
       if(item.title.includes("new to-do")) repeated++;
     });
     const todoName = repeated === 0 ? "new to-do" : `new to-do(${repeated})`;
@@ -84,23 +84,23 @@ export const todoHandler = (() => {
     const d = new Date();
     const date = `${d.getFullYear()}-${d.getMonth()}-${d.getDay()} ${d.getHours()}:${d.getMinutes()}`;
     
-    localStorageTest[projectIdx].todos.push(
+    todoSample[projectIdx].todos.push(
       new Todo(todoName, "", date, "", [], "low", false, false)
     );
   }
 
   function createProject(){
     let repeated = 0;
-    localStorageTest.forEach(project => {
+    todoSample.forEach(project => {
       if(project.title.includes("new project")) repeated++;
     });
     const title = repeated === 0 ? "new project" : `new project(${repeated})`;
 
-    localStorageTest.push({title, todos:[], });
+    todoSample.push({title, todos:[], });
   }
 
   function editProjectTitle(projectIdx, val){
-    localStorageTest[projectIdx].title = val;
+    todoSample[projectIdx].title = val;
   }
 
   return { toggleFav, togglePin, getFavStatus, deleteTodo, taskCheck,
