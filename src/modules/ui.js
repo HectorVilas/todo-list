@@ -496,7 +496,7 @@ export const ui = (() => {
     todoHandler.createTodo(this.dataset.projectIdx);
     placeCards(this.dataset.projectIdx);
 
-    const editBtns = document.querySelectorAll(".icon-edit");
+    const editBtns = document.querySelectorAll(".project-item .icon-edit");
     editBtns[editBtns.length -1].checked = true;
 
     const cards = document.querySelectorAll(".card");
