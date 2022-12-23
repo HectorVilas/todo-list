@@ -11,14 +11,18 @@
   --card-border-rad: .75rem;
   --card-open-transition: 250ms;
   --hover-anim-duration: 250ms;
-  --menu-width: 300px;
+  --menu-width: 350px;
 }
 
 /* default values reset */
 body { padding: 0; margin: 0; }
 ol, ul { padding: 0; margin: 0; list-style-type: none; }
 h1, h2, p {margin: 0;}
-h1 {font-size: 3rem;}
+h1 {
+  font-size: 3rem;
+  white-space: nowrap;
+  overflow: hidden;
+}
 input[type="text"], input[type="datetime-local"] {
   padding: 0;
   margin: 0;
@@ -75,14 +79,14 @@ input[type="text"], input[type="datetime-local"] {
 
 #menu .menu-item p {
   margin: .5rem 0;
-  width: 150px;
+  width: 200px;
   overflow: hidden;
   cursor: pointer;
 }
 
 #menu .menu-item .edit-project {
   font-size: 1.75rem;
-  width: 150px;
+  width: 200px;
 }
 
 .fieldset-list li {
@@ -99,6 +103,11 @@ input[type="text"], input[type="datetime-local"] {
   left: 0;
   width: 100vw;
   height: 100vh;
+}
+
+#menu .project-title {
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 
