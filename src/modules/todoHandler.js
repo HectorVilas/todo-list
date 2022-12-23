@@ -82,7 +82,7 @@ export const todoHandler = (() => {
     const todoName = repeated === 0 ? "new to-do" : `new to-do(${repeated})`;
 
     const d = new Date();
-    const date = `${d.getFullYear()}-${d.getMonth()}-${d.getDay()} ${d.getHours()}:${d.getMinutes()}`;
+    const date = `${d.getFullYear()}-${d.getMonth()}-${d.getDate()} ${d.getHours()}:${d.getMinutes()}`;
     
     todoSample[projectIdx].todos.push(
       new Todo(todoName, "", date, "", [], "low", false, false)
