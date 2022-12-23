@@ -41,7 +41,7 @@ export const todoSample = [
         { task: "1. The pin button will show the to-do in the pinned filter", isDone: false },
         { task: "2. The pencil button will toggle the edit mode", isDone: false },
         { task: "3. The star button will mark the to-do as favorite", isDone: false },
-        { task: "this will also prevet deletion, unlike the pin", isDone: false },
+        { task: "this will also prevent deletion, unlike the pin", isDone: false },
         { task: "and will also show on the favorites filter", isDone: false },
         { task: "4. The bin button will delete the to-do", isDone: false },
         { task: "only if it's not faved by the star", isDone: false },
