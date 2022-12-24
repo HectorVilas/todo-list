@@ -10,20 +10,4 @@ export class Todo {
     this.isFavorite = isFavorite;
     this.isPinned = isPinned;
   };
-  
-  toggleFav(){
-    this.isFavorite = !this.isFavorite;
-  };
-
-  toggleTask(idx){
-    this.checks[idx].isDone = !this.checks[idx].isDone;
-  };
-
-  togglePin(){
-    this.isPinned = !this.isPinned;
-  }
-
-  changePriority(value){
-    this.priority = value === "0" ? "low" : value === "1" ? "middle" : "high";
-  }
 };
