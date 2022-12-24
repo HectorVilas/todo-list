@@ -5,57 +5,84 @@ export const todoHandler = (() => {
   function toggleFav(){
     const projectIdx = this.dataset.projectIdx;
     const todoIdx = this.dataset.todoIdx;
-    todoSample[projectIdx].todos[todoIdx].toggleFav();
+    const local = getLocalStorage();
+    const value = local[projectIdx].todos[todoIdx].isFavorite;
+    local[projectIdx].todos[todoIdx].isFavorite = !value;
+    setLocalStorage(local);
   }
 
   function togglePin(){
     const projectIdx = this.dataset.projectIdx;
     const todoIdx = this.dataset.todoIdx;
-    todoSample[projectIdx].todos[todoIdx].togglePin();
+    const local = getLocalStorage();
+
+    const value = local[projectIdx].todos[todoIdx].isPinned;
+    local[projectIdx].todos[todoIdx].isPinned = !value;
+    
+    localStorage.setItem("todo", JSON.stringify(local));
   }
 
   function getFavStatus(projectIdx, todoIdx){
-    return todoSample[projectIdx].todos[todoIdx].isFavorite
+    const local = getLocalStorage();
+    return local[projectIdx].todos[todoIdx].isFavorite;
   }
 
   function deleteTodo(projectIdx, todoIdx){
-    todoSample[projectIdx].todos.splice(todoIdx,1);
+    const local = getLocalStorage();
+    local[projectIdx].todos.splice(todoIdx,1);
+    setLocalStorage(local);
   }
 
   function taskCheck(){
     const projectIdx = this.dataset.projectIdx;
     const todoIdx = this.dataset.todoIdx;
     const taskIdx = this?.dataset?.taskIdx;
-    todoSample[projectIdx].todos[todoIdx].toggleTask(taskIdx);
+    const local = getLocalStorage();
+    const value = local[projectIdx].todos[todoIdx].checks[taskIdx].isDone;
+    local[projectIdx].todos[todoIdx].checks[taskIdx].isDone = !value;
+    setLocalStorage(local);
   }
 
   function deleteTask(projectIdx, todoIdx, taskIdx){
-    todoSample[projectIdx].todos[todoIdx].checks.splice(taskIdx, 1);
+    const local = getLocalStorage();
+    local[projectIdx].todos[todoIdx].checks.splice(taskIdx, 1);
+    setLocalStorage(local);
   }
   
   function editTitle(projectIdx, todoIdx, string){
-    todoSample[projectIdx].todos[todoIdx].title = string;
+    const local = getLocalStorage();
+    local[projectIdx].todos[todoIdx].title = string;
+    setLocalStorage(local);
   }
-
+  
   function editDescription(projectIdx, todoIdx, string){
-    todoSample[projectIdx].todos[todoIdx].description = string;
+    const local = getLocalStorage();
+    local[projectIdx].todos[todoIdx].description = string;
+    setLocalStorage(local);
   }
-
+  
   function editDateDue(projectIdx, todoIdx, string){
-    todoSample[projectIdx].todos[todoIdx].dateDue = string;
+    const local = getLocalStorage();
+    local[projectIdx].todos[todoIdx].dateDue = string;
+    setLocalStorage(local);
   }
-
+  
   function editLabel(projectIdx, todoIdx, taskIdx, string){
-    todoSample[projectIdx].todos[todoIdx].checks[taskIdx].task = string;
+    const local = getLocalStorage();
+    local[projectIdx].todos[todoIdx].checks[taskIdx].task = string;
+    setLocalStorage(local);
   }
-
+  
   function createTask(projectIdx, todoIdx){
-    todoSample[projectIdx].todos[todoIdx].checks.push({ task: "", isDone: false })
+    const local = getLocalStorage();
+    local[projectIdx].todos[todoIdx].checks.push({ task: "", isDone: false })
+    setLocalStorage(local);
   }
 
   function getProjectsTitles(){
     let projectList = []
-    todoSample.forEach(project => {
+    const local = getLocalStorage();
+    local.forEach(project => {
       projectList.push(project.title);
     })
 
@@ -63,48 +90,73 @@ export const todoHandler = (() => {
   }
 
   function deleteProject(projectIdx){
-    todoSample.splice(projectIdx, 1);
+    const local = getLocalStorage();
+    local.splice(projectIdx, 1);
+    setLocalStorage(local);
   }
-
+  
   function changePriority(projectIdx, todoIdx, priority){
-    todoSample[projectIdx].todos[todoIdx].changePriority(priority);
+    const local = getLocalStorage();
+    local[projectIdx].todos[todoIdx].priority = priority === "0" ? "low" : priority === "1" ? "middle" : "high";
+    setLocalStorage(local);
   }
-
+  
   function getProject(i){
-    return todoSample[i];
+    const local = getLocalStorage();
+    return local[i];
   }
-
+  
   function createTodo(projectIdx){
     let repeated = 0;
-    todoSample[projectIdx].todos.forEach(item => {
+    const local = getLocalStorage();
+    local[projectIdx].todos.forEach(item => {
       if(item.title.includes("new to-do")) repeated++;
     });
     const todoName = repeated === 0 ? "new to-do" : `new to-do(${repeated})`;
-
+    
     const d = new Date();
     const date = `${d.getFullYear()}-${d.getMonth()}-${d.getDate()} ${d.getHours()}:${d.getMinutes()}`;
     
-    todoSample[projectIdx].todos.push(
+    local[projectIdx].todos.push(
       new Todo(todoName, "", date, "", [], "low", false, false)
-    );
+      );
+    setLocalStorage(local);
   }
 
   function createProject(){
     let repeated = 0;
-    todoSample.forEach(project => {
+    const local = getLocalStorage();
+    local.forEach(project => {
       if(project.title.includes("new project")) repeated++;
     });
     const title = repeated === 0 ? "new project" : `new project(${repeated})`;
-
-    todoSample.push({title, todos:[], });
+    
+    local.push({title, todos:[], });
+    setLocalStorage(local);
+  }
+  
+  function editProjectTitle(projectIdx, val){
+    const local = getLocalStorage();
+    local[projectIdx].title = val;
+    setLocalStorage(local);
   }
 
-  function editProjectTitle(projectIdx, val){
-    todoSample[projectIdx].title = val;
+  function loadSample(){
+    if(localStorage.length === 0){
+      localStorage.setItem("todo", JSON.stringify(todoSample));
+    }
+  }
+
+  function getLocalStorage(){
+    return JSON.parse(localStorage.getItem("todo"));
+  }
+
+  function setLocalStorage(val){
+    localStorage.setItem("todo", JSON.stringify(val))
   }
 
   return { toggleFav, togglePin, getFavStatus, deleteTodo, taskCheck,
     deleteTask, editTitle, editDescription, editDateDue, editLabel,
     createTask, getProjectsTitles, deleteProject, changePriority,
-    getProject, createTodo, createProject, editProjectTitle }
+    getProject, createTodo, createProject, editProjectTitle, loadSample }
 })();
