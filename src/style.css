@@ -12,10 +12,11 @@
   --card-open-transition: 250ms;
   --hover-anim-duration: 250ms;
   --menu-width: 350px;
+  --viewport-min-width: 600px;
 }
 
 /* default values reset */
-body { padding: 0; margin: 0; }
+body { padding: 0; margin: 0; min-width: var(--viewport-min-width);}
 ol, ul { padding: 0; margin: 0; list-style-type: none; }
 h1, h2, p {margin: 0;}
 h1 {
@@ -35,7 +36,7 @@ input[type="text"], input[type="datetime-local"] {
 
 #menu-button {
   position: absolute;
-  right: 0;
+  left: 0;
   top: 0;
   z-index: 1;
   background-image: url(./media/images/icons/menu.svg);
@@ -57,7 +58,7 @@ input[type="text"], input[type="datetime-local"] {
   box-sizing: border-box;
   padding: .5rem;
   top: var(--icon-menu-size);
-  right: 0;
+  left: 0;
   max-height: calc(100vh - var(--icon-menu-size));
   overflow-x: hidden;
   overflow-y: auto;
@@ -120,6 +121,7 @@ body {background-color: var(--bgc-page);}
   box-sizing: border-box;
   margin: 0;
   width: 100vw;
+  min-width: var(--viewport-min-width);
   height: 100vh;
   padding: .5rem;
   overflow: hidden;
@@ -323,6 +325,7 @@ body {background-color: var(--bgc-page);}
   width: var(--icon-size);
   height: var(--icon-size);
   appearance: none;
+  cursor: pointer;
 }
 .card li input[type="checkbox"]::before {
   position: absolute;
