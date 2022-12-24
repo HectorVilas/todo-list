@@ -9,6 +9,9 @@ export const ui = (() => {
   const body = document.querySelector("body");
 
   function loadMenu(){
+    //create example projects if there's no localStorage
+    todoHandler.loadSample();
+
     const menuBtn = document.createElement("div");
     menuBtn.id = "menu-button";
     menuBtn.addEventListener("click", toggleMenu);
@@ -351,7 +354,6 @@ export const ui = (() => {
 
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
-    // checkbox.id = `${todo?.title || todo}-${taskIdx}`; //for label only
     checkbox.id = `${projectIdx}-${todoIdx}-${taskIdx}`; //for label only
     checkbox.checked = check?.isDone || false;
     checkbox.addEventListener("click", todoHandler.taskCheck);
