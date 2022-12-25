@@ -277,8 +277,6 @@ export const ui = (() => {
   }
 
   function placeCards(idxOrFilter){
-    console.log(idxOrFilter);
-
     cardsContainer.replaceChildren()
     
     const project = todoHandler.getProject(idxOrFilter);

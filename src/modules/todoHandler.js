@@ -105,7 +105,6 @@ export const todoHandler = (() => {
     
     if(typeof request === "number"){
       const local = getLocalStorage();
-      console.log(local);
       return local[request];
     }
     else if(request === "pinned"){
