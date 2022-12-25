@@ -36,6 +36,8 @@ export const ui = (() => {
     for(let i = 0; i < filters.length; i++){
       const li = document.createElement("li");
       li.classList.add("menu-filter", "menu-item");
+      li.dataset.filter = filters[i].split(" ").join("-");
+      li.addEventListener("click", filterTodos);
 
       const para = document.createElement("p");
       para.innerText = filters[i];
@@ -275,6 +277,7 @@ export const ui = (() => {
   }
 
   function placeCards(idxOrFilter){
+    console.log(idxOrFilter);
 
     cardsContainer.replaceChildren()
     
@@ -524,6 +527,11 @@ export const ui = (() => {
     //edit title of active project if the editing title is for it
     const titleCards = document.querySelector("h1");
     if(projectIdx === titleCards.dataset.projectIdx) titleCards.innerText = this.value;
+  }
+
+  function filterTodos(){
+    toggleMenu();
+    placeCards(this.dataset.filter.toLowerCase());
   }
 
   return { placeCards, loadMenu };
