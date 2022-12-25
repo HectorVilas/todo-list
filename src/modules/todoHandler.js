@@ -101,9 +101,39 @@ export const todoHandler = (() => {
     setLocalStorage(local);
   }
   
-  function getProject(i){
-    const local = getLocalStorage();
-    return local[i];
+  function getProject(request){
+    
+    if(typeof request === "number"){
+      const local = getLocalStorage();
+      console.log(local);
+      return local[request];
+    }
+    else if(request === "pinned"){
+      const local = getLocalStorage();
+      const filtered = { title: "Pinned", todos: []};
+
+      local.forEach(thisProject => thisProject.todos.forEach(thisTodo => {
+        if(thisTodo.isPinned){
+          filtered.todos.push(thisTodo);
+        };
+      }));
+      return filtered;
+    }
+    else if(request === "favorites"){
+      const local = getLocalStorage();
+      const filtered = { title: "Favorites", todos: []};
+
+      local.forEach(thisProject => thisProject.todos.forEach(thisTodo => {
+        if(thisTodo.isFavorite){
+          filtered.todos.push(thisTodo);
+        };
+      }));
+      return filtered;
+    } else {
+      alert("Filter not yet active.\nLoading first project.");
+      const local = getLocalStorage();
+      return local[0];
+    }
   }
   
   function createTodo(projectIdx){
