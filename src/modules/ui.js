@@ -274,28 +274,28 @@ export const ui = (() => {
     return priorityDiv;
   }
 
-  function placeCards(projectIdx){
+  function placeCards(idxOrFilter){
 
     cardsContainer.replaceChildren()
     
-    const project = todoHandler.getProject(projectIdx);
-
+    const project = todoHandler.getProject(idxOrFilter);
+    
       const projectItem = document.createElement("div");
-      projectItem.dataset.idx = projectIdx;
+      projectItem.dataset.idx = idxOrFilter;
       projectItem.classList.add("project-item");
 
       const h1 = document.createElement("h1");
-      h1.dataset.projectIdx = projectIdx;
+      h1.dataset.projectIdx = idxOrFilter;
       h1.innerText = project.title;
       projectItem.appendChild(h1);
 
       project.todos.forEach((todo, todoIdx) => {
-        projectItem.appendChild(placeSingleCard(todo, projectIdx, todoIdx));
+        projectItem.appendChild(placeSingleCard(todo, idxOrFilter, todoIdx));
       });
 
       const addTodoDiv = document.createElement("div");
       addTodoDiv.classList.add("card", "todo-add-div");
-      addTodoDiv.dataset.projectIdx = projectIdx;
+      addTodoDiv.dataset.projectIdx = idxOrFilter;
       addTodoDiv.addEventListener("click", createTodo);
       
       const addTodoBtn = document.createElement("div");
@@ -346,7 +346,7 @@ export const ui = (() => {
     };
 
     todoHandler.deleteTodo(projectIdx, todoIdx);
-    placeCards(projectIdx);
+    placeCards(parseInt(projectIdx));
   }
 
   function createTaskLi(todo, check, projectIdx, todoIdx, taskIdx){
@@ -470,7 +470,7 @@ export const ui = (() => {
 
   function changePRoject(){
     toggleMenu();
-    placeCards(this.dataset.projectIdx);
+    placeCards(parseInt(this.dataset.projectIdx));
   }
 
   function deleteProject(){
@@ -496,7 +496,7 @@ export const ui = (() => {
 
   function createTodo(){
     todoHandler.createTodo(this.dataset.projectIdx);
-    placeCards(this.dataset.projectIdx);
+    placeCards(parseInt(this.dataset.projectIdx));
 
     const editBtns = document.querySelectorAll(".project-item .icon-edit");
     editBtns[editBtns.length -1].checked = true;
@@ -508,7 +508,7 @@ export const ui = (() => {
   function createProject(){
     todoHandler.createProject();
     projectsList(true);
-    placeCards(todoHandler.getProjectsTitles().length-1);
+    placeCards(parseInt(todoHandler.getProjectsTitles().length-1));
   }
 
   function projectEdit(){
