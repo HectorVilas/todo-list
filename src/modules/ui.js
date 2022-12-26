@@ -140,6 +140,13 @@ export const ui = (() => {
     editTitle.classList.add("title", "edit-title");
     editTitle.value = todo.title;
     editTitle.addEventListener("input", editField);
+
+    const progress = document.createElement("div");
+    progress.classList.add("progress");
+    
+    const completed = todo.checks.filter(item => item.isDone).length;
+    const percentage = completed * 100 / todo.checks.length;
+    progress.style.background = `conic-gradient(#2e10c0 ${percentage}%, transparent ${percentage}%, transparent 100%)`
     
     const description = document.createElement("p");
     description.classList.add("description");
@@ -167,7 +174,7 @@ export const ui = (() => {
     checks.classList.add("checklist");
 
     //add dataset to each item
-    [card,editTitle,drag,editDescription,editDateDue].forEach(icon => {
+    [card,editTitle,progress,drag,editDescription,editDateDue].forEach(icon => {
       icon.dataset.projectIdx = projectIdx;
       icon.dataset.todoIdx = todoIdx;
     });
@@ -189,7 +196,7 @@ export const ui = (() => {
 
     card.append(addTaskLi);
 
-    card.append(drag, title, editTitle, dateCreation, dateDue, editDateDue,
+    card.append(drag, title, editTitle, progress, dateCreation, dateDue, editDateDue,
       priorityDiv(todo, todoIdx, projectIdx), editButtonsDiv(todo, projectIdx, todoIdx),
       description, editDescription, checks);
 
