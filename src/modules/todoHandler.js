@@ -33,10 +33,7 @@ export const todoHandler = (() => {
     setLocalStorage(local);
   }
 
-  function taskCheck(){
-    const projectIdx = this.dataset.projectIdx;
-    const todoIdx = this.dataset.todoIdx;
-    const taskIdx = this?.dataset?.taskIdx;
+  function taskCheck(projectIdx, todoIdx, taskIdx){
     const local = getLocalStorage();
     const value = local[projectIdx].todos[todoIdx].checks[taskIdx].isDone;
     local[projectIdx].todos[todoIdx].checks[taskIdx].isDone = !value;
