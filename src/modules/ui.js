@@ -145,7 +145,7 @@ export const ui = (() => {
     progress.classList.add("progress");
     
     const completed = todo.checks.filter(item => item.isDone).length;
-    const percentage = completed * 100 / todo.checks.length;
+    const percentage = completed * 100 / todo.checks.length; //TODO:
     progress.style.background = `conic-gradient(#2e10c0 ${percentage}%, transparent ${percentage}%, transparent 100%)`
     
     const description = document.createElement("p");
@@ -364,7 +364,7 @@ export const ui = (() => {
     checkbox.type = "checkbox";
     checkbox.id = `${projectIdx}-${todoIdx}-${taskIdx}`; //for label only
     checkbox.checked = check?.isDone || false;
-    checkbox.addEventListener("click", todoHandler.taskCheck);
+    checkbox.addEventListener("click", taskCheck);
 
     const label = document.createElement("label");
     label.htmlFor = checkbox.id;
@@ -537,6 +537,22 @@ export const ui = (() => {
   function filterTodos(){
     toggleMenu();
     placeCards(this.dataset.filter.toLowerCase());
+  }
+
+  function taskCheck(){
+    const projectIdx = this.dataset.projectIdx;
+    const todoIdx = this.dataset.todoIdx;
+    const taskIdx = this?.dataset?.taskIdx;
+    todoHandler.taskCheck(projectIdx, todoIdx, taskIdx);
+
+    const thisProject = todoHandler.getProject(parseInt(projectIdx)).todos[todoIdx];
+    
+    const thisCard = document.querySelector(`.card[data-project-idx="${projectIdx}"][data-todo-idx="${todoIdx}"]`);
+    const percentageDiv = thisCard.querySelector(".progress");
+
+    const completed = thisProject.checks.filter(item => item.isDone).length;
+    const percentage = completed * 100 / thisProject.checks.length;
+    percentageDiv.style.background = `conic-gradient(#2e10c0 ${percentage}%, transparent ${percentage}%, transparent 100%)`
   }
 
   return { placeCards, loadMenu };
