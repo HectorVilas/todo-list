@@ -144,15 +144,15 @@ body {background-color: var(--bgc-page);}
   box-shadow: var(--card-shadow);
   padding: .5rem;
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: auto 1fr auto auto;
   grid-template-rows: repeat(6, auto);
   grid-template-areas:
-    " drag  title    edit     "
-    " ..... descr    descr    "
-    " ..... created  priority "
-    " ..... due      priority "
-    " ..... tasks    tasks    "
-    " ..... add-task add-task ";
+    " drag  title    progress edit     "
+    " ..... descr    descr    descr    "
+    " ..... created  priority priority "
+    " ..... due      priority priority "
+    " ..... tasks    tasks    tasks    "
+    " ..... add-task add-task add-task ";
   align-items: center;
   overflow: hidden;
 } .card.active {
@@ -172,6 +172,24 @@ body {background-color: var(--bgc-page);}
   padding-left: .5rem;
   overflow: hidden;
   white-space: nowrap;
+}
+.card .progress {
+  grid-area: progress;
+  box-sizing: border-box;
+  margin-right: 1rem;
+  width: var(--icon-size);
+  height: var(--icon-size);
+  border-radius: 50%;
+  position: relative;
+}.card .progress::after {
+  position: absolute;
+  content: "%";
+  text-align: center;
+  font-weight: 900;
+  inset: 5px;
+  border-radius: 50%;
+  background-color: var(--bgc-page);
+  backdrop-filter: blur(5px);
 }
 .card .description {
   grid-area: descr;
