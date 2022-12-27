@@ -410,7 +410,7 @@ export const ui = (() => {
       
     thisCardUl.appendChild(createTaskLi(todo, false, projectIdx, todoIdx, newTaskIdx));
     
-    
+    updateProgress(projectIdx, todoIdx);
   }
 
   function deleteTask(){
@@ -440,6 +440,8 @@ export const ui = (() => {
     thisTaskLabels.forEach((label, i) => {
       label.htmlFor = `${label.dataset.todoTitle}-${i}`;
     });
+
+    updateProgress(projectIdx, todoIdx);
   }
 
   function editField(){
@@ -538,15 +540,18 @@ export const ui = (() => {
     toggleMenu();
     placeCards(this.dataset.filter.toLowerCase());
   }
-
   function taskCheck(){
     const projectIdx = this.dataset.projectIdx;
     const todoIdx = this.dataset.todoIdx;
     const taskIdx = this?.dataset?.taskIdx;
     todoHandler.taskCheck(projectIdx, todoIdx, taskIdx);
 
+    updateProgress(projectIdx, todoIdx);
+  }
+
+  function updateProgress(projectIdx, todoIdx){
     const thisProject = todoHandler.getProject(parseInt(projectIdx)).todos[todoIdx];
-    
+
     const thisCard = document.querySelector(`.card[data-project-idx="${projectIdx}"][data-todo-idx="${todoIdx}"]`);
     const percentageDiv = thisCard.querySelector(".progress");
 
