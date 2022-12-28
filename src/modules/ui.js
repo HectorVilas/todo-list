@@ -410,6 +410,11 @@ export const ui = (() => {
       
     thisCardUl.appendChild(createTaskLi(todo, false, projectIdx, todoIdx, newTaskIdx));
     
+    const thisCard = document.querySelector(`.card[data-project-idx="${
+      projectIdx}"][data-todo-idx="${todoIdx}"]`);
+    const newInput = thisCard.querySelectorAll(".edit-label");
+    newInput[newInput.length -1].focus();
+
     updateProgress(projectIdx, todoIdx);
   }
 
@@ -513,6 +518,9 @@ export const ui = (() => {
 
     const cards = document.querySelectorAll(".card");
     cards[cards.length -2].classList.add("active","edit-mode");
+
+    const titleInputs = document.querySelectorAll(".edit-title");
+    titleInputs[titleInputs.length -1].focus();
   }
 
   function createProject(){
@@ -533,6 +541,9 @@ export const ui = (() => {
     
     const projectClass = this.parentNode.classList;
     this.checked ? projectClass.add("edit-mode") : projectClass.remove("edit-mode");
+
+    const thisInput = document.querySelector(`.edit-project[data-project-idx="${this.dataset.projectIdx}"]`);
+    thisInput.focus();
   }
 
   function editProjectTitle(){
