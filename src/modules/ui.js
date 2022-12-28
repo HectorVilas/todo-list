@@ -529,11 +529,8 @@ export const ui = (() => {
       }
     });
     const allEditMode = document.querySelectorAll(".fieldset-tasks .edit-mode");
-    allEditMode.forEach(item => {
-      if(item.dataset.projectIdx !== this.dataset.projectIdx){
-        item.classList.remove("edit-mode");
-      }
-    });
+    allEditMode.forEach(item => item.classList.remove("edit-mode"));
+    
     const projectClass = this.parentNode.classList;
     this.checked ? projectClass.add("edit-mode") : projectClass.remove("edit-mode");
   }
