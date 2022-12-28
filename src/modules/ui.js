@@ -522,6 +522,18 @@ export const ui = (() => {
   }
 
   function projectEdit(){
+    const allEditBtns = document.querySelectorAll(".fieldset-tasks .icon-edit");
+    allEditBtns.forEach(editBtn => {
+      if(editBtn.dataset.projectIdx !== this.dataset.projectIdx){
+        editBtn.checked = false;
+      }
+    });
+    const allEditMode = document.querySelectorAll(".fieldset-tasks .edit-mode");
+    allEditMode.forEach(item => {
+      if(item.dataset.projectIdx !== this.dataset.projectIdx){
+        item.classList.remove("edit-mode");
+      }
+    });
     const projectClass = this.parentNode.classList;
     this.checked ? projectClass.add("edit-mode") : projectClass.remove("edit-mode");
   }
