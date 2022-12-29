@@ -288,33 +288,33 @@ export const ui = (() => {
     
     const project = todoHandler.getProject(idxOrFilter);
     
-      const projectItem = document.createElement("div");
-      projectItem.dataset.idx = idxOrFilter;
-      projectItem.classList.add("project-item");
+    const projectItem = document.createElement("div");
+    projectItem.dataset.idx = idxOrFilter;
+    projectItem.classList.add("project-item");
 
-      const h1 = document.createElement("h1");
-      h1.dataset.projectIdx = idxOrFilter;
-      h1.innerText = project.title;
-      projectItem.appendChild(h1);
+    const h1 = document.createElement("h1");
+    h1.dataset.projectIdx = idxOrFilter;
+    h1.innerText = project.title;
+    projectItem.appendChild(h1);
 
-      project.todos.forEach((todo, todoIdx) => {
-        projectItem.appendChild(placeSingleCard(todo, idxOrFilter, todoIdx));
-      });
+    project.todos.forEach((todo, todoIdx) => {
+      projectItem.appendChild(placeSingleCard(todo, idxOrFilter, todoIdx));
+    });
 
-      const addTodoDiv = document.createElement("div");
-      addTodoDiv.classList.add("card", "todo-add-div");
-      addTodoDiv.dataset.projectIdx = idxOrFilter;
-      addTodoDiv.addEventListener("click", createTodo);
-      
-      const addTodoBtn = document.createElement("div");
-      addTodoBtn.classList.add("card-icon", "create-task", "create-todo");
+    const addTodoDiv = document.createElement("div");
+    addTodoDiv.classList.add("card", "todo-add-div");
+    addTodoDiv.dataset.projectIdx = idxOrFilter;
+    addTodoDiv.addEventListener("click", createTodo);
+    
+    const addTodoBtn = document.createElement("div");
+    addTodoBtn.classList.add("card-icon", "create-task", "create-todo");
 
-      const addTodoPara = document.createElement("p");
-      addTodoPara.innerText = "Create new to-do";
+    const addTodoPara = document.createElement("p");
+    addTodoPara.innerText = "Create new to-do";
 
-      addTodoDiv.append(addTodoBtn, addTodoPara);
-      projectItem.appendChild(addTodoDiv);
-      cardsContainer.appendChild(projectItem);
+    addTodoDiv.append(addTodoBtn, addTodoPara);
+    projectItem.appendChild(addTodoDiv);
+    cardsContainer.appendChild(projectItem);
   };
 
   function toggleCard() {
@@ -560,6 +560,7 @@ export const ui = (() => {
     toggleMenu();
     placeCards(this.dataset.filter.toLowerCase());
   }
+  
   function taskCheck(){
     const projectIdx = this.dataset.projectIdx;
     const todoIdx = this.dataset.todoIdx;
