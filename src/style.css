@@ -580,6 +580,21 @@ input[type="text"], input[type="datetime-local"] {
 
 
 
+/* search results */
+
+.card.search-result {
+  grid-template-areas:
+    " title   title    title   progress "
+    " descr   descr    descr   descr    "
+    " created created  created created  "
+    " due     due      due     due      ";
+}
+
+.card.search-result .description { margin: 0; }
+.card.search-result .date-creation { margin-top: .5rem; }
+.card.search-result .date-due { margin: 0; }
+.card.search-result .date-due:empty { display: none; }
+
 /* responsiveness */
 
 @media screen and (min-width: 1000px) {
