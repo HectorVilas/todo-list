@@ -36,7 +36,7 @@ export const ui = (() => {
     for(let i = 0; i < filters.length; i++){
       const li = document.createElement("li");
       li.classList.add("menu-filter", "menu-item");
-      li.dataset.filter = filters[i].split(" ").join("-");
+      li.dataset.filter = filters[i].split(" ").join("-").toLowerCase();
       li.addEventListener("click", filterTodos);
 
       const para = document.createElement("p");
@@ -556,9 +556,57 @@ export const ui = (() => {
     if(projectIdx === titleCards.dataset.projectIdx) titleCards.innerText = this.value;
   }
 
+  // function filterTodos(){
+  //   toggleMenu();
+  //   placeCards(this.dataset.filter.toLowerCase());
+  // }
   function filterTodos(){
     toggleMenu();
-    placeCards(this.dataset.filter.toLowerCase());
+    cardsContainer.replaceChildren();
+
+    const project = todoHandler.getProject(this.dataset.filter);
+    console.log(project);
+    
+    const projectItem = document.createElement("div");
+    projectItem.classList.add("project-item");
+
+    const h1 = document.createElement("h1");
+    h1.innerText = project.title;
+    projectItem.append(h1);
+
+    project.todos.forEach(todo => {
+      const result = document.createElement("div");
+      result.classList.add("card", "search-result", "active");
+      result.dataset.priority = todo.priority;
+
+      const title = document.createElement("h2");
+      title.classList.add("title");
+      title.innerText = todo.title;
+
+      const progress = document.createElement("div");
+      progress.classList.add("progress");
+      const completed = todo.checks.filter(item => item.isDone).length;
+      const percentage = completed * 100 / todo.checks.length;
+      progress.style.background = `conic-gradient(#2e10c0 ${percentage}%, transparent ${percentage}%, transparent 100%)`
+
+      const description = document.createElement("p");
+      description.classList.add("description");
+      description.innerText = todo.description;
+
+      const dateCreation = document.createElement("p");
+      dateCreation.classList.add("date-creation");
+      dateCreation.innerText = `Created: ${todo.dateCreation}`;
+
+      const dateDue = document.createElement("p");
+      dateDue.classList.add("date-due");
+      dateDue.innerText = todo.dateDue.length > 0 ? `Due: ${todo.dateDue}` : "";
+
+      result.append(title, progress, description, dateCreation, dateDue);
+
+      projectItem.append(result);
+    });
+
+    cardsContainer.appendChild(projectItem);
   }
   
   function taskCheck(){
