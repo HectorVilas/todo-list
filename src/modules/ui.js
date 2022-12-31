@@ -284,7 +284,6 @@ export const ui = (() => {
   }
 
   function placeCards(idxOrFilter, activateTodo){
-    console.log(this);
     cardsContainer.replaceChildren()
     
     const project = todoHandler.getProject(idxOrFilter);
@@ -319,9 +318,9 @@ export const ui = (() => {
 
     if(activateTodo !== undefined) {
       setTimeout(() => {
-        const activeCard = document.querySelector(`.card[data-project-idx="${
-          activateTodo}"][data-todo-idx="${activateTodo}"]`);
+        const activeCard = document.querySelector(`.card[data-todo-idx="${activateTodo}"]`);
         activeCard.classList.add("active");
+        activeCard.scrollIntoView();
       }, 100);
     }
   };
