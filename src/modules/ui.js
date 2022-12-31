@@ -283,7 +283,7 @@ export const ui = (() => {
     return priorityDiv;
   }
 
-  function placeCards(idxOrFilter){
+  function placeCards(idxOrFilter, activateTodo){
     console.log(this);
     cardsContainer.replaceChildren()
     
@@ -316,6 +316,14 @@ export const ui = (() => {
     addTodoDiv.append(addTodoBtn, addTodoPara);
     projectItem.appendChild(addTodoDiv);
     cardsContainer.appendChild(projectItem);
+
+    if(activateTodo !== undefined) {
+      setTimeout(() => {
+        const activeCard = document.querySelector(`.card[data-project-idx="${
+          activateTodo}"][data-todo-idx="${activateTodo}"]`);
+        activeCard.classList.add("active");
+      }, 100);
+    }
   };
 
   function toggleCard() {
@@ -577,7 +585,7 @@ export const ui = (() => {
       result.dataset.projectIdx = todo.projectIdx;
       result.dataset.todoIdx = todo.todoIdx;
       result.addEventListener("click", () => {
-        placeCards(parseInt(todo.projectIdx))
+        placeCards(parseInt(todo.projectIdx), todo.todoIdx);
       });
 
       const title = document.createElement("h2");
