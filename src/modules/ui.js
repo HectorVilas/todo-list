@@ -320,7 +320,9 @@ export const ui = (() => {
       setTimeout(() => {
         const activeCard = document.querySelector(`.card[data-todo-idx="${activateTodo}"]`);
         activeCard.classList.add("active");
-        activeCard.scrollIntoView();
+        setTimeout(() => {
+          activeCard.scrollIntoView();
+        }, 500);
       }, 100);
     }
   };
