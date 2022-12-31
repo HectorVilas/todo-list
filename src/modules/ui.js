@@ -284,6 +284,7 @@ export const ui = (() => {
   }
 
   function placeCards(idxOrFilter){
+    console.log(this);
     cardsContainer.replaceChildren()
     
     const project = todoHandler.getProject(idxOrFilter);
@@ -556,16 +557,11 @@ export const ui = (() => {
     if(projectIdx === titleCards.dataset.projectIdx) titleCards.innerText = this.value;
   }
 
-  // function filterTodos(){
-  //   toggleMenu();
-  //   placeCards(this.dataset.filter.toLowerCase());
-  // }
   function filterTodos(){
     toggleMenu();
     cardsContainer.replaceChildren();
 
     const project = todoHandler.getProject(this.dataset.filter);
-    console.log(project);
     
     const projectItem = document.createElement("div");
     projectItem.classList.add("project-item");
@@ -578,6 +574,11 @@ export const ui = (() => {
       const result = document.createElement("div");
       result.classList.add("card", "search-result", "active");
       result.dataset.priority = todo.priority;
+      result.dataset.projectIdx = todo.projectIdx;
+      result.dataset.todoIdx = todo.todoIdx;
+      result.addEventListener("click", () => {
+        placeCards(parseInt(todo.projectIdx))
+      });
 
       const title = document.createElement("h2");
       title.classList.add("title");
