@@ -108,8 +108,10 @@ export const todoHandler = (() => {
       const local = getLocalStorage();
       const filtered = { title: "Pinned", todos: []};
 
-      local.forEach(thisProject => thisProject.todos.forEach(thisTodo => {
+      local.forEach((thisProject, projectIdx) => thisProject.todos.forEach((thisTodo, todoIdx) => {
         if(thisTodo.isPinned){
+          thisTodo.projectIdx = projectIdx;
+          thisTodo.todoIdx = todoIdx;
           filtered.todos.push(thisTodo);
         };
       }));
@@ -119,8 +121,10 @@ export const todoHandler = (() => {
       const local = getLocalStorage();
       const filtered = { title: "Favorites", todos: []};
 
-      local.forEach(thisProject => thisProject.todos.forEach(thisTodo => {
+      local.forEach((thisProject, projectIdx) => thisProject.todos.forEach((thisTodo, todoIdx) => {
         if(thisTodo.isFavorite){
+          thisTodo.projectIdx = projectIdx;
+          thisTodo.todoIdx = todoIdx;
           filtered.todos.push(thisTodo);
         };
       }));
