@@ -2,6 +2,8 @@
   --bgc-page: lavender;
   --card-shadow: .25rem .25rem .25rem rgba(0,0,0,.1),
     inset .25rem .25rem .25rem rgba(255,255,255,.5);
+  --card-shadow-invert: inset .25rem .25rem .25rem rgba(0,0,0,.1),
+    .25rem .25rem .25rem rgba(255,255,255,.5);
   --icon-size: 30px;
   --icon-menu-size: 40px;
   --icon-check-size: 20px;
@@ -588,12 +590,24 @@ input[type="text"], input[type="datetime-local"] {
     " descr   descr    descr   descr    "
     " created created  created created  "
     " due     due      due     due      ";
+  padding-left: 1rem;
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  box-shadow: var(--card-shadow);
+  transition: background-color 150ms ease-in-out;
 }
+.card.search-result:hover { background-color: hsl(240, 67%, 98%); }
+.card.search-result:active { box-shadow: var(--card-shadow-invert); }
 
-.card.search-result .description { margin: 0; }
+
+.card.search-result .description { margin: .5rem 0 0 0; }
 .card.search-result .date-creation { margin-top: .5rem; }
 .card.search-result .date-due { margin: 0; }
 .card.search-result .date-due:empty { display: none; }
+.card.search-result .title { padding-left: 0; }
+
+
 
 /* responsiveness */
 
