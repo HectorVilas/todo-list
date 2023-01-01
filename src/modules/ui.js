@@ -597,6 +597,7 @@ export const ui = (() => {
       const completed = todo.checks.filter(item => item.isDone).length;
       const percentage = completed * 100 / todo.checks.length;
       progress.style.background = `conic-gradient(#2e10c0 ${percentage}%, transparent ${percentage}%, transparent 100%)`
+      progress.style.opacity = todo.checks.length === 0 ? "0%" : "100%";
 
       const description = document.createElement("p");
       description.classList.add("description");
@@ -636,6 +637,7 @@ export const ui = (() => {
     const completed = thisProject.checks.filter(item => item.isDone).length;
     const percentage = completed * 100 / thisProject.checks.length;
     percentageDiv.style.background = `conic-gradient(#2e10c0 ${percentage}%, transparent ${percentage}%, transparent 100%)`
+    percentageDiv.style.opacity = thisProject.checks.length === 0 ? "0%" : "100%";
   }
 
   return { placeCards, loadMenu };
