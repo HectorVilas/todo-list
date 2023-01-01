@@ -1,7 +1,7 @@
-import {Todo} from "./classes.js"
+import {Todo} from "./classes.js";
+import { format } from "date-fns";
 
-const today = new Date();
-const date = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()} ${today.getHours()}:${today.getMinutes()}`;
+const date = format(new Date(), "eeee MM/dd/yyyy - hh:mm");
     
 export const todoSample = [
   {

@@ -1,5 +1,6 @@
 import { todoSample } from "./todoSample.js";
-import { Todo } from "./classes.js"
+import { Todo } from "./classes.js";
+import { format } from "date-fns";
 
 export const todoHandler = (() => {
   function toggleFav(){
@@ -144,8 +145,7 @@ export const todoHandler = (() => {
     });
     const todoName = repeated === 0 ? "new to-do" : `new to-do(${repeated})`;
     
-    const d = new Date();
-    const date = `${d.getFullYear()}-${d.getMonth()}-${d.getDate()} ${d.getHours()}:${d.getMinutes()}`;
+    const date = format(new Date(), "eeee MM/dd/yyyy - hh:mm");
     
     local[projectIdx].todos.push(
       new Todo(todoName, "", date, "", [], "low", false, false)
