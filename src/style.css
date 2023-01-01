@@ -628,6 +628,7 @@ input[type="text"], input[type="datetime-local"] {
     grid-area: sidebar;
     top: 0;
     height: 100vh;
+    max-height: none;
   }
 
   #cards-container {
