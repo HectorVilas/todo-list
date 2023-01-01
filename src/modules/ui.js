@@ -346,10 +346,9 @@ export const ui = (() => {
   }
 
   function cardEdit(){
-    const cardClass = this.parentNode.parentNode.classList;
+    const cardClass = this.closest(".card").classList;
     this.checked ? cardClass.add("edit-mode") : cardClass.remove("edit-mode");
-    
-    this.parentNode.parentNode.classList.add("active");
+    this.closest(".card").classList.add("active");
   }
 
   function cardDelete(){
