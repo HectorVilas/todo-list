@@ -1,7 +1,7 @@
 import {Todo} from "./classes.js";
 import { format } from "date-fns";
 
-const date = format(new Date(), "eeee MM/dd/yyyy - hh:mm");
+const date = format(new Date(), "yyyy-MM-dd");
     
 export const todoSample = [
   {
