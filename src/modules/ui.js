@@ -165,7 +165,7 @@ export const ui = (() => {
     dateDue.classList.add("date-due");
     dateDue.innerText = todo.dateDue.length > 0 ? `Due: ${todo.dateDue}` : "";
     const editDateDue = document.createElement("input");
-    editDateDue.type = "datetime-local";
+    editDateDue.type = "date";
     editDateDue.classList.add("date-due", "edit-date-due");
     editDateDue.value = todo.dateDue;
     editDateDue.addEventListener("input", editField);
