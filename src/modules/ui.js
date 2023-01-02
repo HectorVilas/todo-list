@@ -4,9 +4,13 @@ import iconDrag from "../media/images/icons/drag.svg";
 import iconTrash from "../media/images/icons/trash.svg";
 import iconTrashLid from "../media/images/icons/trash-lid.svg";
 
+import { format, parseISO } from "date-fns";
+
 export const ui = (() => {
   const cardsContainer = document.querySelector("#cards-container");
   const body = document.querySelector("body");
+
+  const dateFormat = "eeee',' MMMM do yyyy";
 
   function loadMenu(){
     //create example projects if there's no localStorage
@@ -159,11 +163,11 @@ export const ui = (() => {
 
     const dateCreation = document.createElement("p");
     dateCreation.classList.add("date-creation");
-    dateCreation.innerText = `Created: ${todo.dateCreation}`;
+    dateCreation.innerText = `Created: ${format(new Date(parseISO(todo.dateCreation)), dateFormat)}`;
 
     const dateDue = document.createElement("p");
     dateDue.classList.add("date-due");
-    dateDue.innerText = todo.dateDue.length > 0 ? `Due: ${todo.dateDue}` : "";
+    dateDue.innerText = todo.dateDue.length > 0 ? `Due: ${format(new Date(parseISO(todo.dateDue)), dateFormat)}` : "";
     const editDateDue = document.createElement("input");
     editDateDue.type = "date";
     editDateDue.classList.add("date-due", "edit-date-due");
@@ -477,7 +481,7 @@ export const ui = (() => {
       todoHandler.editDateDue(projectIdx, todoIdx, this.value)
       const thisDateDue = document.querySelector(`.card[data-project-idx="${projectIdx}"][data-todo-idx="${todoIdx}"] .date-due`);
       
-      thisDateDue.innerText = this.value.length > 0 ? `Due: ${this.value}` : "";
+      thisDateDue.innerText = this.value.length > 0 ? `Due: ${format(new Date(parseISO(this.value)), dateFormat)}` : "";
       
     } else if(this.className.includes("edit-label")){
       todoHandler.editLabel(projectIdx, todoIdx, taskIdx, this.value);
@@ -605,12 +609,12 @@ export const ui = (() => {
 
       const dateCreation = document.createElement("p");
       dateCreation.classList.add("date-creation");
-      dateCreation.innerText = `Created: ${todo.dateCreation}`;
+      dateCreation.innerText = `Created: ${format(new Date(parseISO(todo.dateCreation)), dateFormat)}`;;
 
       const dateDue = document.createElement("p");
       dateDue.classList.add("date-due");
-      dateDue.innerText = todo.dateDue.length > 0 ? `Due: ${todo.dateDue}` : "";
-
+      dateDue.innerText = todo.dateDue.length > 0 ? `Due: ${format(new Date(parseISO(todo.dateDue)), dateFormat)}` : "";
+      console.log(dateDue.innerText);
       result.append(title, progress, description, dateCreation, dateDue);
 
       projectItem.append(result);
