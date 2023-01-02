@@ -145,7 +145,7 @@ export const todoHandler = (() => {
     });
     const todoName = repeated === 0 ? "new to-do" : `new to-do(${repeated})`;
     
-    const date = format(new Date(), "eeee MM/dd/yyyy - hh:mm");
+    const date = format(new Date(), "yyyy-MM-dd");
     
     local[projectIdx].todos.push(
       new Todo(todoName, "", date, "", [], "low", false, false)
