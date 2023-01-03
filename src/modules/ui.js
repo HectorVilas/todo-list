@@ -215,7 +215,6 @@ export const ui = (() => {
     pin.type = "checkbox";
     pin.checked = todo.isPinned ? true : false;
     pin.classList.add("card-icon", "icon-pin");
-    // pin.addEventListener("click", cardPinToggle);
     pin.addEventListener("click", todoHandler.togglePin);
 
     const edit = document.createElement("input");
@@ -250,7 +249,30 @@ export const ui = (() => {
   function trashIcon(clickFunction){
     const deleteIcon = document.createElement("div");
     deleteIcon.classList.add("delete-icon");
-    deleteIcon.addEventListener("click", clickFunction);
+    
+    deleteIcon.addEventListener("mousedown", function deleting(){
+      this.classList.add("deleting");
+    });
+    deleteIcon.addEventListener("mouseup", function deleting(){
+      this.classList.remove("deleting");
+    });
+    deleteIcon.addEventListener("mouseout", function deleting(){
+      this.classList.remove("deleting");
+    });
+    deleteIcon.addEventListener("animationend", function deleting(e){
+      if(e.animationName === "deleting"){
+        const projectIdx = this.dataset.projectIdx;
+        const todoIdx = this.dataset.todoIdx;
+        console.log("must delete");
+        console.log(this);
+        if (clickFunction == deleteProject) {
+          deleteProject(projectIdx);
+        } else {
+          cardDelete(projectIdx, todoIdx);
+        }
+      };
+    });
+
     const trash = document.createElement("img");
     trash.classList.add("card-icon", "icon-trash");
     trash.src = iconTrash;
@@ -355,9 +377,10 @@ export const ui = (() => {
     this.closest(".card").classList.add("active");
   }
 
-  function cardDelete(){
-    const projectIdx = this.dataset.projectIdx;
-    const todoIdx = this.dataset.todoIdx;
+  function cardDelete(projectIdxParam, todoIdxParam){
+    const projectIdx = this?.dataset?.projectIdx || projectIdxParam;
+    const todoIdx = this?.dataset?.todoIdx || todoIdxParam;
+    console.log("projectIdx: ", projectIdx, "todoIdx: ", todoIdx);
 
     if(todoHandler.getFavStatus(projectIdx, todoIdx)) {
       const thisCardStar = document.querySelector(`[data-project-idx="${
@@ -501,8 +524,7 @@ export const ui = (() => {
     placeCards(parseInt(this.dataset.projectIdx));
   }
 
-  function deleteProject(){
-    const projectIdx = this.parentNode.dataset.projectIdx;
+  function deleteProject(projectIdx){
     todoHandler.deleteProject(projectIdx);
 
     projectsList(true);

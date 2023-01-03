@@ -492,6 +492,15 @@ body {background-color: var(--bgc-page);}
 .delete-icon:hover .icon-trash { rotate: -7deg;}
 .delete-icon:hover .icon-trash-lid { rotate: 7deg; }
 
+.delete-icon.deleting {
+  animation: deleting 3s linear;
+}
+
+@keyframes deleting {
+  0% { background-color: white; }
+  100% { background-color: black; }
+}
+
 .card-icon.icon-edit:hover,
 .card-icon.icon-pin:hover {
   animation: icon-shake var(--hover-anim-duration);
