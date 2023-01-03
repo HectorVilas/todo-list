@@ -15,6 +15,7 @@
   --hover-anim-duration: 250ms;
   --menu-width: 350px;
   --viewport-min-width: 600px;
+  --deletion-delay: 2s; 
 }
 
 /* default values reset */
@@ -482,6 +483,7 @@ body {background-color: var(--bgc-page);}
   height: var(--icon-size);
   margin-top: auto;
   margin-bottom: auto;
+  align-items: center;
 }.icon-trash,
 .icon-trash-lid {
   position: absolute;
@@ -493,12 +495,31 @@ body {background-color: var(--bgc-page);}
 .delete-icon:hover .icon-trash-lid { rotate: 7deg; }
 
 .delete-icon.deleting {
-  animation: deleting 3s linear;
+  /*item is deleted after animation ends*/
+  animation: deleting var(--deletion-delay) linear;
+}
+.delete-icon.deleting::after {
+  position: absolute;
+  content: "⚠️Deleting...⚠️";
+  font-size: 1.5rem;
+  color: var(--bgc-page);
+  padding: .25rem;
+  box-shadow: var(--card-shadow);
+  pointer-events: none;
+  transform: translate(-100%, -10%);
+  background-color: red;
+  clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+  animation: deleting-text var(--deletion-delay) ease-out;
 }
 
 @keyframes deleting {
-  0% { background-color: white; }
-  100% { background-color: black; }
+  to {
+    filter: drop-shadow(0 0 .5rem red);
+  }
+}
+@keyframes deleting-text {
+  from {clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);}
+  to {clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);}
 }
 
 .card-icon.icon-edit:hover,
