@@ -263,8 +263,6 @@ export const ui = (() => {
       if(e.animationName === "deleting"){
         const projectIdx = this.dataset.projectIdx;
         const todoIdx = this.dataset.todoIdx;
-        console.log("must delete");
-        console.log(this);
         if (clickFunction == deleteProject) {
           deleteProject(projectIdx);
         } else {
@@ -380,7 +378,6 @@ export const ui = (() => {
   function cardDelete(projectIdxParam, todoIdxParam){
     const projectIdx = this?.dataset?.projectIdx || projectIdxParam;
     const todoIdx = this?.dataset?.todoIdx || todoIdxParam;
-    console.log("projectIdx: ", projectIdx, "todoIdx: ", todoIdx);
 
     if(todoHandler.getFavStatus(projectIdx, todoIdx)) {
       const thisCardStar = document.querySelector(`[data-project-idx="${
@@ -636,7 +633,6 @@ export const ui = (() => {
       const dateDue = document.createElement("p");
       dateDue.classList.add("date-due");
       dateDue.innerText = todo.dateDue.length > 0 ? `Due: ${format(new Date(parseISO(todo.dateDue)), dateFormat)}` : "";
-      console.log(dateDue.innerText);
       result.append(title, progress, description, dateCreation, dateDue);
 
       projectItem.append(result);
