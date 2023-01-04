@@ -410,6 +410,14 @@ export const ui = (() => {
     editLabel.htmlFor = checkbox.id;
     editLabel.value = check?.task || "";
     editLabel.addEventListener("input", editField);
+    editLabel.addEventListener("keypress", function newTask(e){
+      if(e.key === "Enter"){
+        const projectIdx = this.dataset.projectIdx;
+        const todoIdx = this.dataset.todoIdx;
+        const todo = this.closest(".card").querySelector(".create-task").dataset.todo;
+        createTask(projectIdx, todoIdx, todo)
+      }
+    });
 
     const removeTask = document.createElement("div");
     removeTask.classList.add("card-icon", "remove-task");
@@ -427,10 +435,10 @@ export const ui = (() => {
     return task;
   }
 
-  function createTask(){
-    const projectIdx = this.dataset.projectIdx;
-    const todoIdx = this.dataset.todoIdx;
-    const todo = this.dataset.todo;
+  function createTask(projectIdxParam, todoIdxParam, todoParam){
+    const projectIdx = this?.dataset?.projectIdx || projectIdxParam;
+    const todoIdx = this?.dataset?.todoIdx || todoIdxParam;
+    const todo = this?.dataset?.todo || todoParam;
     
     todoHandler.createTask(projectIdx, todoIdx);
     
