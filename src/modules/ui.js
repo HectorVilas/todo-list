@@ -431,6 +431,15 @@ export const ui = (() => {
           projectIdx}"][data-todo-idx="${todoIdx}"][data-task-idx="${Math.max(0, Math.min(taskIdx+move, max))}"]`);
         
         newActive.focus();
+      } else if(e.key === " " && e.ctrlKey){
+        const projectIdx = this.dataset.projectIdx;
+        const todoIdx = this.dataset.todoIdx;
+        const taskIdx = parseInt(this.dataset.taskIdx);
+        
+        const checkbox = document.querySelector(`input[type="checkbox"][data-project-idx="${
+          projectIdx}"][data-todo-idx="${todoIdx}"][data-task-idx="${taskIdx}"]`);
+        checkbox.checked = !checkbox.checked;
+        taskCheck(projectIdx, todoIdx, taskIdx);
       }
     });
 
@@ -664,10 +673,10 @@ export const ui = (() => {
     cardsContainer.appendChild(projectItem);
   }
   
-  function taskCheck(){
-    const projectIdx = this.dataset.projectIdx;
-    const todoIdx = this.dataset.todoIdx;
-    const taskIdx = this?.dataset?.taskIdx;
+  function taskCheck(projectIdxParam, todoIdxParam, taskIdxParam){
+    const projectIdx = this?.dataset?.projectIdx || projectIdxParam;
+    const todoIdx = this?.dataset?.todoIdx || todoIdxParam;
+    const taskIdx = this?.dataset?.taskIdx || taskIdxParam;
     todoHandler.taskCheck(projectIdx, todoIdx, taskIdx);
 
     updateProgress(projectIdx, todoIdx);
