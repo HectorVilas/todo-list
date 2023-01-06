@@ -499,12 +499,15 @@ body {background-color: var(--bgc-page);}
 .icon-trash-lid { transform-origin: 250% 0%;}
 .delete-icon:hover .icon-trash { rotate: -7deg;}
 .delete-icon:hover .icon-trash-lid { rotate: 7deg; }
+.delete-icon:active .icon-trash { transition: rotate 2s; rotate: -18deg; }
+.delete-icon:active .icon-trash-lid { transition: rotate 2s; rotate: 10deg; }
 
 .delete-icon.deleting {
   /*item is deleted after animation ends*/
   animation: deleting var(--deletion-delay) linear;
 }
-.delete-icon.deleting::after {
+.delete-icon.deleting::after,
+.delete-icon.deleting::before {
   position: absolute;
   content: "⚠️Deleting...⚠️";
   font-size: 1.5rem;
@@ -513,9 +516,14 @@ body {background-color: var(--bgc-page);}
   box-shadow: var(--card-shadow);
   pointer-events: none;
   transform: translate(-100%, -10%);
-  background-color: red;
+  background-color: #444;
+  animation: deleting-bg var(--deletion-delay) ease-out;
   clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+}
+.delete-icon.deleting::after {
+  background-color: red;
   animation: deleting-text var(--deletion-delay) ease-out;
+
 }
 
 @keyframes deleting {
@@ -526,6 +534,9 @@ body {background-color: var(--bgc-page);}
 @keyframes deleting-text {
   from {clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);}
   to {clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);}
+}
+@keyframes deleting-bg { /* this disappears the bar if fav cancels deletion*/
+  0%, 100% {clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);}
 }
 
 .card-icon.icon-edit:hover,
