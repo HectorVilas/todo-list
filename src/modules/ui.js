@@ -265,9 +265,6 @@ export const ui = (() => {
     deleteIcon.addEventListener("touchend", function(){
       this.classList.remove("deleting");
     });
-    deleteIcon.addEventListener("touchmove", function(){
-      this.classList.remove("deleting");
-    });
     deleteIcon.addEventListener("mouseout", function(){
       this.classList.remove("deleting");
     });
