@@ -69,8 +69,30 @@ export const ui = (() => {
     newProjectDiv.append(newProjectPara, newProjectIcon);
     fieldsetTasks.append(legendProjects, projectsList(), newProjectDiv);
 
+    //options and others
+    const fieldsetOptions = document.createElement("fieldset");
+    fieldsetOptions.classList.add("menu-fieldset", "fieldset-options");
+    const legendOptions = document.createElement("legend");
+    legendOptions.innerText = "Options";
 
-    menu.append(fieldsetFilter, fieldsetTasks);
+    
+    const optionsList = document.createElement("ul");
+    optionsList.classList.add("fieldset-list")
+    const aboutLi = document.createElement("li");
+    aboutLi.classList.add("menu-item", "about");
+    const aboutDivPara = document.createElement("p");
+    const aboutLink = document.createElement("a");
+    aboutLink.innerText = "Hector Vilas' Github"
+    aboutLink.href = "https://github.com/HectorVilas";
+    aboutLink.target = "_blank";
+    
+    aboutDivPara.append(aboutLink);
+    aboutLi.append(aboutDivPara);
+    optionsList.append(aboutLi);
+    fieldsetOptions.append(optionsList);
+    
+    fieldsetOptions.append(legendOptions);
+    menu.append(fieldsetFilter, fieldsetTasks, fieldsetOptions);
     body.append(menuBtn, menu, screenCoverMenu);
   }
 
