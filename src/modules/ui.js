@@ -250,16 +250,30 @@ export const ui = (() => {
     const deleteIcon = document.createElement("div");
     deleteIcon.classList.add("delete-icon");
     
-    deleteIcon.addEventListener("mousedown", function deleting(){
+    //start deletion on click or touch
+    deleteIcon.addEventListener("mousedown", function(){
       this.classList.add("deleting");
     });
-    deleteIcon.addEventListener("mouseup", function deleting(){
+    deleteIcon.addEventListener("touchstart", function(){
+      this.classList.add("deleting");
+    });
+
+    //cancel deletion on mouse out, touch stop or touch move
+    deleteIcon.addEventListener("mouseup", function(){
       this.classList.remove("deleting");
     });
-    deleteIcon.addEventListener("mouseout", function deleting(){
+    deleteIcon.addEventListener("touchend", function(){
       this.classList.remove("deleting");
     });
-    deleteIcon.addEventListener("animationend", function deleting(e){
+    deleteIcon.addEventListener("touchmove", function(){
+      this.classList.remove("deleting");
+    });
+    deleteIcon.addEventListener("mouseout", function(){
+      this.classList.remove("deleting");
+    });
+
+    //start deletion
+    deleteIcon.addEventListener("animationend", function(e){
       if(e.animationName === "deleting"){
         const projectIdx = this.dataset.projectIdx;
         const todoIdx = this.dataset.todoIdx;
