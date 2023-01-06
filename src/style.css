@@ -207,7 +207,13 @@ body {background-color: var(--bgc-page);}
 }
 .card .date-due {
   grid-area: due;
+}.card .date-due.edit-date-due {
+  background: url(./media/images/icons/due.svg) no-repeat;
+  background-size: contain;
+  padding-left: 1.75rem;
+  font-size: 1rem;
 }
+
 .card .checklist {
   grid-area: tasks;
   display: grid;
@@ -572,9 +578,11 @@ body {background-color: var(--bgc-page);}
 
 input[type="text"], input[type="date"] {
   border-radius: .25rem;
-  background-color: white !important;
+  background-color: white;
   border: none;
   box-shadow: inset .15rem .15rem .15rem rgba(0,0,0,.25);
+} input[type="text"].edit-label {
+  background-color: white;
 }
 
 .card.edit-mode input[type="text"], input[type="date"] {
