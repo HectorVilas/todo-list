@@ -114,7 +114,30 @@ input[type="text"], input[type="date"] {
   overflow: hidden;
 }
 
+#menu .fieldset-options p {
+  width: 100%;
+}
 
+#menu a {
+  text-decoration: none;
+  color: inherit;
+}
+
+#menu .fieldset-options .menu-item.about {
+  --icon-size: 50px;
+  --duration: 3s;
+  background-size: 700%;
+  transition: background-size var(--duration) cubic-bezier(.08,.82,.17,1);
+  background-position: bottom left;
+}
+#menu .fieldset-options .menu-item.about:hover {
+  background: url(./media/images/background/github-mark.svg);
+  background-size: var(--icon-size);
+  animation: bg-anim var(--duration) calc(var(--duration) / 5) infinite linear;
+}
+@keyframes bg-anim {
+  to { background-position: calc(var(--icon-size) * 2) calc(var(--icon-size) * -1); }
+}
 
 /* page content */
 
