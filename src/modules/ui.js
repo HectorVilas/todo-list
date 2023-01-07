@@ -194,6 +194,7 @@ export const ui = (() => {
     editDateDue.type = "date";
     editDateDue.classList.add("date-due", "edit-date-due");
     editDateDue.value = todo.dateDue;
+    editDateDue.title = "Due date";
     editDateDue.addEventListener("input", editField);
 
     const checks = document.createElement("ul");

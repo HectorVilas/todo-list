@@ -33,7 +33,14 @@ input[type="text"], input[type="date"] {
 }
 * {font-family: 'Times New Roman', Times, serif;}
 
-
+input::selection {
+  color: white;
+  background-color: hsl(240, 80%, 70%);
+}
+input:not([type="checkbox"]):focus {
+  outline: 4px solid rgba(46, 16, 192, .25);
+  transition: 0ms;
+}
 
 /* menu */
 
