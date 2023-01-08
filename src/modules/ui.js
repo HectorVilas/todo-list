@@ -7,6 +7,9 @@ import iconTrashLid from "../media/images/icons/trash-lid.svg";
 import { format, parseISO } from "date-fns";
 
 export const ui = (() => {
+  //track mouse for drag
+  const mouse = { x:0, y:0 };
+
   const cardsContainer = document.querySelector("#cards-container");
   const body = document.querySelector("body");
 
@@ -396,11 +399,50 @@ export const ui = (() => {
   }
 
   function cardDrag(){
+    //add temporal event listener, removed on execution
+    window.addEventListener("mouseup", cardPlace);
+    body.style.userSelect = "none";
+
+    //disabling edit mode on all cards
     const allCards = document.querySelectorAll(".card");
     allCards.forEach(card => card.classList.remove("active", "edit-mode"));
 
     const iconEdit = document.querySelectorAll(".icon-edit");
     iconEdit.forEach(icon => icon.checked = false);
+
+    //creating dragged card
+    const targetCard = this.closest(".card");
+    console.log(targetCard);
+    const draggingCard = targetCard.cloneNode(true);
+    draggingCard.classList.add("dragging-card");
+    draggingCard.style.width = `${targetCard.clientWidth}px`;
+
+
+    window.addEventListener("mousedown", function drag(e){
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    })
+    window.addEventListener("mousemove", function drag(e){
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    })
+    
+    const followCursor = setInterval(() => {
+      draggingCard.style.left = `${mouse.x - 25}px`;
+      draggingCard.style.top = `${mouse.y - (draggingCard.clientHeight / 2)}px`;
+      // console.log(draggingCard.clientHeight);
+    }, 1000/60); //divided by desired FPS
+    
+    body.append(draggingCard);
+  }
+
+  function cardPlace(){
+    //remove temporal event listener, added by cardDrag()
+    window.removeEventListener("mouseup", cardPlace);
+    body.style.userSelect = "text";
+    
+    const draggingCard = document.querySelector(".dragging-card");
+    body.removeChild(draggingCard);
   }
 
   function cardEdit(){
@@ -614,7 +656,7 @@ export const ui = (() => {
     const editBtns = document.querySelectorAll(".project-item .icon-edit");
     editBtns[editBtns.length -1].checked = true;
 
-    const cards = document.querySelectorAll(".card");
+    const cards = document.querySelectorAll(".project-item .card");
     cards[cards.length -2].classList.add("active","edit-mode");
 
     const titleInputs = document.querySelectorAll(".edit-title");
