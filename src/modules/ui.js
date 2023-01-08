@@ -9,6 +9,7 @@ import { format, parseISO } from "date-fns";
 export const ui = (() => {
   //track mouse for drag
   const mouse = { x:0, y:0 };
+  let cursorInterval;
 
   const cardsContainer = document.querySelector("#cards-container");
   const body = document.querySelector("body");
@@ -412,7 +413,6 @@ export const ui = (() => {
 
     //creating dragged card
     const targetCard = this.closest(".card");
-    console.log(targetCard);
     const draggingCard = targetCard.cloneNode(true);
     draggingCard.classList.add("dragging-card");
     draggingCard.style.width = `${targetCard.clientWidth}px`;
@@ -427,17 +427,17 @@ export const ui = (() => {
       mouse.y = e.clientY;
     })
     
-    const followCursor = setInterval(() => {
+    cursorInterval = setInterval(() => {
       draggingCard.style.left = `${mouse.x - 25}px`;
       draggingCard.style.top = `${mouse.y - (draggingCard.clientHeight / 2)}px`;
-      // console.log(draggingCard.clientHeight);
     }, 1000/60); //divided by desired FPS
     
     body.append(draggingCard);
   }
 
   function cardPlace(){
-    //remove temporal event listener, added by cardDrag()
+    //remove temporal event listener and interval, added by cardDrag()
+    clearInterval(cursorInterval);
     window.removeEventListener("mouseup", cardPlace);
     body.style.userSelect = "text";
     
