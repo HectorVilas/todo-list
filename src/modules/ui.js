@@ -417,15 +417,8 @@ export const ui = (() => {
     draggingCard.classList.add("dragging-card");
     draggingCard.style.width = `${targetCard.clientWidth}px`;
 
-
-    window.addEventListener("mousedown", function drag(e){
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
-    })
-    window.addEventListener("mousemove", function drag(e){
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
-    })
+    window.addEventListener("mousedown", updateMousePos);
+    window.addEventListener("mousemove", updateMousePos);
     
     cursorInterval = setInterval(() => {
       draggingCard.style.left = `${mouse.x - 25}px`;
@@ -435,10 +428,17 @@ export const ui = (() => {
     body.append(draggingCard);
   }
 
+  function updateMousePos(e){
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+  }
+
   function cardPlace(){
     //remove temporal event listener and interval, added by cardDrag()
     clearInterval(cursorInterval);
     window.removeEventListener("mouseup", cardPlace);
+    window.removeEventListener("mousedown", updateMousePos);
+    window.removeEventListener("mousemove", updateMousePos);
     body.style.userSelect = "text";
     
     const draggingCard = document.querySelector(".dragging-card");
