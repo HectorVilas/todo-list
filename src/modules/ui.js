@@ -154,6 +154,7 @@ export const ui = (() => {
     const card = document.createElement("div");
     card.classList.add("card");
     card.dataset.priority = todo.priority;
+    card.addEventListener("mouseenter", spaceCards)
 
     const drag = document.createElement("img");
     drag.classList.add("card-icon", "icon-drag");
@@ -416,6 +417,7 @@ export const ui = (() => {
     const draggingCard = targetCard.cloneNode(true);
     draggingCard.classList.add("dragging-card");
     draggingCard.style.width = `${targetCard.clientWidth}px`;
+    targetCard.classList.add("hidden");
 
     window.addEventListener("mousedown", updateMousePos);
     window.addEventListener("mousemove", updateMousePos);
@@ -433,13 +435,33 @@ export const ui = (() => {
     mouse.y = e.clientY;
   }
 
+  function spaceCards(e){
+    if(e.buttons !== 1 || !document.querySelector(".dragging-card")) return;
+    const projectIdx = this.dataset.projectIdx;
+    const todoIdx = this.dataset.todoIdx;
+    console.log(projectIdx, todoIdx);
+    const cards = document.querySelectorAll(".card:not(.dragging-card):not(.hidden)[data-project-idx][data-todo-idx]");
+    cards.forEach(card => {
+      if(card.dataset.projectIdx === projectIdx
+        && card.dataset.todoIdx === todoIdx){
+          card.style.paddingBottom = "70px";
+        } else {
+          card.style.paddingBottom = "";
+        }
+
+    })
+  }
+
   function cardPlace(){
-    //remove temporal event listener and interval, added by cardDrag()
+    //remove temporal event listener, interval and opacity added by cardDrag()
     clearInterval(cursorInterval);
     window.removeEventListener("mouseup", cardPlace);
     window.removeEventListener("mousedown", updateMousePos);
     window.removeEventListener("mousemove", updateMousePos);
     body.style.userSelect = "text";
+
+    const invisibleCard = document.querySelector(".hidden");
+    invisibleCard.classList.remove("hidden");
     
     const draggingCard = document.querySelector(".dragging-card");
     body.removeChild(draggingCard);

@@ -735,6 +735,19 @@ input[type="text"], input[type="date"] {
 }
 
 
+
+/* for general use */
+
+.hidden {
+  display: none;
+}
+
+.opacity-zero {
+  opacity: 0;
+}
+
+
+
 /*for testing*/
 /* * {
   outline: 1px solid gray;
