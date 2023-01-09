@@ -669,8 +669,6 @@ input[type="text"], input[type="date"] {
 /* dragged card */
 .card.dragging-card {
   position: absolute;
-  left: 0;
-  top: 5rem;
   background-color: white;
   pointer-events: none;
   border-radius: var(--card-border-rad);
