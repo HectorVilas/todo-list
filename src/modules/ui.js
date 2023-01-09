@@ -445,22 +445,21 @@ export const ui = (() => {
     cards.forEach(card => {
       if(card.dataset.projectIdx === projectIdx
         && card.dataset.todoIdx === todoIdx){
-        const previousSeparator = document.querySelector(".separator");
-        previousSeparator?.parentElement?.removeChild(previousSeparator);
+
+        cards.forEach(card => {
+          card.style.marginTop = "";
+          card.style.marginBottom = "";
+        })
 
         const container = document.querySelector(".project-item");
-        const separator = document.createElement("div");
-        separator.classList.add("card", "separator");
 
         const cardHeight = this.clientHeight;
         const mousePosCard = e.layerY;
 
         if(mousePosCard < cardHeight / 2){
-          container.insertBefore(separator, card);
+          card.style.marginTop = "3rem";
         } else {
-          const insertAfter = document.querySelector(`.card[data-project-idx="${
-            projectIdx}"][data-todo-idx="${parseInt(todoIdx)+1}"]`);
-          container.insertBefore(separator, insertAfter);
+          card.style.marginBottom = "3rem";
         }
       }
     })
@@ -480,8 +479,11 @@ export const ui = (() => {
     const draggingCard = document.querySelector(".dragging-card");
     body.removeChild(draggingCard);
 
-    const separator = document.querySelector(".separator");
-    separator.parentNode.removeChild(separator);
+    const cards = document.querySelectorAll(".card");
+    cards.forEach(card => {
+      card.style.marginTop = "";
+      card.style.marginBottom = "";
+    })
   }
 
   function cardEdit(){
