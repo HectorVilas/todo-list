@@ -154,7 +154,8 @@ export const ui = (() => {
     const card = document.createElement("div");
     card.classList.add("card");
     card.dataset.priority = todo.priority;
-    card.addEventListener("mouseenter", spaceCards)
+    // card.addEventListener("mouseenter", spaceCards);
+    card.addEventListener("mousemove", spaceCards);
 
     const drag = document.createElement("img");
     drag.classList.add("card-icon", "icon-drag");
@@ -451,13 +452,17 @@ export const ui = (() => {
         const separator = document.createElement("div");
         separator.classList.add("card", "separator");
 
-        const insertBefore = card;
-        const insertAfter = document.querySelector(`.card[data-project-idx="${
-          projectIdx}"][data-todo-idx="${parseInt(todoIdx)+1}"]`);
-        
-        container.insertBefore(separator, insertAfter);
-      }
+        const cardHeight = this.clientHeight;
+        const mousePosCard = e.layerY;
 
+        if(mousePosCard < cardHeight / 2){
+          container.insertBefore(separator, card);
+        } else {
+          const insertAfter = document.querySelector(`.card[data-project-idx="${
+            projectIdx}"][data-todo-idx="${parseInt(todoIdx)+1}"]`);
+          container.insertBefore(separator, insertAfter);
+        }
+      }
     })
   }
 
