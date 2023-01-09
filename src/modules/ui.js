@@ -439,15 +439,24 @@ export const ui = (() => {
     if(e.buttons !== 1 || !document.querySelector(".dragging-card")) return;
     const projectIdx = this.dataset.projectIdx;
     const todoIdx = this.dataset.todoIdx;
-    console.log(projectIdx, todoIdx);
-    const cards = document.querySelectorAll(".card:not(.dragging-card):not(.hidden)[data-project-idx][data-todo-idx]");
+    
+    const cards = document.querySelectorAll(".card:not(.separator):not(.dragging-card):not(.hidden)[data-project-idx][data-todo-idx]");
     cards.forEach(card => {
       if(card.dataset.projectIdx === projectIdx
         && card.dataset.todoIdx === todoIdx){
-          card.style.paddingBottom = "70px";
-        } else {
-          card.style.paddingBottom = "";
-        }
+        const previousSeparator = document.querySelector(".separator");
+        previousSeparator?.parentElement?.removeChild(previousSeparator);
+
+        const container = document.querySelector(".project-item");
+        const separator = document.createElement("div");
+        separator.classList.add("card", "separator");
+
+        const insertBefore = card;
+        const insertAfter = document.querySelector(`.card[data-project-idx="${
+          projectIdx}"][data-todo-idx="${parseInt(todoIdx)+1}"]`);
+        
+        container.insertBefore(separator, insertAfter);
+      }
 
     })
   }
@@ -465,6 +474,9 @@ export const ui = (() => {
     
     const draggingCard = document.querySelector(".dragging-card");
     body.removeChild(draggingCard);
+
+    const separator = document.querySelector(".separator");
+    separator.parentNode.removeChild(separator);
   }
 
   function cardEdit(){

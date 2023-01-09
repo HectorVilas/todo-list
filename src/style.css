@@ -679,6 +679,14 @@ input[type="text"], input[type="date"] {
   /* display: none; */
 }
 
+.separator {
+  background-color: white;
+  outline: 3px solid blue;
+  height: 3rem;
+} .separator:hover {
+  background-color: white;
+}
+
 
 /* search results */
 
