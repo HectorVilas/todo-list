@@ -185,8 +185,24 @@ export const todoHandler = (() => {
     localStorage.setItem("todo", JSON.stringify(val))
   }
 
+  function moveDraggedCard(projectIdx, fromTodo, toTodo, position){
+    console.log(projectIdx, fromTodo, toTodo, position);
+    const local = getLocalStorage();
+
+    const fromCard = local[projectIdx].todos.splice(fromTodo, 1);
+    const firstHalf = local[projectIdx].todos.splice(
+      0, position == "before" ? toTodo : toTodo+1);
+    const secondHalf = local[projectIdx].todos;
+
+    const arranged = [...firstHalf, ...fromCard, ...secondHalf];
+    local[projectIdx].todos = arranged;
+
+    setLocalStorage(local);
+  }
+
   return { toggleFav, togglePin, getFavStatus, deleteTodo, taskCheck,
     deleteTask, editTitle, editDescription, editDateDue, editLabel,
     createTask, getProjectsTitles, deleteProject, changePriority,
-    getProject, createTodo, createProject, editProjectTitle, loadSample }
+    getProject, createTodo, createProject, editProjectTitle, loadSample,
+    moveDraggedCard }
 })();
