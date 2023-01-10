@@ -7,9 +7,13 @@ import iconTrashLid from "../media/images/icons/trash-lid.svg";
 import { format, parseISO } from "date-fns";
 
 export const ui = (() => {
-  //track mouse for drag
-  const mouse = { x:0, y:0 };
+  const mouse = { x:0, y:0 }; //track mouse for drag
   let cursorInterval;
+  const cardMove = { //for drag and drop
+    from: {project: undefined, todo: undefined},
+    to: {project: undefined, todo: undefined},
+    position: undefined,
+  }
 
   const cardsContainer = document.querySelector("#cards-container");
   const body = document.querySelector("body");
@@ -402,6 +406,9 @@ export const ui = (() => {
   }
 
   function cardDrag(){
+    cardMove.from.project = this.closest(".card").dataset.projectIdx;
+    cardMove.from.todo = this.closest(".card").dataset.todoIdx;
+    
     //add temporal event listener, removed on execution
     window.addEventListener("mouseup", cardPlace);
     body.style.userSelect = "none";
@@ -440,6 +447,9 @@ export const ui = (() => {
     if(e.buttons !== 1 || !document.querySelector(".dragging-card")) return;
     const projectIdx = this.dataset.projectIdx;
     const todoIdx = this.dataset.todoIdx;
+
+    cardMove.to.project = projectIdx;
+    cardMove.to.todo = todoIdx;
     
     const withSeparation = document?.querySelector(".margin-top") || document?.querySelector(".margin-bottom");
     withSeparation?.classList.remove("margin-top", "margin-bottom");
@@ -457,8 +467,10 @@ export const ui = (() => {
 
         if(mousePosCard < cardHeight / 2){
           card.classList.add("margin-top");
+          cardMove.position = "before";
         } else {
           card.classList.add("margin-bottom");
+          cardMove.position = "after";
         }
       }
     })
@@ -480,6 +492,20 @@ export const ui = (() => {
 
     const withSeparation = document?.querySelector(".margin-top") || document?.querySelector(".margin-bottom");
     withSeparation?.classList.remove("margin-top", "margin-bottom");
+
+    //move to-dos
+    if(cardMove.from.project && cardMove.from.todo
+      && cardMove.to.project && cardMove.to.todo){
+      
+      todoHandler.moveDraggedCard(cardMove.from.project, cardMove.from.todo, cardMove.to.todo, cardMove.position);
+      placeCards(parseInt(cardMove.from.project));
+      
+      //clear drag values
+      cardMove.from.project = undefined;
+      cardMove.from.todo = undefined;
+      cardMove.to.project = undefined;
+      cardMove.to.todo = undefined;
+    }
   }
 
   function cardEdit(){
