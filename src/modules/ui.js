@@ -441,15 +441,14 @@ export const ui = (() => {
     const projectIdx = this.dataset.projectIdx;
     const todoIdx = this.dataset.todoIdx;
     
+    const withSeparation = document?.querySelector(".margin-top") || document?.querySelector(".margin-bottom");
+    withSeparation?.classList.remove("margin-top", "margin-bottom");
+
     const cards = document.querySelectorAll(".card:not(.separator):not(.dragging-card):not(.hidden)[data-project-idx][data-todo-idx]");
     cards.forEach(card => {
       if(card.dataset.projectIdx === projectIdx
         && card.dataset.todoIdx === todoIdx){
 
-        cards.forEach(card => {
-          card.style.marginTop = "";
-          card.style.marginBottom = "";
-        })
 
         const container = document.querySelector(".project-item");
 
@@ -457,9 +456,9 @@ export const ui = (() => {
         const mousePosCard = e.layerY;
 
         if(mousePosCard < cardHeight / 2){
-          card.style.marginTop = "3rem";
+          card.classList.add("margin-top");
         } else {
-          card.style.marginBottom = "3rem";
+          card.classList.add("margin-bottom");
         }
       }
     })
@@ -479,11 +478,8 @@ export const ui = (() => {
     const draggingCard = document.querySelector(".dragging-card");
     body.removeChild(draggingCard);
 
-    const cards = document.querySelectorAll(".card");
-    cards.forEach(card => {
-      card.style.marginTop = "";
-      card.style.marginBottom = "";
-    })
+    const withSeparation = document?.querySelector(".margin-top") || document?.querySelector(".margin-bottom");
+    withSeparation?.classList.remove("margin-top", "margin-bottom");
   }
 
   function cardEdit(){
