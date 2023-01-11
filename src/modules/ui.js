@@ -663,7 +663,7 @@ export const ui = (() => {
         nextInput.focus()
       } else {
         const lastInput = document.querySelectorAll(`.card.active .edit-label`);
-        lastInput[lastInput.length -1].focus();
+        if(lastInput.length > 0) lastInput[lastInput.length -1].focus();
       };
     };
     
