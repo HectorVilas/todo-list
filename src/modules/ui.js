@@ -604,7 +604,6 @@ export const ui = (() => {
       checkbox.checked = !checkbox.checked;
       taskCheck(projectIdx, todoIdx, taskIdx);
     } else if(e.key === "Delete" && e.altKey) {
-      console.log("DEL");
       const projectIdx = this.dataset.projectIdx;
       const todoIdx = this.dataset.todoIdx;
       const taskIdx = parseInt(this.dataset.taskIdx);
@@ -642,7 +641,6 @@ export const ui = (() => {
     const todoIdx = this?.dataset?.todoIdx || paramTodoIdx;
     const taskIdx = this?.dataset?.taskIdx || paramTaskIdx;
 
-    console.log(this);
     todoHandler.deleteTask(projectIdx, todoIdx, taskIdx);
     if(this){
       this.parentNode.remove();
@@ -651,8 +649,22 @@ export const ui = (() => {
         `input[type="text"][data-project-idx="${projectIdx
         }"][data-todo-idx="${todoIdx}"][data-task-idx="${taskIdx
         }"]`
-      ).parentNode;
-      thisTask.parentNode.removeChild(thisTask);
+      );
+      const thisLi = thisTask.parentNode;
+      thisLi.parentNode.removeChild(thisLi);
+
+      //
+      const nextInput = document.querySelector(
+        `input[type="text"][data-project-idx="${projectIdx
+        }"][data-todo-idx="${todoIdx}"][data-task-idx="${parseInt(taskIdx)+1
+        }"]`
+      );
+      if(nextInput) {
+        nextInput.focus()
+      } else {
+        const lastInput = document.querySelectorAll(`.card.active .edit-label`);
+        lastInput[lastInput.length -1].focus();
+      };
     };
     
     const thisTaskList = document.querySelectorAll(`[data-project-idx="${
