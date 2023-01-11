@@ -186,17 +186,27 @@ export const todoHandler = (() => {
   }
 
   function moveDraggedCard(projectIdx, fromTodo, toTodo, position){
-    console.log(projectIdx, fromTodo, toTodo, position);
     const local = getLocalStorage();
 
+    const samePosupToDown = parseInt(fromTodo)+1 == toTodo;
+    const samePosdownToUp = parseInt(fromTodo)-1 == toTodo; 
+    
+    if((samePosupToDown && position == "before")
+    || (samePosdownToUp && position == "after")){
+      return;
+    };
+    
+    //fix up to down and before inversion, same for down to up and after
+    const movesDown = fromTodo < toTodo;
+    const cut = movesDown && position == "before" ? parseInt(toTodo)-1
+    : !movesDown && position == "after" ? parseInt(toTodo)+1
+    : toTodo;
+
     const fromCard = local[projectIdx].todos.splice(fromTodo, 1);
-    const firstHalf = local[projectIdx].todos.splice(
-      0, position == "before" ? toTodo : toTodo+1);
-    const secondHalf = local[projectIdx].todos;
+    const firstHalf = local[projectIdx].todos;
+    const secondHalf = firstHalf.splice(cut, firstHalf.length);
 
-    const arranged = [...firstHalf, ...fromCard, ...secondHalf];
-    local[projectIdx].todos = arranged;
-
+    local[projectIdx].todos = [...firstHalf, ...fromCard, ...secondHalf];
     setLocalStorage(local);
   }
 
