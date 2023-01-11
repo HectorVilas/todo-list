@@ -255,7 +255,9 @@ body {background-color: var(--bgc-page);}
 /*adding transparency for overflowed text*/
 .card .title:not(.edit-title),
 .card .description,
-.card label{
+.card label,
+.project-title,
+h1{
   mask-image: linear-gradient(to left, transparent, white 50px);
 }
 
