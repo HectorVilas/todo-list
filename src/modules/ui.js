@@ -426,7 +426,13 @@ export const ui = (() => {
     draggingCard.classList.add("dragging-card");
     draggingCard.style.width = `${targetCard.clientWidth}px`;
     targetCard.classList.add("hidden");
+    
+    //add margin before dragging, prevents visual annoyance
+    const nextCard = document.querySelector(`.card[data-project-idx="${
+      targetCard.dataset.projectIdx}"][data-todo-idx="${parseInt(targetCard.dataset.todoIdx)+1}"]`)
+    if(nextCard) nextCard.classList.add("margin-top");
 
+    //add temporal listener and interval, removed by cardPlace() after use
     window.addEventListener("mousedown", updateMousePos);
     window.addEventListener("mousemove", updateMousePos);
     
