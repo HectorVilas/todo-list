@@ -10,8 +10,11 @@
   --txt-col-1: #000;
   --txt-col-2: #444;
   --txt-col-3: #666;
+  --font-size-title: 2rem;
   --card-border-rad: .75rem;
   --card-open-transition: 250ms;
+  --card-padding: .5rem;
+  --card-drag-padding: calc(var(--font-size-title) + var(--card-padding) * 2.75);
   --hover-anim-duration: 250ms;
   --menu-width: 350px;
   --viewport-min-width: 600px;
@@ -179,7 +182,7 @@ body {background-color: var(--bgc-page);}
   box-sizing: border-box;
   width: 100%;
   box-shadow: var(--card-shadow);
-  padding: .5rem;
+  padding: var(--card-padding);
   display: grid;
   grid-template-columns: auto 1fr auto auto;
   grid-template-rows: repeat(6, auto);
@@ -203,7 +206,7 @@ body {background-color: var(--bgc-page);}
 .card:last-of-type { border-radius: 0 0 var(--card-border-rad) var(--card-border-rad); }
 
 .card .title {
-  font-size: 2rem;
+  font-size: var(--font-size-title);
   color: var(--txt-col-1);
   cursor: pointer;
   padding-left: .5rem;
@@ -748,10 +751,10 @@ input[type="text"], input[type="date"] {
 }
 
 .margin-top {
-  margin-top: 3rem;
+  margin-top: var(--card-drag-padding);
 }
 .margin-bottom {
-  margin-bottom: 3rem;
+  margin-bottom: var(--card-drag-padding);
 }
 
 
