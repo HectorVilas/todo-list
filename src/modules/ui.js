@@ -555,7 +555,7 @@ export const ui = (() => {
     editLabel.htmlFor = checkbox.id;
     editLabel.value = check?.task || "";
     editLabel.addEventListener("input", editField);
-    editLabel.addEventListener("keydown", keypress);
+    editLabel.addEventListener("keydown", labelKeypress);
 
     const removeTask = document.createElement("div");
     removeTask.classList.add("card-icon", "remove-task");
@@ -573,7 +573,7 @@ export const ui = (() => {
     return task;
   }
 
-  function keypress(e){
+  function labelKeypress(e){
     if(e.key === "Enter"){
       const projectIdx = this.dataset.projectIdx;
       const todoIdx = this.dataset.todoIdx;
@@ -603,6 +603,13 @@ export const ui = (() => {
         projectIdx}"][data-todo-idx="${todoIdx}"][data-task-idx="${taskIdx}"]`);
       checkbox.checked = !checkbox.checked;
       taskCheck(projectIdx, todoIdx, taskIdx);
+    } else if(e.key === "Delete" && e.altKey) {
+      console.log("DEL");
+      const projectIdx = this.dataset.projectIdx;
+      const todoIdx = this.dataset.todoIdx;
+      const taskIdx = parseInt(this.dataset.taskIdx);
+
+      deleteTask(projectIdx, todoIdx, taskIdx);
     }
   }
 
@@ -630,13 +637,23 @@ export const ui = (() => {
     updateProgress(projectIdx, todoIdx);
   }
 
-  function deleteTask(){
-    const projectIdx = this.dataset.projectIdx;
-    const todoIdx = this.dataset.todoIdx;
-    const taskIdx = this.dataset.taskIdx;
+  function deleteTask(paramProjectIdx, paramTodoIdx, paramTaskIdx){
+    const projectIdx = this?.dataset?.projectIdx || paramProjectIdx;
+    const todoIdx = this?.dataset?.todoIdx || paramTodoIdx;
+    const taskIdx = this?.dataset?.taskIdx || paramTaskIdx;
 
+    console.log(this);
     todoHandler.deleteTask(projectIdx, todoIdx, taskIdx);
-    this.parentNode.remove();
+    if(this){
+      this.parentNode.remove();
+    } else {
+      const thisTask = document.querySelector(
+        `input[type="text"][data-project-idx="${projectIdx
+        }"][data-todo-idx="${todoIdx}"][data-task-idx="${taskIdx
+        }"]`
+      ).parentNode;
+      thisTask.parentNode.removeChild(thisTask);
+    };
     
     const thisTaskList = document.querySelectorAll(`[data-project-idx="${
       projectIdx}"][data-todo-idx="${todoIdx}"] li .remove-task`);
