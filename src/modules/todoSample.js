@@ -27,7 +27,6 @@ export const todoSample = [
         { task: "• Changes are saved on each key press", isDone: false },
         { task: "• You can add a due date and change priority", isDone: false },
         { task: "• The plus button at the bottom will create tasks", isDone: false },
-        { task: "or press Enter while writing to add another task", isDone: false },
         { task: "• Write a description for your new task", isDone: false },
         { task: "• Next to it there's a checkbox", isDone: false },
         { task: "use it once the task is done", isDone: false },
@@ -46,11 +45,20 @@ export const todoSample = [
         { task: "and will also show on the favorites filter", isDone: false },
         { task: "4. The bin button will delete the to-do", isDone: false },
         { task: "only if it's not faved by the star", isDone: false },
-        { task: "hold on it for two seconds to delete", isDone: false },
-        { task: "release before the bar fills to cancel", isDone: false },
+        { task: "hold on it for a few seconds to delete", isDone: false },
+        { task: "or release before the bar fills to cancel", isDone: false },
         { task: "• At the left there's a handle icon:", isDone: false },
         { task: "1. hold down on it to drag a to-do", isDone: false },
         { task: "2. release it where you want to move it", isDone: false },
+      ], "low", true, true),
+
+      new Todo("4) Hotkeys", "The hotkeys you can use on edit mode", date,"", [
+        { task: "• You can use some hotkeys when working on tasks", isDone: false },
+        { task: "while the cursor is on the text field:", isDone: false },
+        { task: "1. Enter: create a new task", isDone: false },
+        { task: "2. Up/down arrows: move between inputs", isDone: false },
+        { task: "3. CTRL+spacebar: checks/unchecks it's respective box", isDone: false },
+        { task: "4. ALT+Delete: deletes current task", isDone: false },
       ], "low", true, true),
 
       new Todo("About", "To-do project created by Hector Vilas", date,"", [
