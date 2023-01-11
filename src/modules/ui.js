@@ -555,38 +555,7 @@ export const ui = (() => {
     editLabel.htmlFor = checkbox.id;
     editLabel.value = check?.task || "";
     editLabel.addEventListener("input", editField);
-    editLabel.addEventListener("keydown", function keypress(e){
-      if(e.key === "Enter"){
-        const projectIdx = this.dataset.projectIdx;
-        const todoIdx = this.dataset.todoIdx;
-        const todo = this.closest(".card").querySelector(".create-task").dataset.todo;
-        createTask(projectIdx, todoIdx, todo)
-        
-      } else if(e.key === "ArrowUp" || e.key === "ArrowDown"){
-        e.preventDefault();
-        const projectIdx = this.dataset.projectIdx;
-        const todoIdx = this.dataset.todoIdx;
-        const taskIdx = parseInt(this.dataset.taskIdx);
-        
-        const move = e.key === "ArrowUp" ? -1 : +1;
-        const max = document.querySelectorAll(`.edit-label[data-project-idx="${
-          projectIdx}"][data-todo-idx="${todoIdx}"]`).length-1;
-        
-        const newActive = document.querySelector(`.edit-label[data-project-idx="${
-          projectIdx}"][data-todo-idx="${todoIdx}"][data-task-idx="${Math.max(0, Math.min(taskIdx+move, max))}"]`);
-        
-        newActive.focus();
-      } else if(e.key === " " && e.ctrlKey){
-        const projectIdx = this.dataset.projectIdx;
-        const todoIdx = this.dataset.todoIdx;
-        const taskIdx = parseInt(this.dataset.taskIdx);
-        
-        const checkbox = document.querySelector(`input[type="checkbox"][data-project-idx="${
-          projectIdx}"][data-todo-idx="${todoIdx}"][data-task-idx="${taskIdx}"]`);
-        checkbox.checked = !checkbox.checked;
-        taskCheck(projectIdx, todoIdx, taskIdx);
-      }
-    });
+    editLabel.addEventListener("keydown", keypress);
 
     const removeTask = document.createElement("div");
     removeTask.classList.add("card-icon", "remove-task");
@@ -602,6 +571,39 @@ export const ui = (() => {
     task.append(checkbox, label, editLabel, removeTask);
 
     return task;
+  }
+
+  function keypress(e){
+    if(e.key === "Enter"){
+      const projectIdx = this.dataset.projectIdx;
+      const todoIdx = this.dataset.todoIdx;
+      const todo = this.closest(".card").querySelector(".create-task").dataset.todo;
+      createTask(projectIdx, todoIdx, todo)
+      
+    } else if(e.key === "ArrowUp" || e.key === "ArrowDown"){
+      e.preventDefault();
+      const projectIdx = this.dataset.projectIdx;
+      const todoIdx = this.dataset.todoIdx;
+      const taskIdx = parseInt(this.dataset.taskIdx);
+      
+      const move = e.key === "ArrowUp" ? -1 : +1;
+      const max = document.querySelectorAll(`.edit-label[data-project-idx="${
+        projectIdx}"][data-todo-idx="${todoIdx}"]`).length-1;
+      
+      const newActive = document.querySelector(`.edit-label[data-project-idx="${
+        projectIdx}"][data-todo-idx="${todoIdx}"][data-task-idx="${Math.max(0, Math.min(taskIdx+move, max))}"]`);
+      
+      newActive.focus();
+    } else if(e.key === " " && e.ctrlKey){
+      const projectIdx = this.dataset.projectIdx;
+      const todoIdx = this.dataset.todoIdx;
+      const taskIdx = parseInt(this.dataset.taskIdx);
+      
+      const checkbox = document.querySelector(`input[type="checkbox"][data-project-idx="${
+        projectIdx}"][data-todo-idx="${todoIdx}"][data-task-idx="${taskIdx}"]`);
+      checkbox.checked = !checkbox.checked;
+      taskCheck(projectIdx, todoIdx, taskIdx);
+    }
   }
 
   function createTask(projectIdxParam, todoIdxParam, todoParam){
