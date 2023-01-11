@@ -19,6 +19,7 @@
   --menu-width: 350px;
   --viewport-min-width: 600px;
   --deletion-delay: 2s; 
+  --hover-delay: 150ms;
 }
 
 /* default values reset */
@@ -289,7 +290,7 @@ h1{
   overflow: hidden;
   white-space: nowrap;
   width: 0%;
-  transition: width var(--hover-anim-duration) ease-in-out;
+  transition: width var(--hover-anim-duration) ease-in-out var(--hover-delay);
 }
 .create-task-div:hover {
   box-shadow: var(--card-shadow);
@@ -319,7 +320,7 @@ h1{
   overflow: hidden;
   width: 0rem;
   white-space: nowrap;
-  transition: width var(--hover-anim-duration) ease-in-out;
+  transition: width var(--hover-anim-duration) ease-in-out var(--hover-delay);
 }
 
 .todo-add-div:hover p {
@@ -391,7 +392,7 @@ h1{
 .card ul li:nth-child(18) { transition-delay: 450ms; }
 .card ul li:nth-child(19) { transition-delay: 475ms; }
 .card ul li:nth-child(1n+20) { transition-delay: 500ms; }
-/*TODO: add the delays with JS, limit max to 500ms*/
+
 
 
 /* card icons */
