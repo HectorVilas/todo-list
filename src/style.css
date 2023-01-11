@@ -237,6 +237,7 @@ body {background-color: var(--bgc-page);}
   color: var(--txt-col-2);
   overflow: hidden;
   white-space: nowrap;
+  width: 100%;
 }
 .card .date-creation {
   grid-area: created;
@@ -250,6 +251,14 @@ body {background-color: var(--bgc-page);}
   font-size: 1rem;
   background-color: white;
 }
+
+/*adding transparency for overflowed text*/
+.card .title:not(.edit-title),
+.card .description,
+.card label{
+  mask-image: linear-gradient(to left, transparent, white 50px);
+}
+
 
 .card .checklist {
   grid-area: tasks;
