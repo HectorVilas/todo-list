@@ -4,7 +4,7 @@ import iconDrag from "../media/images/icons/drag.svg";
 import iconTrash from "../media/images/icons/trash.svg";
 import iconTrashLid from "../media/images/icons/trash-lid.svg";
 
-import { format, parseISO } from "date-fns";
+import { format, parseISO, intlFormatDistance, isToday } from "date-fns";
 
 export const ui = (() => {
   const mouse = { x:0, y:0 }; //track mouse for drag
@@ -18,7 +18,7 @@ export const ui = (() => {
   const cardsContainer = document.querySelector("#cards-container");
   const body = document.querySelector("body");
 
-  const dateFormat = "eeee',' MMMM do yyyy";
+  const dateFormat = "EE',' MMMM do yyyy";
 
   function loadMenu(){
     //create example projects if there's no localStorage
@@ -199,7 +199,12 @@ export const ui = (() => {
 
     const dateDue = document.createElement("p");
     dateDue.classList.add("date-due");
-    dateDue.innerText = todo.dateDue.length > 0 ? `Due: ${format(new Date(parseISO(todo.dateDue)), dateFormat)}` : "";
+    const dueDateFormat = todo.dateDue.split("-").join(" ");
+    dateDue.innerText = todo.dateDue.length > 0 ? `Due: ${
+      format(new Date(parseISO(todo.dateDue)), dateFormat)} (${
+        isToday(new Date(dueDateFormat)) ? "today" 
+        : intlFormatDistance(new Date(dueDateFormat), new Date())
+      })` : "";
     const editDateDue = document.createElement("input");
     editDateDue.type = "date";
     editDateDue.classList.add("date-due", "edit-date-due");
@@ -709,7 +714,12 @@ export const ui = (() => {
       todoHandler.editDateDue(projectIdx, todoIdx, this.value)
       const thisDateDue = document.querySelector(`.card[data-project-idx="${projectIdx}"][data-todo-idx="${todoIdx}"] .date-due`);
       
-      thisDateDue.innerText = this.value.length > 0 ? `Due: ${format(new Date(parseISO(this.value)), dateFormat)}` : "";
+      const dueDateFormat = this.value.split("-").join(" ");
+      thisDateDue.innerText = this.value.length > 0 ? `Due: ${
+        format(new Date(parseISO(this.value)), dateFormat)} (${
+          isToday(new Date(dueDateFormat)) ? "today" 
+          : intlFormatDistance(new Date(dueDateFormat), new Date())
+        })` : "";
       
     } else if(this.className.includes("edit-label")){
       todoHandler.editLabel(projectIdx, todoIdx, taskIdx, this.value);
@@ -840,7 +850,14 @@ export const ui = (() => {
 
       const dateDue = document.createElement("p");
       dateDue.classList.add("date-due");
-      dateDue.innerText = todo.dateDue.length > 0 ? `Due: ${format(new Date(parseISO(todo.dateDue)), dateFormat)}` : "";
+
+      const dueDateFormat = todo.dateDue.split("-").join(" ");
+      dateDue.innerText = todo.dateDue.length > 0 ? `Due: ${
+        format(new Date(parseISO(todo.dateDue)), dateFormat)} (${
+          isToday(new Date(dueDateFormat)) ? "today" 
+          : intlFormatDistance(new Date(dueDateFormat), new Date())
+        })` : "";
+
       result.append(title, progress, description, dateCreation, dateDue);
 
       projectItem.append(result);
