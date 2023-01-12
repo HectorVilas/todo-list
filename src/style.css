@@ -221,7 +221,7 @@ body {background-color: var(--bgc-page);}
 .card .progress {
   grid-area: progress;
   box-sizing: border-box;
-  margin-right: 1rem;
+  margin-right: 5px;
   width: var(--icon-size);
   height: var(--icon-size);
   border-radius: 50%;
@@ -534,7 +534,6 @@ h1{
 .edit-buttons {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: .5rem;
 }
 .delete-icon {
   position: relative;
@@ -542,6 +541,7 @@ h1{
   height: var(--icon-size);
   margin-top: auto;
   margin-bottom: auto;
+  margin-left: 5px;
   align-items: center;
 }.icon-trash,
 .icon-trash-lid {
