@@ -26,6 +26,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       // title: 'Odin TODO List',
       template: "src/index.html",
+      favicon: "src/media/images/favicon.png",
     }),
   ],
   optimization: {
