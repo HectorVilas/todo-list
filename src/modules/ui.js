@@ -124,6 +124,7 @@ export const ui = (() => {
       li.dataset.projectIdx = i;
       const para = document.createElement("p");
       para.innerText = projectsList[i];
+      para.title = projectsList[i];
       para.classList.add("project-title");
       para.dataset.projectIdx = i;
       para.addEventListener("click", changePRoject);
@@ -170,6 +171,7 @@ export const ui = (() => {
     const title = document.createElement("h2");
     title.classList.add("title");
     title.innerText = todo.title;
+    title.title = todo.title;
     title.addEventListener("click", toggleCard);
     const editTitle = document.createElement("input");
     editTitle.type = "text";
@@ -187,6 +189,7 @@ export const ui = (() => {
     const description = document.createElement("p");
     description.classList.add("description");
     description.innerText = todo.description;
+    description.title = todo.description;
     const editDescription = document.createElement("input");
     editDescription.type = "text";
     editDescription.classList.add("description", "edit-description");
@@ -370,6 +373,7 @@ export const ui = (() => {
     const h1 = document.createElement("h1");
     h1.dataset.projectIdx = idxOrFilter;
     h1.innerText = project.title;
+    h1.title = project.title;
     header.appendChild(h1);
 
     project.todos.forEach((todo, todoIdx) => {
@@ -555,6 +559,7 @@ export const ui = (() => {
     label.htmlFor = checkbox.id;
     label.dataset.todoTitle = todo.title;
     label.innerText = check?.task || "";
+    label.title = check?.task || "";
     const editLabel = document.createElement("input");
     editLabel.type = "text";
     editLabel.classList.add("edit-label");
@@ -706,11 +711,13 @@ export const ui = (() => {
       todoHandler.editTitle(projectIdx, todoIdx, this.value);
       const thisTitle = document.querySelector(`.card[data-project-idx="${projectIdx}"][data-todo-idx="${todoIdx}"] .title`);
       thisTitle.innerText = this.value;
+      thisTitle.title = this.value;
 
     } else if(this.className.includes("edit-description")){
       todoHandler.editDescription(projectIdx, todoIdx, this.value);
       const thisDescription = document.querySelector(`.card[data-project-idx="${projectIdx}"][data-todo-idx="${todoIdx}"] .description`);
       thisDescription.innerText = this.value;
+      thisDescription.title = this.value;
       
     } else if(this.className.includes("edit-date-due")){
       todoHandler.editDateDue(projectIdx, todoIdx, this.value)
@@ -727,6 +734,7 @@ export const ui = (() => {
       todoHandler.editLabel(projectIdx, todoIdx, taskIdx, this.value);
       const thisTask = document.querySelector(`[data-project-idx="${projectIdx}"][data-todo-idx="${todoIdx}"][data-task-idx="${taskIdx}"] ~ label`);
       thisTask.innerText = this.value;
+      thisTask.title = this.value;
     }
   }
 
@@ -802,10 +810,14 @@ export const ui = (() => {
     const projectIdx = this.dataset.projectIdx;
     const title = document.querySelector(`.menu-tasks.menu-item p[data-project-idx="${projectIdx}"]`);
     title.innerText = this.value;
+    title.title = this.value;
     todoHandler.editProjectTitle(projectIdx, this.value);
     //edit title of active project if the editing title is for it
     const titleCards = document.querySelector("h1");
-    if(projectIdx === titleCards.dataset.projectIdx) titleCards.innerText = this.value;
+    if(projectIdx === titleCards.dataset.projectIdx) {
+      titleCards.innerText = this.value;
+      titleCards.title = this.value;
+    };
   }
 
   function filterTodos(){
@@ -821,6 +833,7 @@ export const ui = (() => {
     const header = document.createElement("header");
     const h1 = document.createElement("h1");
     h1.innerText = project.title;
+    h1.title = project.title;
     header.append(h1);
     cardsContainer.append(header);
 
