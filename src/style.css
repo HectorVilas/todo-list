@@ -17,6 +17,7 @@
   --card-drag-padding: calc(var(--font-size-title) + var(--card-padding) * 2.75);
   --hover-anim-duration: 250ms;
   --menu-width: 350px;
+  --menu-width-widescreen: 400px;
   --viewport-min-width: 600px;
   --deletion-delay: 2s; 
   --hover-delay: 150ms;
@@ -182,7 +183,6 @@ body {background-color: var(--bgc-page);}
 }
 
 header {
-  /* background-color: var; */
   justify-content: center;
   text-align: center;
   height: var(--icon-menu-size);
@@ -768,6 +768,19 @@ input[type="text"], input[type="date"] {
     background-size: var(--icon-size);
     animation: bg-anim var(--duration) calc(var(--duration) / 5) infinite linear,
   bg-zoom-out var(--duration) cubic-bezier(.08,.82,.17,1) forwards;
+  }
+
+  header {
+    box-shadow: none;
+  }
+}
+
+@media screen and (min-width: 1500px) {
+  body{
+    grid-template-columns: var(--menu-width-widescreen) 1fr;
+  }
+  #menu {
+    width: var(--menu-width-widescreen);
   }
 }
 
