@@ -713,10 +713,11 @@ input[type="text"], input[type="date"] {
 
 .card.search-result {
   grid-template-areas:
-    " title   title    title   progress "
-    " descr   descr    descr   descr    "
-    " created created  created created  "
-    " due     due      due     due      ";
+    " title   progress "
+    " descr   descr    "
+    " created created  "
+    " due     due      ";
+  grid-template-columns: 1fr auto;
   padding-left: 1rem;
   border-radius: 1rem;
   margin-bottom: 1rem;
