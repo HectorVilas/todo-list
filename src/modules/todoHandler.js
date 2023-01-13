@@ -1,6 +1,6 @@
 import { todoSample } from "./todoSample.js";
 import { Todo } from "./classes.js";
-import { format } from "date-fns";
+import { format, isToday, isThisWeek, isThisMonth, isThisYear, isFuture, } from "date-fns";
 
 export const todoHandler = (() => {
   function toggleFav(){
@@ -108,7 +108,6 @@ export const todoHandler = (() => {
     else if(request === "pinned"){
       const local = getLocalStorage();
       const filtered = { title: "Pinned", todos: []};
-
       local.forEach((thisProject, projectIdx) => thisProject.todos.forEach((thisTodo, todoIdx) => {
         if(thisTodo.isPinned){
           thisTodo.projectIdx = projectIdx;
@@ -121,7 +120,6 @@ export const todoHandler = (() => {
     else if(request === "favorites"){
       const local = getLocalStorage();
       const filtered = { title: "Favorites", todos: []};
-
       local.forEach((thisProject, projectIdx) => thisProject.todos.forEach((thisTodo, todoIdx) => {
         if(thisTodo.isFavorite){
           thisTodo.projectIdx = projectIdx;
@@ -130,10 +128,76 @@ export const todoHandler = (() => {
         };
       }));
       return filtered;
-    } else {
-      alert("Filter not yet active.\nLoading first project.");
+    }
+    else if(request === "today"){
       const local = getLocalStorage();
-      return local[0];
+      const filtered = { title: "Tasks for today", todos: []};
+      local.forEach((thisProject, projectIdx) => thisProject.todos.forEach((thisTodo, todoIdx) => {
+        const formatDate = thisTodo.dateDue.split("-").join(",");
+        if(isToday(new Date(formatDate))){
+          thisTodo.projectIdx = projectIdx;
+          thisTodo.todoIdx = todoIdx;
+          filtered.todos.push(thisTodo);
+        };
+      }));
+      return filtered;
+    }
+    else if(request === "this-week"){
+      const local = getLocalStorage();
+      const filtered = { title: "Tasks for this week", todos: []};
+      local.forEach((thisProject, projectIdx) => thisProject.todos.forEach((thisTodo, todoIdx) => {
+        const formatDate = thisTodo.dateDue.split("-").join(",");
+        if(isThisWeek(new Date(formatDate))){
+          thisTodo.projectIdx = projectIdx;
+          thisTodo.todoIdx = todoIdx;
+          filtered.todos.push(thisTodo);
+        };
+      }));
+      return filtered;
+    }
+    else if(request === "this-month"){
+      const local = getLocalStorage();
+      const filtered = { title: "Tasks for this month", todos: []};
+      local.forEach((thisProject, projectIdx) => thisProject.todos.forEach((thisTodo, todoIdx) => {
+        const formatDate = thisTodo.dateDue.split("-").join(",");
+        if(isThisMonth(new Date(formatDate))){
+          thisTodo.projectIdx = projectIdx;
+          thisTodo.todoIdx = todoIdx;
+          filtered.todos.push(thisTodo);
+        };
+      }));
+      return filtered;
+    }
+    else if(request === "this-year"){
+      const local = getLocalStorage();
+      const filtered = { title: "Tasks for this year", todos: []};
+      
+      local.forEach((thisProject, projectIdx) => thisProject.todos.forEach((thisTodo, todoIdx) => {
+        const formatDate = thisTodo.dateDue.split("-").join(",");
+        if(isThisYear(new Date(formatDate))){
+          thisTodo.projectIdx = projectIdx;
+          thisTodo.todoIdx = todoIdx;
+          filtered.todos.push(thisTodo);
+        };
+      }));
+
+      return filtered;
+    }
+    else if(request === "expired"){
+      const local = getLocalStorage();
+      const filtered = { title: "Expired tasks", todos: []};
+      
+      local.forEach((thisProject, projectIdx) => thisProject.todos.forEach((thisTodo, todoIdx) => {
+        const formatDate = thisTodo.dateDue.split("-").join(",");
+        if(!isFuture(new Date(formatDate))
+        && !isToday(new Date(formatDate))){
+          thisTodo.projectIdx = projectIdx;
+          thisTodo.todoIdx = todoIdx;
+          filtered.todos.push(thisTodo);
+        };
+      }));
+
+      return filtered;
     }
   }
   
