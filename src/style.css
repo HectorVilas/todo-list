@@ -10,7 +10,7 @@
   --txt-col-1: #000;
   --txt-col-2: #444;
   --txt-col-3: #666;
-  --font-size-title: 2rem;
+  --font-size-title: 1.75rem;
   --card-border-rad: .75rem;
   --card-open-transition: 250ms;
   --card-padding: .5rem;
@@ -27,9 +27,12 @@ body { padding: 0; margin: 0; min-width: var(--viewport-min-width);}
 ol, ul { padding: 0; margin: 0; list-style-type: none; }
 h1, h2, p {margin: 0;}
 h1 {
-  font-size: 3rem;
+  font-size: 2rem;
+  font-weight: 900;
+  text-transform: uppercase;
   white-space: nowrap;
   overflow: hidden;
+  text-shadow: 1px 1px 1px hsl(240, 30%, 50%);
 }
 input[type="text"], input[type="date"] {
   padding: 0;
@@ -167,7 +170,6 @@ body {background-color: var(--bgc-page);}
   width: 100vw;
   min-width: var(--viewport-min-width);
   height: 100vh;
-  padding: .5rem;
   overflow: hidden;
   overflow-y: auto;
   scroll-behavior: smooth;
@@ -179,6 +181,13 @@ body {background-color: var(--bgc-page);}
   margin: 1rem;
 }
 
+header {
+  /* background-color: var; */
+  justify-content: center;
+  text-align: center;
+  height: var(--icon-menu-size);
+  box-shadow: var(--card-shadow);
+}
 
 
 /* cards */

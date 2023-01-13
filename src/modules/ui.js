@@ -361,6 +361,8 @@ export const ui = (() => {
     
     const project = todoHandler.getProject(idxOrFilter);
     
+    const header = document.createElement("header");
+
     const projectItem = document.createElement("div");
     projectItem.dataset.idx = idxOrFilter;
     projectItem.classList.add("project-item");
@@ -368,7 +370,7 @@ export const ui = (() => {
     const h1 = document.createElement("h1");
     h1.dataset.projectIdx = idxOrFilter;
     h1.innerText = project.title;
-    projectItem.appendChild(h1);
+    header.appendChild(h1);
 
     project.todos.forEach((todo, todoIdx) => {
       projectItem.appendChild(placeSingleCard(todo, idxOrFilter, todoIdx));
@@ -387,7 +389,7 @@ export const ui = (() => {
 
     addTodoDiv.append(addTodoBtn, addTodoPara);
     projectItem.appendChild(addTodoDiv);
-    cardsContainer.appendChild(projectItem);
+    cardsContainer.append(header, projectItem);
 
     if(activateTodo !== undefined) {
       setTimeout(() => {
@@ -811,13 +813,16 @@ export const ui = (() => {
     cardsContainer.replaceChildren();
 
     const project = todoHandler.getProject(this.dataset.filter);
+
     
     const projectItem = document.createElement("div");
     projectItem.classList.add("project-item");
-
+    
+    const header = document.createElement("header");
     const h1 = document.createElement("h1");
     h1.innerText = project.title;
-    projectItem.append(h1);
+    header.append(h1);
+    cardsContainer.append(header);
 
     project.todos.forEach(todo => {
       const result = document.createElement("div");
