@@ -44,7 +44,7 @@ export const ui = (() => {
     const listDue = document.createElement("ul");
     listDue.classList.add("fieldset-list", "due-list");
 
-    const filters = ["Today", "This week", "This month", "This year", "Pinned", "Favorites"];
+    const filters = ["Today", "This week", "This month", "This year", "Expired", "Pinned", "Favorites"];
     for(let i = 0; i < filters.length; i++){
       const li = document.createElement("li");
       li.classList.add("menu-filter", "menu-item");
