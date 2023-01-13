@@ -56,7 +56,7 @@ input:not([type="checkbox"]):focus {
   position: absolute;
   left: 0;
   top: 0;
-  z-index: 1;
+  z-index: 2;
   background-image: url(./media/images/icons/menu.svg);
   background-size: 100%;
   width: var(--icon-menu-size);
@@ -71,7 +71,7 @@ input:not([type="checkbox"]):focus {
 }
 
 #menu {
-  z-index: 1;
+  z-index: 2;
   position: absolute;
   box-sizing: border-box;
   padding: .5rem;
@@ -183,9 +183,13 @@ body {background-color: var(--bgc-page);}
 }
 
 header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
   justify-content: center;
   text-align: center;
   height: var(--icon-menu-size);
+  background-color: var(--bgc-page);
   box-shadow: var(--card-shadow);
 }
 
@@ -193,6 +197,7 @@ header {
 /* cards */
 
 .card {
+  isolation: isolate;
   box-sizing: border-box;
   width: 100%;
   box-shadow: var(--card-shadow);
@@ -768,10 +773,6 @@ input[type="text"], input[type="date"] {
     background-size: var(--icon-size);
     animation: bg-anim var(--duration) calc(var(--duration) / 5) infinite linear,
   bg-zoom-out var(--duration) cubic-bezier(.08,.82,.17,1) forwards;
-  }
-
-  header {
-    box-shadow: none;
   }
 }
 
