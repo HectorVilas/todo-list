@@ -190,7 +190,8 @@ export const todoHandler = (() => {
       local.forEach((thisProject, projectIdx) => thisProject.todos.forEach((thisTodo, todoIdx) => {
         const formatDate = thisTodo.dateDue.split("-").join(",");
         if(!isFuture(new Date(formatDate))
-        && !isToday(new Date(formatDate))){
+        && !isToday(new Date(formatDate))
+        && thisTodo.dateDue.length > 0){
           thisTodo.projectIdx = projectIdx;
           thisTodo.todoIdx = todoIdx;
           filtered.todos.push(thisTodo);
