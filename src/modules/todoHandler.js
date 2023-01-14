@@ -242,6 +242,7 @@ export const todoHandler = (() => {
   function loadSample(){
     if(localStorage.length === 0){
       localStorage.setItem("todo", JSON.stringify(todoSample));
+      localStorage.dark = JSON.stringify(false);
     }
   }
 
@@ -278,9 +279,18 @@ export const todoHandler = (() => {
     setLocalStorage(local);
   }
 
+  function darkMode(isActive){
+    localStorage.dark = JSON.stringify(isActive);
+    console.log(localStorage.dark);
+  }
+
+  function isOnDarkMode(){
+    return JSON.parse(localStorage?.dark);
+  }
+
   return { toggleFav, togglePin, getFavStatus, deleteTodo, taskCheck,
     deleteTask, editTitle, editDescription, editDateDue, editLabel,
     createTask, getProjectsTitles, deleteProject, changePriority,
     getProject, createTodo, createProject, editProjectTitle, loadSample,
-    moveDraggedCard }
+    moveDraggedCard, darkMode, isOnDarkMode }
 })();
