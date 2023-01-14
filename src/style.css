@@ -141,6 +141,49 @@ input:not([type="checkbox"]):focus {
   height: 100%;
 }
 
+#menu .fieldset-options .menu-item.dark-mode {
+  display: grid;
+  grid-template-columns: auto 1fr;
+}
+
+.dark-mode input {
+  --transition-dur: 350ms;
+  --transition: background-color calc(var(--transition-dur) * .5) ease-in-out,
+  transform var(--transition-dur) cubic-bezier(.68,-0.55,.27,1.55);
+  appearance: unset;
+  position: relative;
+  width: calc(var(--icon-size) * 2);
+  height: var(--icon-size);
+  margin: 0;
+  margin-right: .5rem;
+  border-radius: 1rem;
+  overflow: hidden;
+  cursor: pointer;
+}.dark-mode input::before {
+  position: absolute;
+  content: "";
+  inset: 0;
+  border-radius: 1rem;
+  background-color: var(--bgc-page);
+  box-shadow: var(--card-shadow-invert);
+  transition: var(--transition);
+}.dark-mode input::after {
+  position: absolute;
+  content: "";
+  border-radius: 50%;
+  height: 100%;
+  aspect-ratio: 1/1;
+  background-color: hsl(60, 80%, 70%);
+  box-shadow: var(--card-shadow);
+  transition: var(--transition);
+}.dark-mode input:checked:before {
+  background-color: hsl(240, 20%, 40%);
+}.dark-mode input:checked::after {
+  transform: translateX(100%);
+  background-color: hsl(240, 30%, 75%);
+}
+.dark-mode label { cursor: pointer; }
+
 #menu .fieldset-options .menu-item.about {
   --icon-size: 50px;
   --duration: 3s;
