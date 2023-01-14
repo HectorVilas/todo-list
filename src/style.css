@@ -4,6 +4,13 @@
     inset .25rem .25rem .25rem rgba(255,255,255,.5);
   --card-shadow-invert: inset .25rem .25rem .25rem rgba(0,0,0,.1),
     .25rem .25rem .25rem rgba(255,255,255,.5);
+  --card-shadow-open: inset 0 0 5rem hsl(240, 70%, 90%);
+  --card-bg-hover: rgba(255, 255, 255, 0.5);
+  --label-bg-anim: linear-gradient(
+    to right,
+    transparent 0%, rgba(255, 255, 255, 0.5),
+    transparent 100%
+  ) no-repeat;
   --icon-size: 30px;
   --icon-menu-size: 40px;
   --icon-check-size: 20px;
@@ -21,6 +28,36 @@
   --viewport-min-width: 600px;
   --deletion-delay: 2s; 
   --hover-delay: 150ms;
+  --menu-btn-bg-col: #aaa;
+  --menu-bg-col: rgba(255, 255, 255, 0.5);
+  --chk-bg-col: none;
+  --priority-low: lime;
+  --priority-mid: goldenrod;
+  --priority-high: orangered;
+}
+
+:root.dark {
+  --bgc-page: hsl(240, 20%, 30%);
+  --card-shadow: .25rem .25rem .25rem rgba(0,0,0,.1),
+    inset .25rem .25rem .25rem rgba(255, 255, 255, .1);
+  --card-shadow-invert: inset .25rem .25rem .25rem rgba(0,0,0,.1),
+    .25rem .25rem .25rem rgba(255,255,255, .1);
+  --card-shadow-open: inset 0 0 5rem hsl(240, 20%, 25%);
+  --card-bg-hover: rgba(70, 70, 70, 0.5);
+  --label-bg-anim: linear-gradient(
+    to right,
+    transparent 0%, rgba(255, 255, 255, 0.1),
+    transparent 100%
+  ) no-repeat;
+  --txt-col-1: #ccc;
+  --txt-col-2: #aaa;
+  --txt-col-3: #888;
+  --menu-btn-bg-col: #555;
+  --menu-bg-col: rgba(64, 64, 64, 0.5);
+  --chk-bg-col: rgba(0, 0, 0, 0.1);
+  --priority-low: hsl(120, 50%, 40%);
+  --priority-mid: hsl(43, 40%, 45%);
+  --priority-high: hsl(16, 50%, 40%);
 }
 
 /* default values reset */
@@ -28,6 +65,7 @@ body { padding: 0; margin: 0; min-width: var(--viewport-min-width);}
 ol, ul { padding: 0; margin: 0; list-style-type: none; }
 h1, h2, p {margin: 0;}
 h1 {
+  color: var(--txt-col-1);
   font-size: 2rem;
   font-weight: 900;
   text-transform: uppercase;
@@ -62,7 +100,7 @@ input:not([type="checkbox"]):focus {
   width: var(--icon-menu-size);
   height: var(--icon-menu-size);
   box-shadow: var(--card-shadow);
-  background-color: #aaa;
+  background-color: var(--menu-btn-bg-col);
   transition: background-color 150ms;
 }
 #menu-button:hover {
@@ -83,7 +121,8 @@ input:not([type="checkbox"]):focus {
   width: var(--menu-width);
   box-shadow: var(--card-shadow);
   backdrop-filter: blur(5px);
-  background-color: rgba(255, 255, 255, 0.5);
+  color: var(--txt-col-1);
+  background-color: var(--menu-bg-col);
   font-size: 1.75rem;
   display: none;
 }
@@ -259,9 +298,9 @@ header {
   overflow: hidden;
 } .card.active {
   height: auto;
-  box-shadow: inset 0 0 5rem hsl(240, 70%, 90%);
+  box-shadow: var(--card-shadow-open);
 } .card:not(.active):hover {
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: var(--card-bg-hover);
 }
 
 .card:first-of-type { border-radius: var(--card-border-rad) var(--card-border-rad) 0 0; }
@@ -286,6 +325,7 @@ header {
 }.card .progress::after {
   position: absolute;
   content: "%";
+  color: var(--txt-col-1);
   text-align: center;
   font-weight: 900;
   inset: 5px;
@@ -392,19 +432,19 @@ h1{
 /* card priority indicator */
 
 .card[data-priority="low"] {
-  background: linear-gradient(to right,lime, rgba(0, 128, 0, 0) 60px);
+  background: linear-gradient(to right,var(--priority-low), rgba(0, 128, 0, 0) 60px);
 } .card[data-priority="low"].active {
-  background: linear-gradient(to bottom,lime, rgba(0, 128, 0, 0) 60px);
+  background: linear-gradient(to bottom,var(--priority-low), rgba(0, 128, 0, 0) 60px);
 }
 .card[data-priority="middle"] {
-  background: linear-gradient(to right, goldenrod, rgba(0, 128, 0, 0) 60px);
+  background: linear-gradient(to right, var(--priority-mid), rgba(0, 128, 0, 0) 60px);
 } .card[data-priority="middle"].active {
-  background: linear-gradient(to bottom, goldenrod, rgba(0, 128, 0, 0) 60px);
+  background: linear-gradient(to bottom, var(--priority-mid), rgba(0, 128, 0, 0) 60px);
 }
 .card[data-priority="high"] {
-  background: linear-gradient(to right, orangered, rgba(0, 128, 0, 0) 60px);
+  background: linear-gradient(to right, var(--priority-high), rgba(0, 128, 0, 0) 60px);
 } .card[data-priority="high"].active {
-  background: linear-gradient(to bottom, orangered, rgba(0, 128, 0, 0) 60px);
+  background: linear-gradient(to bottom, var(--priority-high), rgba(0, 128, 0, 0) 60px);
 }
 
 
@@ -473,6 +513,7 @@ h1{
   box-shadow: .1rem .1rem .1rem white,
     inset .1rem .1rem .25rem rgba(0,0,0,.1);
   border-radius: .25rem;
+  background-color: var(--chk-bg-col);
 }
 .card li input[type="checkbox"]::after {
   --check-anim-duration: 200ms;
@@ -504,7 +545,7 @@ h1{
 .card .edit-label {
   font-size: 1.25rem;
   color: var(--txt-col-2);
-  background: linear-gradient(to right, transparent 0%, rgba(255, 255, 255, 0.5), transparent 100%) no-repeat;
+  background: var(--label-bg-anim);
   background-size: 100%;
   transition: background-position 500ms;
   background-position-x: -100vw;
