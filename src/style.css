@@ -768,6 +768,10 @@ input[type="text"], input[type="date"] {
     width: 100%;
   }
 
+  #menu.reveal .fieldset-options .menu-item.about {
+    animation: none;
+    background: none;
+  }
   #menu .fieldset-options .menu-item.about:hover {
     background: url(./media/images/background/github-mark.svg);
     background-size: var(--icon-size);
