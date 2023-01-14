@@ -24,6 +24,9 @@ export const ui = (() => {
     //create example projects if there's no localStorage
     todoHandler.loadSample();
 
+    //set dark mode if left active
+    loadDarkMode();
+
     const menuBtn = document.createElement("div");
     menuBtn.id = "menu-button";
     menuBtn.addEventListener("click", toggleMenu);
@@ -92,6 +95,8 @@ export const ui = (() => {
     const darkModeCheckbox = document.createElement("input");
     darkModeCheckbox.type = "checkbox";
     darkModeCheckbox.id = "dark-mode";
+    darkModeCheckbox.checked = todoHandler.isOnDarkMode();
+    darkModeCheckbox.addEventListener("change", toggleDarkMode);
     const darkModeLabel = document.createElement("label");
     darkModeLabel.innerText = "Dark mode";
     darkModeLabel.htmlFor = darkModeCheckbox.id;
@@ -915,6 +920,21 @@ export const ui = (() => {
     const percentage = completed * 100 / thisProject.checks.length;
     percentageDiv.style.background = `conic-gradient(#2e10c0 ${percentage}%, transparent ${percentage}%, transparent 100%)`
     percentageDiv.style.opacity = thisProject.checks.length === 0 ? "0%" : "100%";
+  }
+
+  function loadDarkMode(){
+    if(todoHandler.isOnDarkMode()) {
+      const root = document.querySelector(":root");
+      root.classList.add("dark");
+    };
+  }
+
+  function toggleDarkMode(){
+    const root = document.querySelector(":root");
+
+    this.checked ? root.classList.add("dark")
+    : root.classList.remove("dark");
+    todoHandler.darkMode(this.checked);
   }
 
   return { placeCards, loadMenu };
