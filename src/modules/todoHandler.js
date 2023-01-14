@@ -147,7 +147,8 @@ export const todoHandler = (() => {
       const filtered = { title: "Tasks for this week", todos: []};
       local.forEach((thisProject, projectIdx) => thisProject.todos.forEach((thisTodo, todoIdx) => {
         const formatDate = thisTodo.dateDue.split("-").join(",");
-        if(isThisWeek(new Date(formatDate))){
+        if(isFuture(new Date(formatDate))
+        &&isThisWeek(new Date(formatDate))){
           thisTodo.projectIdx = projectIdx;
           thisTodo.todoIdx = todoIdx;
           filtered.todos.push(thisTodo);
@@ -160,7 +161,8 @@ export const todoHandler = (() => {
       const filtered = { title: "Tasks for this month", todos: []};
       local.forEach((thisProject, projectIdx) => thisProject.todos.forEach((thisTodo, todoIdx) => {
         const formatDate = thisTodo.dateDue.split("-").join(",");
-        if(isThisMonth(new Date(formatDate))){
+        if(isFuture(new Date(formatDate))
+        &&isThisMonth(new Date(formatDate))){
           thisTodo.projectIdx = projectIdx;
           thisTodo.todoIdx = todoIdx;
           filtered.todos.push(thisTodo);
@@ -174,7 +176,8 @@ export const todoHandler = (() => {
       
       local.forEach((thisProject, projectIdx) => thisProject.todos.forEach((thisTodo, todoIdx) => {
         const formatDate = thisTodo.dateDue.split("-").join(",");
-        if(isThisYear(new Date(formatDate))){
+        if(isFuture(new Date(formatDate))
+        &&isThisYear(new Date(formatDate))){
           thisTodo.projectIdx = projectIdx;
           thisTodo.todoIdx = todoIdx;
           filtered.todos.push(thisTodo);
