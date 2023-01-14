@@ -85,7 +85,18 @@ export const ui = (() => {
 
     
     const optionsList = document.createElement("ul");
-    optionsList.classList.add("fieldset-list")
+    optionsList.classList.add("fieldset-list");
+
+    const darkModeLi = document.createElement("li");
+    darkModeLi.classList.add("menu-item", "dark-mode");
+    const darkModeCheckbox = document.createElement("input");
+    darkModeCheckbox.type = "checkbox";
+    darkModeCheckbox.id = "dark-mode";
+    const darkModeLabel = document.createElement("label");
+    darkModeLabel.innerText = "Dark mode";
+    darkModeLabel.htmlFor = darkModeCheckbox.id;
+    darkModeLi.append(darkModeCheckbox, darkModeLabel);
+
     const aboutLi = document.createElement("li");
     aboutLi.classList.add("menu-item", "about");
     const aboutDivPara = document.createElement("p");
@@ -96,7 +107,7 @@ export const ui = (() => {
     
     aboutDivPara.append(aboutLink);
     aboutLi.append(aboutDivPara);
-    optionsList.append(aboutLi);
+    optionsList.append(darkModeLi, aboutLi);
     fieldsetOptions.append(optionsList);
     
     fieldsetOptions.append(legendOptions);
