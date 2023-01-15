@@ -31,6 +31,7 @@
   --menu-btn-bg-col: #aaa;
   --menu-bg-col: rgba(255, 255, 255, 0.5);
   --chk-bg-col: none;
+  --input-bg-col: white;
   --priority-low: lime;
   --priority-mid: goldenrod;
   --priority-high: orangered;
@@ -46,7 +47,7 @@
   --card-bg-hover: rgba(70, 70, 70, 0.5);
   --label-bg-anim: linear-gradient(
     to right,
-    transparent 0%, rgba(255, 255, 255, 0.1),
+    transparent 0%, rgba(255, 255, 255, 0.01),
     transparent 100%
   ) no-repeat;
   --txt-col-1: #ccc;
@@ -55,6 +56,7 @@
   --menu-btn-bg-col: #555;
   --menu-bg-col: rgba(64, 64, 64, 0.5);
   --chk-bg-col: rgba(0, 0, 0, 0.1);
+  --input-bg-col: hsl(240, 15%, 25%);
   --priority-low: hsl(120, 50%, 40%);
   --priority-mid: hsl(43, 40%, 45%);
   --priority-high: hsl(16, 50%, 40%);
@@ -351,12 +353,12 @@ header {
   background-size: contain;
   padding-left: 1.75rem;
   font-size: 1rem;
-  background-color: white;
+  background-color: var(--input-bg-col);
 }
 
 /*adding transparency for overflowed text*/
 .card .title:not(.edit-title),
-.card .description,
+.card .description:not(.edit-description),
 .card label,
 .project-title,
 h1{
@@ -740,11 +742,11 @@ h1{
 
 input[type="text"], input[type="date"] {
   border-radius: .25rem;
-  background-color: white;
+  background-color: var(--input-bg-col);
   border: none;
   box-shadow: inset .15rem .15rem .15rem rgba(0,0,0,.25);
 } input[type="text"].edit-label {
-  background-color: white;
+  background-color: var(--input-bg-col);
 }
 
 .card.edit-mode input[type="text"], input[type="date"] {
