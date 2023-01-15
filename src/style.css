@@ -134,17 +134,17 @@ input:not([type="checkbox"]):focus {
   display: grid;
   grid-template-columns: 1fr auto auto;
   align-items: center;
-  height: calc(var(--icon-menu-size) * 1.25);
+  height:var(--icon-menu-size);
 }
 
 #menu .menu-item p {
-  margin: .5rem 0;
   width: 200px;
   overflow: hidden;
   cursor: pointer;
 }
 
 #menu .menu-item .edit-project {
+  color: var(--txt-col-1);
   font-size: 1.75rem;
   width: 200px;
 }
@@ -345,15 +345,18 @@ header {
 }
 .card .date-creation {
   grid-area: created;
+  color: var(--txt-col-3);
 }
 .card .date-due {
   grid-area: due;
+  color: var(--txt-col-3);
 }.card .date-due.edit-date-due {
   background: url(./media/images/icons/due.svg) no-repeat;
   background-size: contain;
   padding-left: 1.75rem;
   font-size: 1rem;
   background-color: var(--input-bg-col);
+  color: var(--txt-col-2);
 }
 
 /*adding transparency for overflowed text*/
@@ -522,7 +525,7 @@ h1{
   position: absolute;
   content: "";
   inset: -7px;
-  background-color: red;
+  background: linear-gradient(45deg, orangered 70%, rgba(255, 69, 0, .25));
   clip-path: polygon(0 75%, 15% 60%, 15% 61%, 16% 62%, 18% 65%, 4% 78%, 1% 75%);
   animation: checkmark-backwards var(--check-anim-duration) ease-out forwards;
 }
@@ -664,7 +667,7 @@ h1{
   position: absolute;
   content: "⚠️Deleting...⚠️";
   font-size: 1.5rem;
-  color: var(--bgc-page);
+  color: white;
   padding: .25rem;
   box-shadow: var(--card-shadow);
   pointer-events: none;
@@ -674,7 +677,7 @@ h1{
   clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
 }
 .delete-icon.deleting::after {
-  background-color: red;
+  background-color: red; /*progress bar*/
   animation: deleting-text var(--deletion-delay) ease-out;
 
 }
@@ -816,7 +819,7 @@ input[type="text"], input[type="date"] {
   box-shadow: var(--card-shadow);
   transition: background-color 150ms ease-in-out;
 }
-.card.search-result:hover { background-color: hsl(240, 67%, 98%); }
+.card.search-result:hover { background-color: var(--card-bg-hover); }
 .card.search-result:active { box-shadow: var(--card-shadow-invert); }
 
 
