@@ -116,7 +116,7 @@ export const ui = (() => {
     fieldsetOptions.append(optionsList);
     
     fieldsetOptions.append(legendOptions);
-    menu.append(fieldsetFilter, fieldsetTasks, fieldsetOptions);
+    menu.append(fieldsetTasks, fieldsetFilter, fieldsetOptions);
     body.append(menuBtn, menu, screenCoverMenu);
   }
 
