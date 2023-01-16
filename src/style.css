@@ -275,6 +275,7 @@ header {
   height: var(--icon-menu-size);
   background-color: var(--bgc-page);
   box-shadow: var(--card-shadow);
+  padding-left: calc(var(--icon-menu-size) + .5rem);
 }
 
 
