@@ -1,6 +1,7 @@
 import { todoSample } from "./todoSample.js";
 import { Todo } from "./classes.js";
-import { format, isToday, isThisWeek, isThisMonth, isThisYear, isFuture, } from "date-fns";
+import { format, isToday, isThisWeek, isThisMonth, isThisYear, isFuture, 
+  differenceInCalendarDays} from "date-fns";
 
 export const todoHandler = (() => {
   function toggleFav(){
@@ -288,9 +289,52 @@ export const todoHandler = (() => {
     return JSON.parse(localStorage?.dark);
   }
 
+  function getResume(){
+    const local = getLocalStorage();
+    const resume = [];
+
+    local.forEach(project => {
+      const item = {
+        projectName: project.title,
+        todosLength: project.todos.length,
+        expiring: {
+          todoTitle: undefined,
+          todoDue: undefined,
+          tasksLength: undefined,
+        },
+      }
+
+      const dueDates = [];
+      project.todos.forEach(todo => {
+        const formatDate = todo.dateDue.split("-").join(",");
+        const date = differenceInCalendarDays(new Date(formatDate), new Date());
+        dueDates.push(date);
+      });
+
+      const closest = {days: NaN, index: NaN }
+      dueDates.forEach((date, i) => {
+        if((isNaN(closest.days) && !isNaN(date))
+        || (date >= 0 && date < closest.days)){
+          closest.days = date;
+          closest.index = i;
+        }
+      });
+
+      if(!isNaN(closest.index)) {
+        item.expiring.todoTitle = project.todos?.[closest.index].title;
+        item.expiring.todoDue = project.todos?.[closest.index].dateDue;
+        item.expiring.tasksLength = project.todos?.[closest.index].checks.length;
+      };
+
+      resume.push(item);
+    });
+
+    return resume;
+  }
+
   return { toggleFav, togglePin, getFavStatus, deleteTodo, taskCheck,
     deleteTask, editTitle, editDescription, editDateDue, editLabel,
     createTask, getProjectsTitles, deleteProject, changePriority,
     getProject, createTodo, createProject, editProjectTitle, loadSample,
-    moveDraggedCard, darkMode, isOnDarkMode }
+    moveDraggedCard, darkMode, isOnDarkMode, getResume }
 })();
