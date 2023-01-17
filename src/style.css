@@ -275,6 +275,8 @@ input:not([type="checkbox"]):focus {
 
 .main-page-title {
   grid-area: title;
+  white-space: nowrap;
+  overflow: hidden;
 }
 .main-page-todos {
   grid-area: todos;
@@ -406,6 +408,7 @@ header {
 .card .description:not(.edit-description),
 .card label,
 .project-title,
+.main-page-title,
 h1{
   mask-image: linear-gradient(to left, transparent, white 50px);
 }
