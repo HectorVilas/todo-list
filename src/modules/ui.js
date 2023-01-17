@@ -770,7 +770,7 @@ export const ui = (() => {
     todoHandler.deleteProject(projectIdx);
 
     projectsList(true);
-    placeCards(0);
+    mainPage();
   }
 
   function changePriority(){
@@ -937,5 +937,56 @@ export const ui = (() => {
     todoHandler.darkMode(this.checked);
   }
 
-  return { placeCards, loadMenu };
+  function mainPage(){
+    cardsContainer.replaceChildren();
+    
+    const resume = todoHandler.getResume()
+
+    const header = document.createElement("header");
+    const h1 = document.createElement("h1");
+    h1.innerText = "Odin TODO List"
+    header.append(h1);
+
+    const projectsDiv = document.createElement("div");
+    projectsDiv.classList.add("projects-div");
+    
+    const h2 = document.createElement("h2");
+    h2.innerText = "Your projects:"
+    projectsDiv.append(h2);
+
+    cardsContainer.append(header, projectsDiv);
+    
+    const projectsContainer = document.createElement("div");
+    projectsContainer.classList.add("projects-container");
+
+    resume.forEach(project => {
+      console.log(project);
+
+      const card = document.createElement("div");
+      card.classList.add("card", "main-page-card");
+
+      const projectTitle = document.createElement("h2");
+      projectTitle.classList.add("main-page-title");
+      projectTitle.innerText = project.projectName;
+
+      const todos = document.createElement("p");
+      todos.classList.add("main-page-todos");
+      todos.innerText = `Number of to-dos: ${project.todosLength}`;
+
+      const expiring = document.createElement("p");
+      expiring.classList.add("main-page-due");
+      expiring.innerText = project.expiring.todoTitle == undefined ? ""
+      : `The to-do "${project.expiring.todoTitle}" with ${project.expiring.tasksLength} tasks will expire on ${project.expiring.todoDue}`;
+
+
+      card.append(projectTitle, todos, expiring);
+
+      projectsContainer.append(card);
+
+    });
+
+    cardsContainer.append(projectsContainer)
+  }
+
+  return { placeCards, loadMenu, mainPage };
 })();
