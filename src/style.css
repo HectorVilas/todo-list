@@ -245,6 +245,47 @@ input:not([type="checkbox"]):focus {
   to { background-size: var(--icon-size); }
 }
 
+
+
+/* main page */
+
+.projects-div {
+  /* border: 3px solid red; */
+  overflow-x: hidden;
+  overflow-y: auto;
+  display: grid;
+  justify-content: center;
+}
+
+.projects-container {
+  padding: 1rem;
+}
+
+.card.main-page-card {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-areas:
+    "title todos"
+    "due   due  ";
+  gap: 1rem;
+  cursor: pointer;
+  margin-bottom: .25rem;
+}
+
+.main-page-title {
+  grid-area: title;
+}
+.main-page-todos {
+  grid-area: todos;
+  justify-self: right;
+}
+.main-page-due {
+  grid-area: due;
+}
+
+
+
 /* page content */
 
 body {background-color: var(--bgc-page);}
