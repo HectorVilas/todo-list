@@ -831,10 +831,13 @@ export const ui = (() => {
     todoHandler.editProjectTitle(projectIdx, this.value);
     //edit title of active project if the editing title is for it
     const titleCards = document.querySelector("h1");
+    const titleProjectMain = document.querySelectorAll(".main-page-title");
     if(projectIdx === titleCards.dataset.projectIdx) {
       titleCards.innerText = this.value;
       titleCards.title = this.value;
-    };
+    } else if(titleProjectMain.length > 0){
+      titleProjectMain[projectIdx].innerText = this.value;
+    }
   }
 
   function filterTodos(){
