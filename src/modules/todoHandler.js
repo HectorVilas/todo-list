@@ -282,7 +282,6 @@ export const todoHandler = (() => {
 
   function darkMode(isActive){
     localStorage.dark = JSON.stringify(isActive);
-    console.log(localStorage.dark);
   }
 
   function isOnDarkMode(){
