@@ -249,12 +249,9 @@ input:not([type="checkbox"]):focus {
 
 /* main page */
 
-.projects-div {
-  /* border: 3px solid red; */
-  overflow-x: hidden;
-  overflow-y: auto;
-  display: grid;
-  justify-content: center;
+.main-page-h2 {
+  margin-top: 1rem;
+  text-align: center;
 }
 
 .projects-container {

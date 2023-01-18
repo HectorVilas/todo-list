@@ -954,10 +954,10 @@ export const ui = (() => {
     projectsDiv.classList.add("projects-div");
     
     const h2 = document.createElement("h2");
-    h2.innerText = "Your projects:"
-    projectsDiv.append(h2);
+    h2.classList.add("main-page-h2");
+    h2.innerText = "Your projects:";
 
-    cardsContainer.append(header, projectsDiv);
+    cardsContainer.append(header, h2);
     
     const projectsContainer = document.createElement("div");
     projectsContainer.classList.add("projects-container");
