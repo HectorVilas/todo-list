@@ -962,9 +962,10 @@ export const ui = (() => {
     const projectsContainer = document.createElement("div");
     projectsContainer.classList.add("projects-container");
 
-    resume.forEach(project => {
+    resume.forEach((project, i) => {
       const card = document.createElement("div");
       card.classList.add("card", "main-page-card");
+      card.addEventListener("click", () => placeCards(i));
 
       const projectTitle = document.createElement("h2");
       projectTitle.classList.add("main-page-title");
