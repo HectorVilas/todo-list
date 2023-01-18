@@ -976,7 +976,7 @@ export const ui = (() => {
       todos.innerText = `Number of to-dos: ${project.todosLength}`;
 
       const expiring = document.createElement("p");
-      const dueDateFormat = project.expiring.todoDue.split("-").join(",");
+      const dueDateFormat = project.expiring.todoDue?.split("-").join(",");
       expiring.classList.add("main-page-due");
       expiring.innerText = project.expiring.todoTitle == undefined ? ""
       : `"${project.expiring.todoTitle
