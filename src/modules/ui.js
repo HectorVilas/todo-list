@@ -976,9 +976,14 @@ export const ui = (() => {
       todos.innerText = `Number of to-dos: ${project.todosLength}`;
 
       const expiring = document.createElement("p");
+      const dueDateFormat = project.expiring.todoDue.split("-").join(",");
       expiring.classList.add("main-page-due");
       expiring.innerText = project.expiring.todoTitle == undefined ? ""
-      : `The to-do "${project.expiring.todoTitle}" with ${project.expiring.tasksLength} tasks will expire on ${project.expiring.todoDue}`;
+      : `"${project.expiring.todoTitle
+      }" is the pending to-do closest to due date, with ${
+        project.expiring.tasksLength} tasks on it.
+        Will expire ${ intlFormatDistance(new Date(dueDateFormat), new Date())
+    } (${project.expiring.todoDue}).`;
 
 
       card.append(projectTitle, todos, expiring);
