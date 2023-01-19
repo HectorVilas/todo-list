@@ -1,5 +1,5 @@
 import {Todo} from "./classes.js";
-import { format } from "date-fns";
+import { format, addDays } from "date-fns";
 
 const date = format(new Date(), "yyyy-MM-dd");
     
@@ -7,7 +7,7 @@ export const todoSample = [
   {
     title: "How to use",
     todos: [
-      new Todo("1) Creating a project", "These are the steps to create a new project", date,"", [
+      new Todo("1) Creating a project", "These are the steps to create a new project", date, date, [
         { task: "• Touch the burger button ", isDone: false },
         { task: "or look at the sidebar at the left", isDone: false },
         { task: "• Touch the plus button", isDone: false },
@@ -71,15 +71,16 @@ export const todoSample = [
   {
     title: "Example project",
     todos: [
-      new Todo("exercise", "It's leg day!", date, "", [
+      new Todo("exercise", "It's leg day!", date, format(addDays(new Date(), 1), "yyyy-MM-dd"), [
         { task: "run 3km", isDone: true },
         { task: "bicycle", isDone: false },
         { task: "squats", isDone: false },
       ], "middle", false, true),
 
-      new Todo("coding", "", date, "", [
+      new Todo("coding", "", date, format(addDays(new Date(), 8), "yyyy-MM-dd"), [
         { task: "check css-tricks", isDone: true },
         { task: "continue TOP practice", isDone: true },
+        { task: "Share practice on TOP's Discord", isDone: false },
       ], "high", true, false),
     ],
   },
