@@ -924,6 +924,17 @@ export const ui = (() => {
     });
 
     cardsContainer.appendChild(projectItem);
+
+    if(project.todos.length == 0){
+      const emptyDiv = document.createElement("div");
+      emptyDiv.classList.add("empty-state");
+
+      const emptyPara = document.createElement("p");
+      emptyPara.innerText = `There's no results for this filter.`;
+
+      emptyDiv.append(emptyPara);
+      projectItem.append(emptyDiv);
+    }
   }
   
   function taskCheck(projectIdxParam, todoIdxParam, taskIdxParam){
@@ -979,7 +990,7 @@ export const ui = (() => {
     h2.classList.add("main-page-h2");
     h2.innerText = resume.length == 0 ?
     "You have no projects.\nCreate a new one from the main menu."
-    : "Welcome back!\n\nYour projects:";
+    : "Your projects:";
 
     cardsContainer.append(header, h2);
     
