@@ -102,6 +102,17 @@ export const ui = (() => {
     darkModeLabel.htmlFor = darkModeCheckbox.id;
     darkModeLi.append(darkModeCheckbox, darkModeLabel);
 
+    const homeLi = document.createElement("li");
+    homeLi.classList.add("menu-item", "go-home");
+    const homePara = document.createElement("p");
+    homePara.innerText = "Go to main page";
+    homePara.addEventListener("click", () => {
+      mainPage();
+      toggleMenu();
+    });
+    homeLi.append(homePara);
+
+
     const aboutLi = document.createElement("li");
     aboutLi.classList.add("menu-item", "about");
     const aboutDivPara = document.createElement("p");
@@ -112,7 +123,7 @@ export const ui = (() => {
     
     aboutDivPara.append(aboutLink);
     aboutLi.append(aboutDivPara);
-    optionsList.append(darkModeLi, aboutLi);
+    optionsList.append(darkModeLi, homeLi, aboutLi);
     fieldsetOptions.append(optionsList);
     
     fieldsetOptions.append(legendOptions);
