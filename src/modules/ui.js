@@ -1006,7 +1006,8 @@ export const ui = (() => {
       : `"${project.expiring.todoTitle
       }" is the pending to-do closest to due date, with ${
         project.expiring.tasksLength} tasks on it.
-        Will expire ${ intlFormatDistance(new Date(dueDateFormat), new Date())
+        Will expire ${ isToday(new Date(dueDateFormat)) ? "today"
+        : intlFormatDistance(new Date(dueDateFormat), new Date())
     } (${project.expiring.todoDue}).`;
 
 
