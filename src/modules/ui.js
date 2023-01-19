@@ -421,6 +421,17 @@ export const ui = (() => {
         }, 500);
       }, 100);
     }
+
+    if(project.todos.length == 0){
+      const emptyState = document.createElement("div");
+      emptyState.classList.add("empty-state");
+
+      const para = document.createElement("p");
+      para.innerText = "There's no to-dos on this project.\nTouch the green plus button to create one."
+      
+      emptyState.append(para);
+      projectItem.append(emptyState);
+    }
   };
 
   function toggleCard() {
@@ -955,7 +966,9 @@ export const ui = (() => {
     
     const h2 = document.createElement("h2");
     h2.classList.add("main-page-h2");
-    h2.innerText = "Your projects:";
+    h2.innerText = resume.length == 0 ?
+    "You have no projects.\nCreate a new one from the main menu."
+    : "Welcome back!\n\nYour projects:";
 
     cardsContainer.append(header, h2);
     
